@@ -35,3 +35,5 @@ locales.back/
 .tup/
 build-debug/
 build-prod/
+
+var/*
