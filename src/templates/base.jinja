@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Le Complémentaire{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=EB+Garamond:ital,wght@1,600&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+  <link rel="stylesheet" href="/style/framework.css?v=1.0">
+  <link rel="stylesheet" href="/style/book.css?v=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@4/themes/light-border.css" />
+</head>
+
+<body>
+  <nav style="display: none">
+    {% block nav %}
+    {% endblock %}
+  </nav>
+  <div id="right">
+    <header>
+      <a id="menu"><span class="material-symbols-rounded">menu</span></a>
+      <a id="pdf"><span class="material-symbols-rounded">picture_as_pdf</span></a>
+      <a id="logo">∅’ – <em>Le Complémentaire</em></a>
+      <a><span class="material-symbols-rounded">live_help</span></a>
+    </header>
+    {% block main %}
+
+    {% endblock main %}
+    {% block references %}
+        <div class="ui popover">
+            <p>This a a <strong>boo</strong> $\forall x$.</p>
+            <a href="http://google.com">Reference</a>
+        </div>
+    {% endblock %}
+  </div>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://unpkg.com/popper.js@1"></script>
+  <script src="https://unpkg.com/tippy.js@4"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="/book.js"></script>
+</body>
+
+</html>

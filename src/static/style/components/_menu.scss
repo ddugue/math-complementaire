@@ -1,0 +1,75 @@
+@use "x";
+@use "components/icon";
+
+$Menu: x.component("Menu", "ul.menu", $doc: "List of item with selectable options") !default;
+$MenuWithSub: x.component($Menu, ",ul.menu ul", $doc: "Menu AND its submenus") !default;
+
+$menu-direction:     x.param(--menu-direction, column, $doc: "Flex direction of the menu (column, row)");
+$menu-item-padding:  x.param(--menu-item-padding, 0.5em, $doc: "Inner padding for menu items");
+$menu-item-reserved: x.param(--menu-item-reserved, 0rem, $doc: "Additional padding as a reserved space");
+$menu-item-margin:   x.param(--menu-item-margin, 0, $doc: "Inner margion for menu items");
+$submenu-font-size:  x.param(--submenu-font-size, 1em, $doc: "Font size for sub ul menus");
+$submenu-padding: x.param(--submenu-padding, 0em, $doc: "Every submenu level, add that padding");
+$submenu-level: x.param(--submenu-level, 0, $doc: "Current submenu level (reserved) [0 - 5]");
+// $submenu-item-padding: x.param(--submenu-
+
+$First: x.component($Menu, "> li:first-child", $doc: "First menu item") !default;
+$Second: x.component($Menu, "> li:nth-child(2)", $doc: "Second menu item") !default;
+$Last: x.component($Menu, "> li:last-child", $doc: "Last menu item") !default;
+
+$Item: x.component($MenuWithSub, "> li", $doc: "All Menu items") !default;
+$Clickable: x.component($Item, "> a", $doc: "Clickable menu items") !default;
+$Bullet:   x.component($Clickable, "> #{icon.$Icon}:first-child", $doc: "The 'Bullet' of the list as an icon") !default; 
+$Hovered: x.component($Clickable, ":hover", $doc: "Hoverable menu item.") !default;
+$Selected: x.component($Item, ".selected", $doc: "Selected menu item.") !default;
+
+$SubMenu: x.component($Item, "ul", $doc: "Nested menu") !default;
+
+@mixin includes() {
+    @include x.doc("Menu");
+    @include x.extend($Menu) {
+        ul { --submenu-level: 1; }
+        ul ul { --submenu-level: 2; }
+        ul ul ul { --submenu-level: 3; }
+        ul ul ul ul { --submenu-level: 4; }
+        ul ul ul ul ul { --submenu-level: 5; }
+    }
+
+    @include x.extend($MenuWithSub) {
+        // We reset (since it's an UL)
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        display: flex;
+        flex-direction: $menu-direction;
+
+    }
+
+
+    @include x.extend($Item){
+        margin: $menu-item-margin;
+        hr {
+            margin: 0;
+        }
+
+    }
+
+    @include x.extend($Clickable){
+        padding: $menu-item-padding $menu-item-padding $menu-item-padding 0;
+        padding-left: calc(#{$menu-item-padding} + #{$menu-item-reserved} + #{$submenu-padding} * #{$submenu-level});
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+    }
+
+    @include x.extend($Bullet) {
+        margin-left: calc(#{$menu-item-reserved} * -1);
+        width: $menu-item-reserved;
+    }
+    
+    @include x.extend($SubMenu) {
+        font-size: $submenu-font-size;
+    }
+}

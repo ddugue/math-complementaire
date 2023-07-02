@@ -1,0 +1,36 @@
+{% from '_render.jinja' import render with context %}
+{% extends "base.jinja" %}
+
+{% block nav %}
+<ul class="menu">
+    <li><a href="/books/{{ book.id }}">{{ book.title }}</a></li>
+    <hr />
+    {% for book_chapter in book.chapters %}
+        <li class="{% if book_chapter.index == chapter.index %}current{% endif %}"><a href="/books/{{ book.id }}/{{ slug(book_chapter.index) }}/"><b>{{ book_chapter.index }}</b> <span>{{ book_chapter.title }}</span></a></li>
+        <ul>
+        {% for section in book_chapter.sections %}
+            <li><a href="#{{ slug(section.title) }}"><b>{{ section.index }}</b> <span>{{ section.title }}</span></a></li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block main %}
+{% include "chapter.partial.jinja" %}
+{% endblock %}
+
+{% block references %}
+    {% for ref in references.values() %}
+    <div id="ref-{{ slug(ref.label.id) }}" style="display: none">
+        <div class="ui popover">
+            <p>
+                {% for token in ref.tokens %}
+                    {{ render(token) }}
+                {% endfor %}
+            </p>
+            <a target="_blank" href="/books/{{ book.id }}/{{ slug(ref.label.chapter_index) }}/#{{ slug(ref.label.id) }}">Reference</a>
+        </div>
+    </div>
+    {% endfor%}
+{% endblock %}

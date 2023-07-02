@@ -1,0 +1,92 @@
+@use "x";
+@use "components/icon";
+@use "variables" as *;
+
+$Toast: x.component("Toast", ".ui.toast", $doc: "A Toast Notification") !default;
+$Error: x.component($Toast, ".error", $doc: "Representing an error within a toast") !default;
+$Showing: x.component($Toast, ".show", $doc: "Representing a showing toast") !default;
+$Hover: x.component($Showing, ":hover", $doc: "Representing an hovered showing toast") !default;
+
+$Inverted: x.component($Toast, "%inverted", $doc: "Inverted color scheme for toast") !default;
+
+$height:          x.param(--toast-height, 75px, $doc: "Toast base height");
+$width:           x.param(--toast-width, 350px, $doc: "Toast base width");
+$gap:             x.param(--toast-gap, 10px, $doc: "Toast gap between the window border");
+$vertical-gap:    x.param(--toast-vertical-gap, $gap, $doc: "Toast bottom and top gap between the window border");
+$horizontal-gap:  x.param(--toast-horizontal-gap, $gap, $doc: "Toast right and left gap between the window border");
+$animation-duration:  x.param(--toast-animation-duration, 250ms, $doc: "Toast animation duration");
+
+$toast-order:     x.param(--toast-order, 0, $doc: "Current toast order (reserved) [0 - 5]");
+
+$color:           x.param(--toast-color, inherit, $doc: "Toast text color");
+$bg-color:        x.param(--toast-bg-color, #FFF, $doc: "Background color for this toast");
+$error-bg-color:  x.param(--toast-error-bg-color, $color-error, "Error text color");
+$success-bg-color:x.param(--toast-success-bg-color, #d0f7dc, $doc: "Background color for a successful alert");
+$inverted-color:  x.param(--toast-inverted-color, #FFF, "Inverted text color");
+
+
+@mixin includes() {
+    @include x.doc("Toast");
+    @include x.extend($Toast) {
+        height: $height;
+        width: $width;
+        color: $color;
+        background-color: $bg-color;
+        border-radius: 3px;
+        padding: 5px 15px;
+        box-shadow: rgba(0,0,0,0.1) 0 0 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: fixed;
+        bottom: calc(0px - #{$vertical-gap} - #{$height});
+        right: $horizontal-gap;
+        max-width: calc(100% - #{$horizontal-gap} - #{$horizontal-gap});
+        transition: bottom $animation-duration ease;
+        cursor: pointer;
+        z-index: $z-index-urgent;
+
+        @include x.extend(icon.$Icon) {
+            font-size: 48px;
+            margin-right: 15px;
+        }
+    }
+
+    @include x.extend($Inverted) {
+        #{x.v($bg-color)}: $color-base;
+        #{x.v($color)}: #FFF;
+    }
+
+    @include x.extend($Toast, $size: "mobile") {
+        #{x.v($width)}: auto;
+        #{x.v($vertical-gap)}: 0px;
+        #{x.v($horizontal-gap)}: 0px;
+        left: $horizontal-gap;
+    }
+
+
+    @include x.extend($Hover) {
+        transform: scale(1.015);
+    }
+
+    @include x.extend($Error) {
+        #{x.v(--toast-color)}: $inverted-color;
+        #{x.v(--toast-bg-color)}: $error-bg-color;
+    }
+
+    @include x.extend($Showing) {
+        bottom: calc(0px + #{$vertical-gap} * (#{$toast-order} + 1) + #{$height} * #{$toast-order});
+        z-index: calc(#{$z-index-urgent} + #{$toast-order});
+
+        ~ #{$Showing} { --toast-order: 1; }
+        ~ #{$Showing} ~ #{$Showing} { --toast-order: 2; }
+        ~ #{$Showing} ~ #{$Showing} ~ #{$Showing} { --toast-order: 3; }
+        ~ #{$Showing} ~ #{$Showing} ~ #{$Showing} ~ #{$Showing} { --toast-order: 4; }
+        ~ #{$Showing} ~ #{$Showing} ~ #{$Showing} ~ #{$Showing} ~ #{$Showing} { --toast-order: 5; }
+    }
+
+    @include x.extend($Showing, $size: "mobile") {
+        bottom: calc(0px + #{$vertical-gap});
+    }
+}

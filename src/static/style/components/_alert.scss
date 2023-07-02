@@ -1,0 +1,30 @@
+@use "x";
+
+$Alert: x.component("Alert", ".ui.alert", $doc: "Alert") !default;
+$Success: x.component($Alert, ".success", $doc: "Successful alert") !default;
+
+$color:           x.param(--alert-color, inherit, $doc: "Border and text color for this alert");
+$bg-color:        x.param(--alert-bg-color, #FFF, $doc: "Background color for this alert");
+$success-color:   x.param(--alert-success-color, #1f8a24 , $doc: "Border and text color for a successful alert");
+$success-bg-color:x.param(--alert-success-bg-color, #d0f7dc, $doc: "Background color for a successful alert");
+
+@mixin includes() {
+    @include x.doc("Alert");
+    @include x.extend($Alert) {
+        border-left: 5px solid $color;
+        border-radius: 0 .2857em .2857em 0;
+        box-shadow: 0 1px 1px rgba(50,50,93,0.1),0 2px 0 rgba(0,0,0,0.07) !important;
+        box-sizing: border-box;
+        padding: 1em;
+        color: $color;
+        background: $bg-color;
+        font-size: 0.8em;
+        text-align: left;
+    }
+
+    @include x.extend($Success) {
+        #{x.v(--alert-color)}: $success-color;
+        #{x.v(--alert-bg-color)}: $success-bg-color;
+    }
+}
+

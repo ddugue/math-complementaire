@@ -1,0 +1,14 @@
+@use "components/text";
+@use "components/tabs";
+@use "components/menu";
+@use "components/icon";
+
+
+@use "x";
+
+@include x.include_params();
+
+@include text.includes();
+@include tabs.includes();
+@include menu.includes();
+@include icon.includes();

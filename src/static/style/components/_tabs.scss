@@ -1,0 +1,65 @@
+@use "x";
+// Uses input[type=radio] for tab selection
+
+$TabContainer: x.component("Tabs", "div.ui.tabs", $doc: "A container for a tabs") !default;
+$Tabs: x.component($TabContainer, "> ul", $doc: "Top tabs") !default;
+$Tab: x.component($Tabs, "> li label", $doc: "Single tab") !default;
+$TabPanes: x.component($TabContainer, "> div", $doc: "The tab panes (with the content)" ) !default;
+
+@mixin checked($index) {
+    input[type="radio"]:nth-of-type(#{$index}):checked {
+        &  ~ div:nth-of-type(#{$index}) {
+            display: block;
+        }
+
+        & ~ ul li:nth-of-type(#{$index}) label {
+            border: 1px solid #DDD;
+            border-radius: 5px 5px 0 0;
+            border-bottom-color: white;
+            background: white;
+        }
+    }
+
+}
+
+@mixin includes() {
+    @include x.doc("Tabs");
+
+    @include x.extend($Tabs) {
+        position: absolute;
+        top: -1.8em;
+        left: 1.5em;
+        list-style: none;
+        display: flex;
+        padding: 0;
+        margin: 0;
+
+    }
+
+    @include x.extend($Tab) {
+        padding: 0 0.5em;
+        border: 1px solid transparent;
+        display: block;
+        cursor: pointer;
+    }
+
+    @include x.extend($TabContainer) {
+        position: relative;
+        border: 1px solid #DDD;
+        border-radius: 5px;
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        @include checked(1);
+        @include checked(2);
+        @include checked(3);
+        @include checked(4);
+    }
+
+
+    @include x.extend($TabPanes) {
+        display: none;
+    }
+}

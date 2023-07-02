@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+export NODE_PATH=$(pwd)/var/node_modules
+# tsc --build tsconfig.json --noEmit --jsx preserve --strictNullChecks --noImplicitAny --allowJs --lib ES2015,dom
+# tsc --build tsconfig.json
+tsc --watch -p tsconfig.json
+# cd src && watchmedo shell-command \
+#           --ignore-patterns='*~*;*#*#*;*.#*;*flycheck_*;*.scss;*.html' \
+#           --recursive \
+#           --ignore-directories \
+#           --command='cd .. && echo "${watch_src_path}" && tsc --build tsconfig.json && echo "Done."'

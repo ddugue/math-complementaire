@@ -1,0 +1,84 @@
+@use "x";
+
+$Field: x.component("Field", ".ui.input-field", $doc: "Represent an Input field with its label, help message, etc...") !default;
+$Invalid: x.component($Field, ".invalid", $doc: "A Field in an invalid state") !default;
+$Valid: x.component($Field, ".valid", $doc: "A Field in a valid state") !default;
+
+$Input: x.component($Field, "input", $doc: "An input inside the input-field") !default;
+$InputUnit: x.component($Field, "span.mask", $doc: "A unit label for the input, use JS to position") !default;
+$Label: x.component($Field, "label", $doc: "The optional label") !default;
+$Help: x.component($Field, "span.help", $doc: "An help section for this field") !default;
+
+$Icon: x.component($Field, "%icon", $doc: "An icon in this field") !default;
+
+$padding:          x.param(--input-padding, 0, $doc: "Padding of the input");
+$border:           x.param(--input-border, none, $doc: "Border of the input");
+$focus-color:      x.param(--input-focus-color, #4C9AFF, $doc: "Focus color of the input");
+$help-color:       x.param(--input-help-color, inherit, $doc: "Text color of the help text");
+$background:       x.param(--input-background, #FAFBFC, $doc: "Background color of the input");
+
+@mixin includes() {
+    @include x.doc("Field");
+
+    @include x.extend($Field){
+        display: flex;
+        padding: 0;
+        position: relative;
+    }
+
+    @include x.extend($Input){
+        flex: 1;
+        font-size: 1em;
+        color: inherit;
+        font-family: inherit;
+        border: $border;
+        border-color: #EEE;
+        background:$background;
+
+        border-radius: 3px;
+        transition: background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s;
+        padding: $padding;
+        &:focus {
+            border-color: $focus-color;
+            outline: none;
+        }
+    }
+
+    @include x.extend($Help) {
+        position: absolute;
+        top: calc(0.4em + 100%);
+        opacity: 0.8;
+        color: $help-color;
+    }
+
+    @include x.extend($InputUnit) {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        -webkit-user-select: none; /* Safari */        
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
+        white-space: pre;
+    }
+
+    @include x.extend($Label){
+    }
+}
+
+@include x.extend($Icon) {
+    max-height: 100%;
+    min-width: 1em;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    font-size: 1.4em;
+    i {
+        font-size: inherit;
+    }
+}

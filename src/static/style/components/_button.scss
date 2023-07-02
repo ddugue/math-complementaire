@@ -1,0 +1,76 @@
+@use "x";
+
+$Button: x.component("Button", "button, a.button", $doc: "Button that represents something that can be clicked on") !default;
+$DisabledButton: x.component($Button, "[disabled]", $doc: "Button that is disabled");
+$CtaButton: x.component($Button, ".cta, .call-to-action", $doc: "Represent a Call-to-action button") !default;
+$InverseButton: x.component($Button, "%button-inverse") ;
+
+$color:            x.param(--btn-color, inherit, $doc: "Color of the button");
+$disabled-color:   x.param(--btn-disabled-color, --btn-color, $doc: "Color of the disabled button");
+$padding:          x.param(--btn-padding, .78571429em 2.5em .78571429em, $doc: "Padding of the button");
+$background-color: x.param(--btn-bg-color, rgba(9,30,66,0.04), $doc: "Background color of the button");
+$cta-color:        x.param(--btn-cta-color, --btn-color, $doc: "Background color of the CTA button");
+$border-radius:    x.param(--btn-border-radius, .28571429rem, $doc: "Button background radius");
+$font:             x.param(--btn-font, inherit, $doc: "Button font");
+$disabled-background-color: x.param(--btn-bg-disabled-color, --btn-bg-color, $doc: "Background color of a disabled button");
+
+@mixin includes() {
+    @include x.doc("Button");
+    @include x.extend($Button) {
+        box-sizing: border-box;
+
+        cursor: pointer;
+        display: inline-block;
+
+        font-size: 1em;
+        min-height: 1em;
+        outline: 0;
+        border: none;
+        vertical-align: baseline;
+        // background: #E0E1E2 none;
+        // color: rgba(0,0,0,.6);
+        // font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+        font-family: $font;
+        font-weight: 400;
+        letter-spacing: -.03em;
+
+        background: $background-color;
+        color: $color;
+        margin: 0;
+        padding: $padding;
+        text-transform: none;
+        text-shadow: none;
+        // font-weight: 700;
+        line-height: 1.3;
+        font-style: normal;
+        text-decoration: none;
+        border-radius: $border-radius;
+        box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
+        user-select: none;
+        transition: opacity .1s ease,background-color .1s ease,color .1s ease,box-shadow .1s ease,background .1s ease;
+        will-change: auto;
+        -webkit-tap-highlight-color: transparent;
+
+    }
+    
+    @include x.extend($DisabledButton) {
+        color: $disabled-color;
+        background-color: $disabled-background-color;
+        cursor: not-allowed;
+    }
+
+    @include x.extend($CtaButton) {
+        background: $cta-color;
+    }
+
+}
+
+@include x.extend($InverseButton) {
+    color: $background-color;
+    background: $color;
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+

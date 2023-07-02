@@ -1,0 +1,53 @@
+@use "x";
+
+$Proof: x.component("Proof", "div.ui.proof", $doc: "A container for a mathematical proof") !default;
+$HoveredProof: x.component($Proof, ":hover", $doc: "Whenever the whole proof is overed") !default;
+$Inner: x.component($Proof, "> div.inner", $doc: "The proof itself") !default;
+$Controls: x.component($Proof, "> div.controls", $doc: "Controls for the proof") !default;
+$HoveredControls: x.component($HoveredProof, "> div.controls", $doc: "Controls when the proof is hovered") !default;
+$ControlIcons: x.component($Controls, "> span", $doc: "The actual control buttons") !default;
+$Explanation: x.component($Proof, "> div.explanation", $doc: "An explanation container for each step") !default;
+
+@mixin includes() {
+    @include x.doc("Proof");
+
+    @include x.extend($Proof) {
+        cursor: pointer;
+    }
+
+    @include x.extend($Inner) {
+        padding: 2em;
+        padding-bottom: 2.5em;
+
+        > span {
+            transition: opacity 300ms ease-in-out;
+        }
+    }
+
+    @include x.extend($Explanation) {
+        text-align: center;
+        font-style: italic;
+        padding: 1.5em;
+        border-top: 1px solid #DDD;
+        span { display: none; } // We hide them by default for a better no-js support
+    }
+
+    @include x.extend($Controls) {
+        opacity: 0;
+        position: absolute;
+        top: 10px;
+        right: calc(2em + 10px);
+    }
+
+    @include x.extend($ControlIcons) {
+        cursor: pointer;
+        &.disabled {
+            opacity: 0.5;
+            cursor: initial;
+        }
+    }
+    
+    @include x.extend($HoveredControls) {
+        opacity: 1;
+    }
+}

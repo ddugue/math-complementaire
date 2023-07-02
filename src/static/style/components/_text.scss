@@ -1,0 +1,34 @@
+@use "variables" as *;
+@use "x";
+
+$Text: x.component("Text", "p, span", $doc: "Simple text");
+$Light: x.component($Text, ".softened", $doc: "Lighter text than normal");
+$Headers: x.component("Headers", "h1,h2,h3,h4,h5,h6");
+$ErrorText: x.component($Text, ".error", $doc: "Text with an error");
+
+$size: x.param(--text-size,18px, "Base text font size");
+$color: x.param(--text-color, $color-base, "Base text color");
+$inverted-color: x.param(--text-inverted-color, #FFF, "Inverted text color");
+$error-color: x.param(--text-error-color, $color-error, "Error text color");
+$font: x.param(--text-font, unquote("'Roboto', sans-serif"), "Base text font");
+// $base-font-size-mobile: 16px;
+// $text-font: 'Lato', sans-serif;
+
+
+@mixin includes() {
+    @include x.doc("Text");
+    body {
+        font-family: $font;
+        font-size: $size;
+        color: $color;
+    }
+
+    @include x.extend($ErrorText) {
+        color: $error-color;
+    }
+
+    @include x.extend($Headers) {
+        margin: 0;
+    }
+
+}

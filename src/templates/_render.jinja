@@ -1,0 +1,142 @@
+
+
+{% macro _bold(token) -%}
+    <b>{{ token.text }}</b>{{ render(token.following)}}
+{%- endmacro %}
+
+{% macro _italic(token) -%}
+    <em>{{ token.text }}</em>{{ render(token.following )}}
+{%- endmacro %}
+
+{% macro _breakline(token) -%}
+ <br />{{ render(token.following) }}
+{%- endmacro %}
+
+{% macro _separator(token) -%}
+ </span><span>{{ render(token.following) }}
+{%- endmacro %}
+
+{% macro _reference(token) -%}
+    <span data-reference="{{ slug(token.id) }}">{{ token.name(references) }}</span>
+{%- endmacro %}
+
+{% macro _hyperlink(token) -%}
+    <a target="_blank" href="{{ token.id }}">{{ token.name({}) }}</a>
+{%- endmacro%}
+
+{% macro section(token) -%}
+    <section id="{{ slug(token.title)}}" class="section">
+        <h2>{{ token.index }} {{ token.title }}</h2>
+        {% for t in token.tokens %}
+            {{ render(t, 'p') }}
+        {% endfor %}
+    </section>
+{%- endmacro %}
+
+{% macro subsection(token) -%}
+    <section id="{{ slug(token.index)}}" class="subsection">
+        <h3>{{ token.title }}</h3>
+        {% for t in token.tokens %}
+            {{ render(t, 'p') }}
+        {% endfor %}
+    </section>
+{%- endmacro %}
+
+{% macro theorem(token, type) -%}
+<p {% if token.label %}id="{{ slug(token.label.id) }}"{% endif %}>
+    <strong>
+        {{ token.name }}
+    </strong>
+    {% for t in token.tokens %}
+        {{ render(t) }}
+    {% endfor %}
+</p>
+{%- endmacro %}
+
+{% macro proof_examples(token, name) -%}
+<div class="ui tabs">
+    {% for child in token.children %}
+        <input type="radio" name="group-{{ slug(token.index) }}" id="{{ slug(child.index) }}" {% if loop.first %}checked{% endif%} />
+    {% endfor %}
+    <ul>
+        {% for child in token.children %}
+        <li><label for="{{ slug(child.index) }}">{{ child.name }}</label></li>
+        {% endfor %}
+    </ul>
+    {% for child in token.children %}
+    <div class="ui proof">
+        <div class="controls">
+            <span class="previous material-symbols-rounded">skip_previous</span>
+            <span class="next material-symbols-rounded">skip_next</span>
+            <span class="skip material-symbols-rounded">fast_forward</span>
+        </div>
+        <div class="inner">
+        {% for t in child.tokens %}
+            {{ render(t, 'span') }}
+        {% endfor %}
+        </div>
+        {% if child.explanation %}
+        <div class="explanation">
+            {% for t in child.explanation.tokens %}
+                {{ render(t, 'span') }}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro definition(token) -%}
+<p{% if token.label %}id="{{ slug(token.label.id) }}"{% endif %}>
+    <strong>{{ token.name }}</strong>
+    {% for t in token.tokens %}
+        {{ render(t) }}
+    {% endfor %}
+</p>
+{%- endmacro %}
+
+{% macro render(token, root=False) -%}
+    {% if token %}
+        {% if is_text(token) %}
+            {% if root %}<{{root}}>{% endif %}
+            
+            {% if token.__class__.__name__ == 'BoldText' %}
+                {{ _bold(token) }}
+            {% elif token.__class__.__name__ == 'ItalicText' %}
+                {{ _italic(token) }}
+            {% elif token.__class__.__name__ == 'BreakLine' %}
+                {{ _breakline(token) }}
+            {% elif token.__class__.__name__ == 'Separator' %}
+                {{ _separator(token) }}
+            {% elif token.__class__.__name__ == 'Reference' %}
+                {{ _reference(token) }}
+            {% elif token.__class__.__name__ == 'Hyperlink' %}
+                {{ _hyperlink(token) }}
+            {% else %}
+                {{ token.text }}{{ render(token.following) }}
+            {% endif %}
+            {% if root %}</{{root}}>{% endif %}
+        {% elif token.__class__.__name__ == 'Section' %}
+            {{ section(token) }}
+        {% elif token.__class__.__name__ == 'Subsection' %}
+            {{ subsection(token) }}
+        {% elif token.__class__.__name__ == 'Theorem' %}
+            {{ theorem(token, "Théorème")}}
+        {% elif token.__class__.__name__ == 'Lemma' %}
+            {{ theorem(token, "Lemme")}}
+        {% elif token.__class__.__name__ == 'Corollary' %}
+            {{ theorem(token, "Corollaire")}}
+        {% elif token.__class__.__name__ == 'Proof' or token.__class__.__name__ == 'Example' %}
+            {% if not root %}
+                ERROR: cannot render proof if not in root-like object
+            {% else %}
+                {{ proof_examples(token, "group-" + token.index) }}
+            {% endif %}
+        {% elif token.__class__.__name__ == 'Definition' %}
+            {{ definition(token) }}
+        {% else %}
+            DO NOT KNOW HOW TO RENDER {{ token.__class__.__name__ }}.
+        {% endif %}
+    {% endif %}
+{%- endmacro %}

@@ -1,0 +1,34 @@
+@use "x";
+
+$Kanban: x.component("Kanban", "%kanban");
+$Column: x.component($Kanban, "> div");
+$ColumnHeader: x.component($Column, "header");
+$ColumnFooter: x.component($Column, "footer");
+$ColumnInner: x.component($Column, "section");
+$width:  x.param(--kanban-column-width, 300px, $doc: "Width of a column");
+
+@include x.extend($Kanban) {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    bottom:0;
+    right:0;
+    left:0;
+    overflow-x: auto;
+    padding: 0 1em;
+    display: flex;
+    align-items: flex-start;
+
+}
+
+@include x.extend($Column) {
+    min-width: $width;
+    background: #ebecf0;
+    border-radius: 3px;
+    max-width: 100vw;
+    padding: 0.7em;
+    margin-left: 1em;
+}

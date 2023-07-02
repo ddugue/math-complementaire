@@ -1,0 +1,12 @@
+@use "x";
+
+@use "components/proof";
+@use "components/reference";
+
+@use "views/main";
+@use "views/page";
+@use "views/sidebar";
+@use "views/header";
+
+@include proof.includes();
+@include reference.includes();

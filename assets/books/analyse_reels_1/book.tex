@@ -1,0 +1,147 @@
+\documentclass[10pt]{book}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{comment}
+\usepackage{mathpazo} % Palatino font
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{relsize}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage[makeroom]{cancel}
+
+\usepackage[margin=0.5in]{geometry}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\newcommand*\conj[1]{\overbar{#1}}
+% STATS Shortcut
+\newcommand{\BP}{\Bbb P}
+\let\Bbb\mathbb
+\def\sep{\phantom{}}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section]
+\newtheorem*{example}{Exemple}
+\newtheorem{theorem}{Theorême}[section]
+\newtheorem{corollary}{Corollaire}[theorem]
+\newtheorem{lemma}[theorem]{Lemme}
+
+\title{Analyse des ℝ}
+
+\begin{document}
+\chapter{Définition préalable}
+Ici se retrouve un ensemble de définition préalable à la compréhension du livre:
+\begin{definition}[Asymptote]
+    \label{def:asymptote}
+    Droite tangente à une courbe; La courbe semble s'approcher alors que l'on approche l'infini mais ne finira
+    jamais par toucher la droite.
+\end{definition}
+
+\chapter{La Continuité}
+\section{Définition}
+Initialement, lorsque l'on approche le concept de continuité de fonction dans certains cours de mathématiques au secondaire ou au 
+Cegep, on présente la continuité comme une propriété d'une fonction dans le but de \textit{la décrire}. Cette propriété est ensuite
+utilisée comme critère à bien d'autres résultats subséquents.
+
+On classifie généralement les fonctions en fonctions \textbf{continues} et en fonctions \textbf{discontinues}. Dans l'absence de précision
+il faut assumer que le terme "fonction continue" réfère à une fonction continue sur son domaine en entier.
+
+La description intuitive d'une fonction continue est généralement celle-ci: Faites le graphe d'une fonction, si vous arrives à tracer
+la fonction sans jamais levée le crayon, alors celle-ci est continue. C'est cette description qui nous permet d'intuitivement reconnaître si la fonction est continue d'un simple coup d'oeil;
+S'il n'y a pas de saut, c'est continue! Ainsi, on remarque que la fonction $f(x) = 2x$ est continue.
+
+Parallèlement, on remarque que la fonction $f(x) = \frac{1}{x}$ ne semble pas être continue puisqu'il y a une \hyperref[def:asymptote]{asymptote} en $x = 0$.
+Toutefois, c'est ici que la description intuitive de la fonction continue semble confondre. En effet, la fonction $f(x) = \frac{1}{x}$ \textit{n'est pas défini} en $x = 0$.
+Si on ne regarde que les points du domaine (qui exclut 0), la fonction est continue!
+
+En plus de l'ambiguité de notre définition intuitive, nous sommes limités au $\Bbb{R}$. Qu'en est-il des fonctions continues dans $\Bbb{C}$ ou dans $\Bbb{R}^n$?
+
+Voilà pourquoi il est nécessaire de donner une définition plus rigoureuse à la continuité avec laquelle il sera plus pratique de travailler. Commençons
+par définir la continuité en un point:
+\begin{definition}[Continuité en un point]
+    \label{def:continue-1-point}
+    Soit $x_0 \in D_f$, $f(x)$ est \textbf{continue} au point $x_0$, si $(\forall \epsilon > 0)(\exists \delta > 0)\text{ tq }\forall x \in (D_f \cap V(x_0, \delta)) \implies f(x) \in V(f(x_0), \epsilon)$
+\end{definition}
+Prenons une fonction linéaire que l'on sait être continue:
+\begin{example}[Pour $x=1$ et $f(x) = x$]
+    Soit $f(x) = x, x_0 = 1$, $1 \in D_f$, $f(1) = 1$. \sep Posons $\delta = \epsilon$, \sep Donc $\forall x \in (D_f \cap V(1, \epsilon)) \implies f(x) \in V(f(1), \epsilon)$
+\end{example}
+\begin{comment}
+    On part avec nos hypothèses, on cherche à voir si au point x=1 ($x_0$), la fonction est continue. \sep
+    Toujours dans l'idée que lorsque l'on cherche une proposition y de vraie pour tout x, l'idéal est de poser y en fonction de x \sep
+    $f(x) = x$ et $f(1) = 1$, donc on ne fait que remplacer $\delta$ par $\epsilon$ et $f(x)$ par $x$ pour constater que c'est vrai.
+\end{comment}
+Maintenant, tentons de définir la discontinuité:
+\begin{definition}[Discontinuité en un point]
+    \label{def:discontinue-1-point}
+    Une fonction est \textbf{discontinue} en un point, si elle n'est pas \hyperref[]
+\end{definition}
+
+Cette propriété, nous amène à catégoriser les fonctions en fonctions \textbf{continues} et en fonctions \textbf{discontinues}. 
+Par la suite, on utilise cette propriété comme critère pour 
+Boo, this is some more text \textbf{Bold text} Indeed. \\
+\\
+Wow.
+\subsection{Sub section 1}
+This is some text. And while this not  OH
+the end of the world\dots ok?
+
+
+This SHOULD be another paragraph, right? Oh and this is google: \href{http://google.com}{Google}
+\begin{theorem}
+    \label{thm:continuity}
+    Let $f$ be a function whose derivative exists    in every point,
+    then $f$ is a continuous function.
+\end{theorem}
+\begin{definition}[Boo]
+    Ceci est une \textit{définition}.
+\end{definition}
+\begin{example}
+    Ceci est un example.
+\end{example}
+\begin{proof}
+    To prove it by contradiction try and assume that \textbf{the statement} is false, \sep
+    proceed from there and at some point you will arrive to a contradiction like in \autoref{thm:continuity}.
+\end{proof}
+\begin{comment}
+    This is a comment, \sep
+    a multi-line comment,
+\end{comment}
+En effet, tel qu'on a vu \hyperref[thm:continuity]{précédemment.}
+\begin{proof}
+    This is another proof
+\end{proof}
+\begin{comment}
+    This is a comment.
+\end{comment}
+\begin{lemma}
+    Ceci est un lemme.
+\end{lemma}
+\begin{theorem}[Theorême de Pythagore]
+    Let $f \forall x$ be a function whose derivative exists in every point,
+    then $f$ is a continuous function. 
+\end{theorem}
+\begin{corollary}
+    Ceci est un corollaire.
+\end{corollary}
+\section{Section 2}
+OOOOH
+
+\chapter{La vie après la mort}
+Ceci est un paragraphe d'introduction.
+\chapter{La mort après la vie}
+\section{Section 1}
+Oh Damn. \autoref{thm:continuity}
+
+\end{document}

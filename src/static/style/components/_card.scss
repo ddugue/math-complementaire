@@ -1,0 +1,17 @@
+@use "x";
+
+$Card: x.component("Card", ".card", $doc: "Card: Section that is slightly raised, like a card on a table") !default;
+
+
+@mixin includes() {
+    @include x.doc("Card");
+    @include x.extend($Card) {
+        background-color: #FFFFFF;
+        border-radius: 3px;
+        padding: 25px 40px;
+        box-shadow: rgba(0,0,0,0.1) 0 0 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+    }
+}

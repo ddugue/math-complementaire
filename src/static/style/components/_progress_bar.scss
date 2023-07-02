@@ -1,0 +1,53 @@
+@use "x";
+@use "variables" as *;
+
+$ProgressBar: x.component("Progress Bar", ".ui.progress", $doc: "A progress bar") !default;
+$Inner: x.component($ProgressBar, "> .inner", $doc: "Inside the progress bar") !default;
+
+$StickToBottom: x.component($ProgressBar, "%stick-to-bottom", $doc: "A sticky progress bar that attaches to bottom of parent container, make sure parent is relative");
+$StickToTop: x.component($ProgressBar, "%stick-to-top", $doc: "A sticky progress bar that attaches to bottom of parent container, make sure parent is relative");
+
+
+$height:                x.param(--progress-height, 10px, $doc: "Height of the progress bar");
+$back-color:            x.param(--progress-back, #DEDEDE, $doc: "Background of the progress bar");
+$front-color:           x.param(--progress-front, $color-primary, $doc: "Front of the progress bar (uses background css prop)");
+$progress:              x.param(--progress-progress, 0%, $doc: "The current progress");
+$slant:                 x.param(--progress-slant, 0px, $doc: "A slant for the back of the progress bar");
+$border-radius:         x.param(--progress-border-radius, 0px, $doc: "Border radius for the progress bar");
+
+@mixin includes() {
+    @include x.doc("Progress Bar");
+    @include x.extend($ProgressBar) {
+        position: relative;
+        height: $height;
+        overflow: hidden;
+        background: $back-color;
+        border-radius: $border-radius;
+    }
+
+    @include x.extend($Inner) {
+        position: absolute;
+        left: -1px;
+        right: -1px;
+        top: -1px;
+        bottom: -1px;
+        background: $front-color;
+        transition: clip-path ease 250ms;
+        clip-path: polygon(0 0, 0% 100%, calc(#{$progress} + #{$slant}) 100%, #{$progress} 0);
+    }
+}
+
+@include x.extend($StickToBottom) {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+
+@include x.extend($StickToTop) {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+}

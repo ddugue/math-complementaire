@@ -1,0 +1,14 @@
+@use "variables" as *;
+@use "x";
+
+$Link: x.component("Link", "a.link", $doc: "Represents a clickable element that will lead you to another view.") !default;
+
+$color: x.param(--link-color, $color-active, $doc: "Background color of the button");
+
+@mixin includes() {
+    @include x.doc("Link");
+    @include x.extend($Link) {
+        color: $color;
+        cursor: pointer;
+    }
+}

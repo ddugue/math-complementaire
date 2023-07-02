@@ -1,0 +1,232 @@
+@use "sass:map";
+@use "sass:list";
+@use "sass:selector";
+@use "sass:string";
+@use "sass:meta";
+@use "sass:math";
+
+$_extensions: ("foo":"foo");
+$_extensions: map.remove($_extensions, "foo");
+$_current_parent: null;
+$_current_size: null;
+@mixin extend($selector, $with: null, $direct: false, $size: null) {
+    // @if $with {
+    //     @if not map.has-key($_extensions, $with) {
+    //         @error "There was no extension found registered with #{$with}.";
+    //     }
+    //     $_parent: map.get($_extensions, $with);
+    //     @if not selector.is-superselector($_parent, $selector) {
+    //         @error "The extension #{$with} is not compatible with #{$selector}. It has been registered to be compatible with #{$_parent}";
+    //     }
+    // }
+    @if $selector {
+        @if meta.type-of($selector) == string and string.index($selector, "%") == 1 and $size == $_current_size {
+            /* -- Virtual selector "#{$selector}" -- */
+        }
+        @if $_current_parent {
+            @each $_sub in selector.parse($selector) {
+                @if $size == $_current_size {
+                    & > #{$_sub} {
+                        @if $with {
+                            @extend #{$with};
+                        }
+                        $_previous: $_current_parent;
+                        $_current_parent: true !global;
+                        @content;
+                        $_current_parent: $_previous !global;
+                    }
+                }
+            }
+        } @else {
+            @if $size == $_current_size {
+                #{$selector} {
+                    @if $with {
+                        @extend #{$with};
+                    }
+                    $_current_parent: true !global;
+                    @content;
+                    $_current_parent: null !global;
+                }
+            }
+        }
+    }
+}
+
+@mixin with_media($size, $rule) {
+    $_current_size: $size !global;
+    /* -- Including only 'extend' statement defined with #{$size} -- */
+    @media #{$rule} {
+        @content
+    }
+    $_current_size: null !global;
+}
+
+$_docs: ();
+$_active: null; // Current active selector that is the class
+@function component($parent, $child, $doc: null) {
+    @if meta.type-of($parent) != string {
+        @error "Error $parent is of #{meta.type-of($parent)}";
+    }
+    $_first: string.slice($parent,1,1);
+    $_uppered: string.to-upper-case($_first);
+    @if $_first != "." and $_first != "," and $_first != "[" and $_first != "%" and $_first != ":" and $_first == $_uppered {
+        // New component
+        $_active: $parent !global;
+        $_docs: map.deep-merge($_docs, ($_active: ("name": $parent)))  !global;
+        $_docs: map.deep-merge($_docs, ($_active: ("selector": $child)))  !global;
+        @if $doc {
+            $_docs: map.deep-merge($_docs, ($_active: ("doc": $doc)))  !global;
+        }
+        @return $child;
+    }
+    @if string.index($child, "%") == 1 {
+        // Extension
+        // $_values: map.get($_extensions, $parent) or [];
+        // $_values: list.append($_values, $child);
+        $_extensions: map.set($_extensions, $child, $parent) !global;
+        @if $doc {
+            $_docs: map.deep-merge($_docs, ($_active: ("extensions": ($child:$doc))))  !global;
+        }
+        @return $child;
+    }
+    // Variant or sub-component
+    $_selector: "";
+    @if string.index($child, ".") == 1 or string.index($child, ":") == 1 or string.index($child, "[") == 1 {
+        $_selector: selector.append($parent, $child);
+    } @else if string.index($child, ",") {
+        $_selector: "#{$parent}#{$child}";
+    } @else {
+        $_selector: selector.nest($parent, $child);
+    }
+    @if $doc {
+        $_docs: map.deep-merge($_docs, ($_active: ("variants": ($_selector:$doc))))  !global;
+    }
+    @return "#{$_selector}";
+}
+
+$_params: ();
+$_defined_params: ();
+@function param($name, $value, $fallback: null, $doc: null) {
+    @if map.get($_params, $_active, $name) {
+        @error "There is already a global variable #{$name} defined."
+    }
+    @if $doc {
+        $_docs: map.deep-merge($_docs, ($_active: ("params_doc": ($name: $doc))))  !global;
+    }
+    $_params: map.deep-merge($_params, ($_active: ($name: $value))) !global;
+    $_defined_params: map.set($_defined_params, $name, $value) !global;
+    @if $fallback {
+        @return var(#{$name}, $fallback);
+    }
+    @return var(#{$name});
+}
+
+$NOTFOUND: 9999; // Returned to be able to math.min on this value
+@function v($varstring) {
+    //Return the pointed --var inside a var value while also checking that the parameter exist
+    $name: null;
+    @if string.index($varstring, "--") == 1 {
+        // Already parsed
+        $name: $varstring;
+    } @else if string.index($varstring, "var(") == 1 {
+        $end: math.min(string.index($varstring, ",") or $NOTFOUND, string.index($varstring, ")") or $NOTFOUND);
+        @if $end == $NOTFOUND {
+            @error "Wrong format for #{$varstring}. Expected something like '--black' or 'var(--black)'"
+        }
+        $name: string.slice($varstring, 5, $end - 1);
+        
+    } @else {
+        @error "Wrong format for #{$varstring}. Expeceted something like '--black' or 'var(--black)'"
+    }
+    @if not map.has-key($_defined_params, $name) {
+        @error "Variable '#{$name}' was not defined."
+    }
+    @return $name;
+}
+@function has-param($name) {
+    @each $type, $params in $_params {
+        @each $key, $value in $params {
+            @if $key == $name {
+                @return true;
+            }
+        }
+    }
+    @return false;
+}
+
+@function pad($str, $length) {
+    $_length: math.max($length - string.length($str), 1);
+    $_list: ($str);
+    @for $i from 1 through $_length {
+        $_list: list.append($_list, "");
+    }
+    @return "#{list.join($_list, (), $separator: space)}"
+}
+
+@mixin doc($namespace) {
+    // Generates some doc
+    // @warn $_docs;
+    // WARNING!!! Do not indent or else printed comments will not be indented properly!
+    @if not map.has-key($_docs, $namespace) {
+        @error "No doc defined for #{$namespace}"
+    }
+    @if $_current_size == null {
+    $max_length: 80;
+    $_doc: map.get($_docs, $namespace);
+    $_selector: map.get($_doc, "selector");
+    $docstring: "Uses base selector \"#{$_selector}\"";
+    /* #{$namespace} component
+       #{map.get($_doc, "doc")}
+       #{pad($docstring, $max_length - 2)} */
+
+    /*#{pad("", $max_length)}*/
+
+    $_params_doc:map.get($_docs, $namespace, "params_doc") or ();
+    @if list.length(map.keys($_params_doc)) != 0 {
+    /*#{pad(" Params", $max_length)}*/
+    @each $key, $value in $_params_doc {
+    $docstring: " #{$key}: #{$value}";
+    /*#{pad($docstring, $max_length)}*/
+    }
+    /*#{pad("", $max_length)}*/
+    }
+    $_variants_doc:map.get($_docs, $namespace, "variants") or ();
+    @if list.length(map.keys($_variants_doc)) != 0 {
+    /*#{pad(" Variants", $max_length)}*/
+    @each $selector, $value in $_variants_doc {
+    $docstring: " #{$selector}: #{$value}";
+    /*#{pad($docstring, $max_length)}*/
+    }
+    /*#{pad("", $max_length)}*/
+    }
+    $_ext_doc:map.get($_docs, $namespace, "extensions") or ();
+    @if list.length(map.keys($_ext_doc)) != 0 {
+    /*#{pad("Extensions", $max_length)}*/
+    @each $selector, $value in $_ext_doc {
+    /* #{$selector}: #{$value} */
+    }
+    }
+    } @else {
+    /* #{$namespace} component
+       special css rules for media '#{$_current_size}'
+       See default rules for documentation on this component */
+    }
+}
+
+@mixin include_params() {
+    :root {
+        @each $type, $params in $_params {
+            /* #{$type} parameters */
+            @each $key, $value in $params {
+                @if meta.type-of($value) == string and string.index($value, --) == 1 {
+                    @if not has-param($value) {
+                        @error "#{$key} reference variable #{$value} which is not defined via the param. If that is the desired behavior, please use the form var(#{$value}) instead."
+                    }
+                    #{$key}: var($value);
+                } @else if ($value != null) {
+                    #{$key}: $value;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,84 @@
+require 'rake/garden'
+include Garden
+
+setlog 2
+
+## BINARIES
+sass = 'var/node_modules/.bin/sass --load-path=src/static/style'
+brotli = 'brotli --force -q 9'
+# clean_css = 'var/node_modules/.bin/cleancss -O2'
+# http_server = 'var/node_modules/http-server/bin/http-server -S -g -p 8088 -c-1 dist/ -C assets/server.crt -K assets/server.key --brotli'
+https_server = 'var/node_modules/http-server/bin/http-server -S -g -p 8088 -c-1 dist/ -C assets/cert.pem -K assets/key.pem --brotli'
+http_server = 'var/node_modules/http-server/bin/http-server -g -p 8088 -c-1 dist/ --brotli'
+#livereload_server = 'var/node_modules/.bin/tiny-lr --cert assets/cert.pem --key assets/key.pem'
+livereload_server = 'var/node_modules/.bin/tiny-lr'
+stake = 'var/venv/bin/stake -c etc/stake.ini'
+esbuild = 'var/node_modules/.bin/esbuild'
+
+watchdog = "var/venv/bin/watchmedo shell-command -c bin/run -R src -i '*.#*' -D --drop"
+pngquant = "pngquant --speed 1 -f"
+
+options.debug = env "DEBUG"
+options.prod = env "PRODUCTION"
+
+chore :scss => ["src/static/**/*.scss"] do |t|
+  # set :NODE_ENV => "production"
+  files.changed.each do |f|
+    unless f.name.start_with? '_' then
+      mkdir "dist/%d"
+      echo "Building %b.scss"
+      sh "#{sass} #{f} > dist/%b.css" >> "dist/%b.css"
+    end
+  end
+end
+
+chore :fonts => ["src/static/fonts/**/*"] do
+  files.each { cp "%p" >> "dist/fonts/%f" }
+end
+
+chore :images => ["src/static/img/**/*"] do
+  files.each { cp "%p" >> "dist/img/%f" }
+end
+
+chore :js => ["src/**/*.jsx", "src/**/*.js", "src/**/*.ts", "src/**/*.tsx",] do
+  output = "dist/book.js"
+  sh "NODE_PATH=var/node_modules:src/ #{esbuild} src/js/book/index.ts --bundle --sourcemap --outfile=#{output} --define:process.env.NODE_ENV=\"'dev'\" --define:global=window" >> output
+end
+
+chore :html => ["src/**/*.html"] do |t|
+  files('src/*.html').changed.each do |f|
+    flags = "#{options.debug ? '-d' : ''}"
+    output = "dist/%b/"
+    output = "dist/" if f.name == 'index.html'
+    mkdir output
+    # sh "#{stake} %b.html #{flags} -o #{output}index.html" >> "#{output}index.html"
+    sh "cp src/%b.html #{output}index.html" >> "#{output}index.html"
+    sh "cp src/%b.html #{output}page2.html" >> "#{output}page2.html"
+  end
+end
+
+chore :books => ["assets/books/**/book.tex", "src/templates/*.jinja"] do
+  files.ext('tex').each do |f|
+    sh "bin/book_to_html.py %d"
+
+  end
+end
+
+chore :services do |t|
+  daemon http_server
+  daemon livereload_server
+  echo "Accepting HTTP request on https://localhost:8088"
+end
+
+chore :livereload => [:html, :fonts, :images, :services, :scss, :js, :books] do |t|
+  echo Dir.pwd
+  changed_files = files.to_a.map { |f| f.to_s.sub(Dir.pwd + "/dist/", "") }
+  sh "curl -k http://localhost:35729/changed?files=#{changed_files.join(',')}"
+  echo "Accepting HTTP request on https://localhost:8088"
+end
+
+chore :default => :livereload
+
+chore :deploy => [:html, :scss, :fonts, :images, :js, :books] do
+
+end

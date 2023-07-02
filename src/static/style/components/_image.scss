@@ -1,0 +1,42 @@
+@use "x";
+
+$Image: x.component("Image", ".ui.img", $doc: "Represents a simple image (use style: background-image to set image url)") !default;
+
+$src:        x.param(--img-src, "", $doc: "Image src image (use same format as background-image)");
+$height:     x.param(--img-height, "auto", $doc: "Image height");
+$size:       x.param(--img-size, contain, $doc: "Image within its frame size");
+$background: x.param(--img-background, "", $doc: "Image background image (use same format as background-image)");
+
+
+@mixin includes() {
+    @include x.doc("Image");
+
+    @include x.extend($Image) {
+        width: 100%;
+        height: $height;
+        position: relative;
+
+        &:before {
+            content: "";
+            background: $background;
+            background-size: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        &:after {
+            content: "";
+            background-image: $src;
+            background-size: $size;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+}

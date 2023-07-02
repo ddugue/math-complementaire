@@ -1,0 +1,13 @@
+@use "x";
+
+$Spinner: x.component("Spinner", ".ui.spinner", $doc: "Something that spins") !default;
+
+@mixin includes() {
+    @include x.doc("Spinner");
+    @include x.extend($Flipper) {
+        overflow: hidden;
+        display: inline-block;
+        position: relative;
+        width: 100%;
+    }
+}

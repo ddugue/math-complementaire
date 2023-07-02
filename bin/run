@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+touch src/index.html
+DEBUG=true rake -f etc/rakefile
+cd src && ../var/venv/bin/watchmedo shell-command \
+          --ignore-patterns='*~*;*#*#*;*.#*;*flycheck_*' \
+          --recursive \
+          --ignore-directories \
+          --drop \
+          --command='cd .. && echo "${watch_src_path}" && DEBUG=true rake -f etc/rakefile livereload'
+          #--command='cd .. && echo "${watch_src_path}" && DEBUG=true rake -f etc/rakefile livereload'

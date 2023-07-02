@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Complémentaire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=EB+Garamond:ital,wght@1,600&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+  <link rel="stylesheet" href="/style/framework.css?v=1.0">
+  <link rel="stylesheet" href="/style/book.css?v=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@4/themes/light-border.css" />
+</head>
+
+<body>
+  <nav style="display: none">
+    <ul class="menu">
+      <li><a>Livre I - Analyse</a></li>
+      <hr />
+      <li><a href="#about-gitbooks"><b>1</b> <span>Les Gitbooks</span></a></li>
+      <ul>
+        <li><a href="#why-gitbook"><b>1.1</b> <span>Pourquoi?</span></a></li>
+        <li><a href="#ooh-gitbook"><b>1.2</b> <span>Parce que</span></a></li>
+      </ul>
+      <li><a href="/page2.html"><b>2</b> <span>Et Ainsi</span></a></li>
+    </ul>
+  </nav>
+  <div id="right">
+    <header>
+      <a id="menu"><span class="material-symbols-rounded">menu</span></a>
+      <a id="pdf"><span class="material-symbols-rounded">picture_as_pdf</span></a>
+      <a id="logo">∅’ – <em>Le Complémentaire</em></a>
+      <a><span class="material-symbols-rounded">live_help</span></a>
+    </header>
+    <main>
+
+      <div id="scroller">
+
+        <div id="inner">
+
+          <div id="page">
+            <section id="about-gitbooks">
+              <h1> Chapitre 1: Les Gitbooks</h1>
+              <p>A <em>GitBook</em> is a useful tool for creating (open?) <span data-reference="boo">educational
+                  resources</span>. It is an online “book” format, that can be hosted directly from a GitHub repository.
+                You are currently reading a GitBook designed to help you get started creating your own educational
+                GitBooks for your courses (how meta!). It does this in two ways: By explaining how to create GitBooks,
+                and by serving as a template that you can copy and edit, instead of having to start from scratch. This
+                template GitBook has all the settings that I consider to be useful for educational GitBooks, but you can
+                always customize it.</p>
+              <p>I will focus specifically on GitBooks that are made in <a href="https://rstudio.com">Rstudio</a>, using
+                the <a
+                  href="https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf"><code>rmarkdown</code>
+                  markup language</a>, rendered using the <a
+                  href="https://bookdown.org/yihui/bookdown/get-started.html"><code>bookdown</code> package</a>, and
+                hosted on <a href="https://github.com/">GitHub</a>. If you want to get started, skip ahead to Chapter <a
+                  href="prerequisites.html#prerequisites">2</a>; if you need more convincing, keep reading below.</p>
+              <section id="why-gitbook">
+                <h2><span class="header-section-number">1.1</span> Why use a GitBook for teaching?</h2>
+                <h3>To spead the workload</h3>
+                <p>My challenge was that I had to translate all tutorial instructions from proprietary software to R,
+                  and there was not enough time to complete this task before the course commenced. By making the
+                  tutorial instructions available in <a href="https://cjvanlissa.github.io/TCSM/">this GitBook</a>, I
+                  was able to continue translating tutorial instructions <em>while the semester was ongoing</em>, and
+                  push updates to GitHub in time for each session, which were immediately available to all students. The
+                  parallel with the current situation is that some courses are now forced to start teaching in an online
+                  format, without having enough time to completely prepare. By using a GitBook, you can spread out the
+                  workload of preparing your materials across the semester. <a
+                    href="https://cjvanlissa.github.io/TCSM/">This is the finished GitBook</a></p>
+                <p>$\forall x$ Veuillez maintenir la direction.</p>
+                <p><strong>Théorème 4.1</strong> Soit $D$ un ensemble <b>compact</b> et $f: D \to \Bbb{R}$ une
+                  <b>fonction continue.</b> Il existe deux nombres réels $a$ et $b$ tels que: $$ f(a) = sup_{x \in D}
+                  f(x) \text{ et } f(b) = inf_{x \in D} f(x)$$</p>
+                <div class="ui tabs">
+                  <input type="radio" name="proof-4-1" id="proof-4-1" checked>
+                  <input type="radio" name="proof-4-1" id="proof-alt">
+                  <input type="radio" name="proof-4-1" id="tab3">
+                  <ul>
+                    <li><label for="proof-4-1">Preuve du théorême</li>
+                    <li><label for="proof-alt">Preuve alternative</li>
+                  </ul>
+                  <div id="proof-4-1" class="ui proof">
+                    <div class="controls">
+                      <span class="previous material-symbols-rounded">skip_previous</span>
+                      <span class="next material-symbols-rounded">skip_next</span>
+                      <span class="skip material-symbols-rounded">fast_forward</span>
+                    </div>
+                    <div class="inner">
+                      <span>Puisque $D$ est un ensemble <b>compact</b>, l'image $f(D)$ est elle aussi un ensemble
+                        <b>compact</b>.</span>
+                      <span>Posons: $$ M = Sup\{f(x) | e \in D\}$$</span>
+                      <span>Maintenant il est clair que 2 + 2 = 4</span>
+                    </div>
+                    <div class="explanation">
+                      <span>Par hypothèse $D$ est un ensemble compact (fermé et borné)</span>
+                      <span>L'objectif est de faire blabla, alors on pose $M$ comme le supremum</span>
+
+                    </div>
+                  </div>
+                  <div id="proof-alt" class="ui proof">
+                    <div class="controls">
+                      <span class="previous material-symbols-rounded">skip_previous</span>
+                      <span class="next material-symbols-rounded">skip_next</span>
+                      <span class="skip material-symbols-rounded">fast_forward</span>
+                    </div>
+                    <div class="inner">
+                      <span>Puisque SUPER $D$ est un ensemble <b>compact</b>, l'image $f(D)$ est elle aussi un ensemble
+                        <b>compact</b>.</span>
+                      <span>Posons: $$ M = Sup\{f(x) | e \in D\}$$</span>
+                      <span>Maintenant il est clair que 2 + 2 = 4. </span><span>Ce qui finit notre preuve</span>
+                    </div>
+                    <div class="explanation">
+                      <span>Par hypothèse $D$ est un ensemble compact (fermé et borné)</span>
+                      <span>L'objectif est de faire blabla, alors on pose $M$ comme le supremum</span>
+
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section id="ooh-gitbook">
+                <h2>This is another gitbook</h2>
+              </section>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <a id="back">
+        <span class="material-symbols-rounded">
+          chevron_left
+        </span>
+      </a>
+        <a id="next">
+          <span class="material-symbols-rounded">
+            chevron_right
+          </span>
+          </a>
+
+
+    </main>
+    <div id="reference-boo" style="display: none">
+      <div class="ui popover">
+        <p>This a a <strong>boo</strong> $\forall x$.</p>
+        <a href="http://google.com">Reference</a>
+      </div>
+    </div>
+  </div>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://unpkg.com/popper.js@1"></script>
+  <script src="https://unpkg.com/tippy.js@4"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="/book.js"></script>
+</body>
+
+</html>

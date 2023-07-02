@@ -1,0 +1,41 @@
+@use "x";
+
+$Figure: x.component("Figure", "figure", $doc: "Represents an image with a text caption") !default;
+$Text: x.component($Figure, "figcaption", $doc: "The optional text part of the figure") !default;
+$Image: x.component($Figure, "img", $doc: "The image part of the figure") !default;
+
+$HorizontalFigure: x.component($Figure, "%horizontal-figure");
+$img-width:            x.param(--figure-img-width, auto, $doc: "Width of the figure image");
+$img-height:           x.param(--figure-img-height, auto, $doc: "Width of the figure image");
+
+$caption-lines:        x.param(--figure-caption-lines, 1, $doc: "Number of text lines in the caption");
+@mixin includes() {
+    @include x.doc("Figure");
+
+    @include x.extend($Figure) {
+        margin-block: unset;
+        margin-inline: unset;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+    }
+
+    @include x.extend($Text) {
+        width: 100%;
+        line-height: 1.2;
+        height: calc(#{$caption-lines} * 1.2em);
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    @include x.extend($Image) {
+        width: $img-width;
+        height: $img-height;
+    }
+}
+
+
+@include x.extend($HorizontalFigure) {
+    flex-flow: row;
+}

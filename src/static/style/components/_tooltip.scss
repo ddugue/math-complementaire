@@ -1,0 +1,38 @@
+@use "variables" as *;
+@use "x";
+
+$Tooltip: x.component("Tooltip", ".ui.tooltip", $doc: "Represents a simple tooltip") !default;
+$Arrow: x.component($Tooltip, ":after", $doc: "Representing an hovered showing toast") !default;
+
+$background:       x.param(--tooltip-background, black, $doc: "Background color for the tooltip");
+$color:            x.param(--tooltip-color, white, $doc: "Text color for the tooltip");
+$arrow-width:      x.param(--tooltip-arrow-width, 5px, $doc: "Base width of the arrow");
+$border-radius:    x.param(--tooltip-border-radius, 10px, $doc: "Base width of the arrow");
+
+@mixin includes() {
+    @include x.doc("Tooltip");
+    @include x.extend($Tooltip) {
+        font-size: 0.8em;
+
+        color: $color;
+        background: $background;
+        text-align: center;
+        border-radius: $border-radius;
+
+        z-index: 1;
+        padding: 0.3em;
+        position: absolute;
+        white-space: nowrap;
+    }
+
+    @include x.extend($Arrow) {
+        content: " ";
+        position: absolute;
+        top: 100%; /* At the bottom of the tooltip */
+        left: 50%;
+        margin-left: calc($arrow-width * 1);
+        border-width: $arrow-width;
+        border-style: solid;
+        border-color: $background transparent transparent transparent;
+    }
+}

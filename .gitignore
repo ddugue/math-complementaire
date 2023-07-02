@@ -1,0 +1,37 @@
+**/.DS_Store
+nbproject
+manifest.mf
+build.xml
+
+node_modules
+
+.project
+.settings
+.idea/**
+
+*.mo
+
+build
+node_modules/*
+npm-debug.log
+.sass-cache/
+
+test/test-results.xml
+
+# Bower stuff.
+bower_components/
+dist/
+tmp/
+
+# Emacs files
+.\#*
+.projectile
+
+src.back/
+makefile.back
+locales.back/
+
+# Build artifacts
+.tup/
+build-debug/
+build-prod/

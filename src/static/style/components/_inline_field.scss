@@ -1,0 +1,61 @@
+@use "x";
+
+$InlineField: x.component("Inline Field", ".ui.inline-field", $doc: "Represent an input inlined inside text") !default;
+$Invalid: x.component($InlineField, ".invalid", $doc: "A Field in an invalid state") !default;
+$Valid: x.component($InlineField, ".valid", $doc: "A Field in a valid state") !default;
+
+$Input: x.component($InlineField, "input", $doc: "An input inside the input-field") !default;
+$Text: x.component($InlineField, "> span", $doc: "The text when in a non-edit mode") !default;
+$InputUnit: x.component($InlineField, "span.mask", $doc: "A unit label for the input, use JS to position") !default;
+
+$padding:          x.param(--inline-input-padding, 0, $doc: "Padding of the input");
+$focus-color:      x.param(--inline-input-focus-color, #4C9AFF, $doc: "Focus color of the input");
+$help-color:       x.param(--inline-input-help-color, inherit, $doc: "Text color of the help text");
+$help-background-color:    x.param(--inline-input-help-background-color, inherit, $doc: "Background color of the help popup");
+
+@mixin includes() {
+    @include x.doc("Field");
+
+    @include x.extend($InlineField){
+        display: inline-block;
+        padding: 0;
+        position: relative;
+    }
+
+    @include x.extend($Text){
+        cursor: pointer;
+    }
+
+    @include x.extend($Input){
+        width: 0px;
+        font-size: 1em;
+        color: inherit;
+        font-family: inherit;
+        border-color: transparent;
+        background: transparent;
+        border: 0px solid transparent;
+        border-radius: 3px;
+        transition: background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s;
+        padding: $padding;
+        &:focus {
+            border-color: $focus-color;
+            outline: none;
+        }
+    }
+
+
+    @include x.extend($InputUnit) {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        -webkit-user-select: none; /* Safari */        
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
+        white-space: pre;
+    }
+
+}

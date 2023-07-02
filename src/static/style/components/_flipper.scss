@@ -1,0 +1,24 @@
+@use "x";
+
+$Flipper: x.component("Flipper", "div.ui.flipper", $doc: "A span that flips it's text") !default;
+$Text: x.component($Flipper, "> div", $doc: "The text inside this flipper") !default;
+
+
+@mixin includes() {
+    @include x.doc("Flipper");
+    @include x.extend($Flipper) {
+        overflow: hidden;
+        display: block;
+        position: relative;
+        width: 100%;
+    }
+
+    @include x.extend($Text) {
+        display: block;
+        position: absolute;
+        width: 100%;
+        max-height: 100%;
+        bottom: 0;
+        left: 0;
+    }
+}

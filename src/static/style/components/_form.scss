@@ -1,0 +1,15 @@
+@use "x";
+@use "components/button";
+
+$Form: x.component("Form", "form", $doc: "Container for different user inputs");
+
+@mixin includes() {
+    @include x.doc("Form");
+    @include x.extend($Form) {
+        padding: 1em;
+        // border: solid 1px;
+        // @include x.extend(button.$Button, $with: "%button-vertical") {
+        //     font-size: 2em;
+        // }
+    }
+}

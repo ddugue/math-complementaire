@@ -1,0 +1,28 @@
+// Popover reference a-la wikipedia
+
+@use "x";
+
+$Reference: x.component("Reference", "[data-reference]", $doc: "A reference in-text");
+$Popover: x.component("Popover", "div.ui.popover", $doc: "A popover");
+
+@mixin includes() {
+    @include x.doc("Reference");
+    @include x.doc("Popover");
+
+    @include x.extend($Reference) {
+        border-bottom: 1px dotted;
+        cursor: help;
+    }
+
+    @include x.extend($Popover) {
+        text-align: left;
+        p{ margin: 0; }
+        a {
+            margin-top: 1em;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #4183c4;
+            text-decoration: none;
+        }
+    }
+}

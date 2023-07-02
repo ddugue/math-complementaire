@@ -1,0 +1,45 @@
+@use "x";
+@use "variables" as *;
+@use "components/text";
+@use "components/link";
+@use "components/icon";
+@use "components/menu";
+@use "components/image";
+
+nav {
+    // background: linear-gradient(to right, darken($base-color, 10%), darken($base-color, 15%));
+    // background: #F0F0F0;
+    border-right: solid 1px #DDD;
+    width: 300px;
+    position: relative;
+    font-size: 0.8em;
+
+    #{x.v(--menu-item-reserved)}: 0.5rem;
+    #{x.v(menu.$submenu-padding)}: 1em;
+    #{x.v(menu.$menu-item-padding)}: 0.5em;
+    #{x.v(menu.$submenu-font-size)}: 0.9em;
+
+
+    @include x.extend(menu.$Clickable) {
+        b { margin-right: 0.5em; text-decoration: none; }
+        &.active span { color: $color-primary; }
+    }
+
+    @include x.extend(menu.$Item) {
+        + ul { display: none; }
+        &.current + ul {display: block; }
+    }
+
+    @include x.extend(menu.$Hovered) {
+        span { text-decoration: underline ;}
+    }
+
+    @include x.extend(menu.$First) {
+        a { 
+            box-sizing: border-box;
+            height: calc(9vh + 1px);
+            border-bottom: 1px solid #DDD;
+        }
+
+    }
+}

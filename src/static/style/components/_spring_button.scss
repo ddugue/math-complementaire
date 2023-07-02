@@ -1,0 +1,123 @@
+@use "variables" as *;
+@use "components/button";
+@use "x";
+
+$ToggleContainer: x.component("Spring Button", "button.spring", $doc: "A button that can be toggled on/off") !default;
+$Toggle: x.component($ToggleContainer, "> div", $doc: "The inner button") !default;
+$Shadow: x.component($ToggleContainer, ":after", $doc: "The shadow of the button") !default;
+
+$Hovered: x.component($ToggleContainer, ":hover > div", $doc: "A toggled button") !default;
+$Active: x.component($ToggleContainer, ":active > div", $doc: "An active button") !default;
+$Toggled: x.component($ToggleContainer, ".toggled > div", $doc: "A toggled button") !default;
+$Disabled: x.component($ToggleContainer, ".disabled > div", $doc: "A disabled button") !default;
+$NotToggled: x.component($ToggleContainer, ':not(.toggled) > div', $doc: "A not toggled button") !default;
+
+$ToggledShadow: x.component($ToggleContainer, ".toggled:after", $doc: "The shadow of the button when toggled") !default;
+$HoveredShadow: x.component($ToggleContainer, ":hover:after", $doc: "The shadow of the button when hovered") !default;
+$ActiveShadow: x.component($ToggleContainer, ":active::after", $doc: "The shadow of the button when active") !default;
+
+$z-height:         x.param(--spring-height, 2px, $doc: "Button Z-Height");
+
+$color:            x.param(--spring-btn-color, inherit, $doc: "Color of the toggle");
+$toggled-color:    x.param(--spring-btn-toggled-color, null, $color, $doc: "Color of the toggle when toggled");
+$disabled-color:   x.param(--spring-btn-disabled-color, $color-disabled, $doc: "Color of the disabled toggle");
+
+$border-radius:    x.param(--spring-btn-border-radius, null, button.$border-radius, $doc: "Toggle border radius");
+$border:           x.param(--spring-btn-border, 1px solid, $doc: "Toggle border size and style");
+$border-color:     x.param(--spring-btn-border-color, initial, $doc: "Toggle border color");
+
+$toggled-border-color:     x.param(--spring-btn-toggled-border-color, 1px solid, $doc: "Toggle border size and style");
+$disabled-border-color:     x.param(--spring-btn-disabled-border-color, 1px solid, $doc: "Toggle border size and style");
+
+
+$background-color: x.param(--spring-btn-bg-color, white, $doc: "Background color of the toggle");
+$toggled-background-color: x.param(--spring-btn-toggled-bg-color, null, $fallback: $background-color, $doc: "Background color of a toggled toggle");
+$disabled-background-color: x.param(--spring-btn-disabled-bg-color, --spring-btn-bg-color, $doc: "Background color of a disabled toggle");
+
+@mixin includes() {
+    @include x.doc("Spring Button");
+    
+    @include x.extend($ToggleContainer) {
+        background-color: $border-color;
+        box-sizing: border-box;
+        border-radius: $border-radius;
+        position: relative;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    @include x.extend($Toggle) {
+        padding: button.$padding;
+        border: $border;
+        border-color: $border-color;
+        background-color: $background-color;
+        border-radius: $border-radius;
+        transform: translateY(calc(#{$z-height} * -1));
+        will-change: transform, padding-bottom, background-color;
+        transition: transform 600ms cubic-bezier(.3, .7, .4, 1), filter 250ms, color 250ms, background-color 250ms cubic-bezier(.3, .7, .4, 1);
+    }
+
+    @include x.extend($Hovered) {
+        transform: translateY(calc(#{$z-height} * -1 - 3px));
+        filter: brightness(105%);
+        transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5), filter 250ms, color 250ms background-color 250ms cubic-bezier(.3, .7, .4, 1.5);
+    }
+
+    @include x.extend($Active) {
+        transform: translateY(5px);
+        transition: transform 34ms, padding-bottom 34ms, color 250ms, background-color 250ms;
+        padding-bottom: calc(#{button.$padding} - 6px);
+        // background: linear-gradient(
+// 0deg, #0000004f 0%, #0000001c 5%, transparent 9%), radial-gradient(ellipse at 50% 0%, transparent, transparent 92%, #0000004d) transparent;
+        // background-color: $background-color;
+        // clip-path: polygon(
+        //     0% 0%,
+        //     100% 0%,
+        //     100% calc(100% - #{$border-radius} - 5px),
+        //     99% calc(94% - 5px),
+        //     96% calc(98% - 5px),
+        //     90% calc(100% - 5px),
+        //     10% calc(100% - 5px),
+        //     3% calc(99% - 5px),
+        //     1% calc(95% - 5px),
+        //     0% 90%
+        // );
+    }
+
+    @include x.extend($HoveredShadow) {
+        transform: translateY(calc(#{$z-height} / 2 + 2px));
+    }
+
+    @include x.extend($ActiveShadow) {
+        transform: translateY(0px);
+        transition: transform 34ms;
+    }
+
+    @include x.extend($Shadow) {
+        content:"";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+
+        z-index: -1;
+        border-radius: $border-radius;
+        background: hsl(0deg 0% 0% / 0.25);
+        filter: blur(4px);
+        will-change: transform;
+        transform: translateY(calc(#{$z-height} / 2));
+        transition: transform 250ms;
+    }
+
+    @include x.extend($Toggled) {
+        background-color: $toggled-background-color;
+        color: $toggled-color;
+        transform: translateY(0px);
+    }
+
+    @include x.extend($ToggledShadow) {
+        transform: translateY(0px);
+        transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+    }
+}

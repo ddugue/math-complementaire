@@ -1,0 +1,61 @@
+@use "variables" as *;
+@use "x";
+
+$ToggleContainer: x.component("Toggle", ".ui.toggle", $doc: "Element that contain the toggle") !default;
+$Toggle: x.component($ToggleContainer, "label", $doc: "Element that can be toggled on/off") !default;
+$ToggleCheckbox: x.component($ToggleContainer, 'input[type="checkbox"]', $doc: "The checkbox containing the value") !default;
+
+$Toggled: x.component($ToggleCheckbox, ":checked + label", $doc: "A toggled toggle") !default;
+$Disabled: x.component($ToggleCheckbox, ":disabled + label", $doc: "A disabled toggle") !default;
+$NotToggled: x.component($ToggleCheckbox, ':not(:checked) + label', $doc: "A not toggled toggle") !default;
+
+
+$color:            x.param(--toggle-color, inherit, $doc: "Color of the toggle");
+$toggled-color:    x.param(--toggle-toggled-color, $color-active, $doc: "Color of the toggle when toggled");
+$disabled-color:   x.param(--toggle-disabled-color, $color-disabled, $doc: "Color of the disabled toggle");
+
+$padding:          x.param(--toggle-padding, 1rem, $doc: "Padding for the toggle");
+$border-radius:    x.param(--toggle-border-radius, .28571429rem, $doc: "Toggle border radius");
+
+$border:           x.param(--toggle-border, 1px solid, $doc: "Toggle border size and style");
+$toggled-border:   x.param(--toggle-toggled-border, --toggle-border, $doc: "Toggle border size and style when toggled");
+$disabled-border:  x.param(--toggle-disabled-border, --toggle-border, $doc: "Toggle border size and style when disabled");
+
+$background-color: x.param(--toggle-bg-color, initial, $doc: "Background color of the toggle");
+$toggled-background-color: x.param(--toggle-disabled-bg-color, --toggle-bg-color, $doc: "Background color of a toggled toggle");
+$disabled-background-color: x.param(--toggle-toggled-bg-color, --toggle-bg-color, $doc: "Background color of a disabled toggle");
+
+@mixin includes() {
+    @include x.doc("Toggle");
+    @include x.extend($ToggleCheckbox) {
+        display: none;
+    }
+    
+    @include x.extend($ToggleContainer) {
+    }
+
+    @include x.extend($Toggle) {
+        display: flex;
+        color: $color;
+        padding: $padding;
+        border-radius: $border-radius;
+        border: $border;
+        background: $background-color;
+        box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+    }
+
+    @include x.extend($Toggled) {
+        background: $toggled-background-color;
+        color: $toggled-color;
+        // border: $toggled-border;
+        transform: translateY(2px);
+    }
+
+    @include x.extend($Disabled) {
+        backgorund: $disabled-background-color;
+        color: $disabled-color;
+        border: $disabled-border;
+    }
+}
