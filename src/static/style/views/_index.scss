@@ -1,0 +1,46 @@
+// Page - Represents a book page.
+@use "x";
+
+@use "components/text";
+@use "components/ordered_list";
+
+@use "layouts/stretched_container";
+
+#index {
+    @include stretched_container.layout();
+    
+    line-height: 1.7;
+    word-wrap: break-word;
+    text-size-adjust: 100%;
+    #{x.v(--list-style)}: upper-roman;
+
+    h1{ margin-top: 1.275em; text-align: center; }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.75em; }
+    p,h1 { margin-bottom: 0.85em; }
+    h1,h2,h3 { font-weight: 700; }
+
+    @include x.extend(ordered_list.$Item) {
+        a { text-decoration: underline dashed; color: inherit; }
+    }
+
+
+    #logo {
+        margin-left: -2.4em;
+        font-weight: 600;
+        em { font-family: 'EB Garamond'; }
+    }
+    
+    > div {
+        // The actual index container
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 100%;
+
+        > div {
+            padding: 0 0 1em 1em;
+            flex: 1;
+            min-width: 300px;
+        }
+    }
+}

@@ -14,6 +14,7 @@ main {
     height: 89vh;
     position: relative;
     overflow: auto;
+    box-sizing: border-box;
     #scroller { 
         top:0;
         bottom:0;

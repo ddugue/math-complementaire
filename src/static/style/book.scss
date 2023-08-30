@@ -2,11 +2,14 @@
 
 @use "components/proof";
 @use "components/reference";
+@use "components/ordered_list";
 
 @use "views/main";
 @use "views/page";
 @use "views/sidebar";
 @use "views/header";
+@use "views/index";
 
 @include proof.includes();
 @include reference.includes();
+@include ordered_list.includes();
