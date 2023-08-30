@@ -39,3 +39,10 @@ build-prod/
 var/*
 *.pyc
 *.pid
+
+# Latex Build
+assets/*.aux
+assets/*.fdb_latexmk
+assets/*.fls
+assets/*.out
+assets/*.log
