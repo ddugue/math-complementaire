@@ -203,6 +203,7 @@ def parse_token(token, contents):
 def parse_book(id, filename):
     chapters = []
     title = "Livre Sans Nom"
+
     with open(filename, mode="r", encoding="utf-8") as f:
         txt = f.read()
         soup = TexSoup(txt)

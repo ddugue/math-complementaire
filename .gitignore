@@ -41,8 +41,9 @@ var/*
 *.pid
 
 # Latex Build
-assets/**/*.aux
-assets/*.fdb_latexmk
-assets/*.fls
-assets/*.out
-assets/*.log
+book.aux
+book.fdb_latexmk
+book.fls
+book.out
+book.log
+book.synctex.gz

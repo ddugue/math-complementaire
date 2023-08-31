@@ -1,33 +1,32 @@
 {% from '_render.jinja' import render with context %}
-
 <main>
-
-      <div id="scroller">
-      <div id="top"></div>
-        <div id="inner">
-          <div id="page">
-            <h1>{{ chapter.title }}</h1>
-            {% for token in chapter.tokens %}
-                {{ render(token, 'p') }}
-            {% endfor %}
-          </div>
-        </div>
+  <div id="scroller">
+  <div id="top"></div>
+    <div id="inner">
+      <div id="page">
+        <h1>{{ chapter.title }}</h1>
+        {% for token in chapter.tokens %}
+            {{ render(token, 'p') }}
+        {% endfor %}
       </div>
-
-    {% set previous = book.previous_index(chapter) %}
-    {% set next = book.next_index(chapter) %}
-    {% if previous %}
-        <a id="back" href="/books/{{ book.id }}/{{ slug(previous.index) }}/">
-            <span class="material-symbols-rounded">
-                chevron_left
-            </span>
-        </a>
-    {% endif %}
-    {% if next %}
-        <a id="next" href="/books/{{ book.id }}/{{ slug(next.index) }}/">
-            <span class="material-symbols-rounded">
-            chevron_right
-            </span>
-        </a>
-    {% endif %}
+    </div>
+  </div>
+  {% set previous = book.previous_index(chapter) %}
+  {% set next = book.next_index(chapter) %}
+  {% if previous %}
+      <a id="back" href="/books/{{ book.id }}/{{ slug(previous.index) }}/">
+          <span class="material-symbols-rounded">
+              chevron_left
+          </span>
+      </a>
+      {% else %}
+      <a id="back" style="visibility:hidden"></a>
+  {% endif %}
+  {% if next %}
+      <a id="next" href="/books/{{ book.id }}/{{ slug(next.index) }}/">
+          <span class="material-symbols-rounded">
+          chevron_right
+          </span>
+      </a>
+  {% endif %}
 </main>

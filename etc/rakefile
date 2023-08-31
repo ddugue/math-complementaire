@@ -58,11 +58,17 @@ chore :html => ["src/**/*.html"] do |t|
 end
 
 chore :books => ["assets/books/**/book.tex", "src/templates/*.jinja"] do
+  mkdir "tmp"
+  mkdir "dist/pdf"
   files.ext('tex').each do |f|
+    path = f.relative_directory[0..-2]
     sh "bin/book_to_html.py %d"
-
+    mkdir "tmp/%d"
+    sh "pdflatex -halt-on-error -output-directory=tmp/%d assets/books/#{path}/book.tex"
+    sh "mv tmp/#{path}/book.pdf dist/pdf/#{path}.pdf"
   end
 end
+
 
 chore :services do |t|
   daemon http_server
