@@ -2,7 +2,8 @@
 @use "x";
 
 body {
-    background: #FDFDFD;
+    --background-color: #FDFDFD;
+    background: var(--background-color);
     margin: 0;
     display: flex;
     #{x.v(--text-color)}: #333;

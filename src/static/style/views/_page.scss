@@ -4,6 +4,7 @@
 @use "components/text";
 @use "components/proof";
 @use "components/tabs";
+@use "components/line";
 
 @use "layouts/stretched_container";
 
@@ -17,6 +18,8 @@
     line-height: 1.7;
     word-wrap: break-word;
     text-size-adjust: 100%;
+    #{x.v(line.$color)}: var(--text-color);
+    #{x.v(line.$background)}: var(--background-color);
 
     h1,h2 { margin-top: 1.275em; }
     h1 { font-size: 2em; }

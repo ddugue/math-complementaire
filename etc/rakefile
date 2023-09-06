@@ -53,7 +53,7 @@ chore :html => ["src/**/*.html"] do |t|
     mkdir output
     # sh "#{stake} %b.html #{flags} -o #{output}index.html" >> "#{output}index.html"
     sh "cp src/%b.html #{output}index.html" >> "#{output}index.html"
-    sh "cp src/%b.html #{output}page2.html" >> "#{output}page2.html"
+    # sh "cp src/%b.html #{output}page2.html" >> "#{output}page2.html"
   end
 end
 

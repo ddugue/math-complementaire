@@ -3,6 +3,7 @@
 @use "components/proof";
 @use "components/reference";
 @use "components/ordered_list";
+@use "components/line";
 
 @use "views/main";
 @use "views/page";
@@ -13,3 +14,14 @@
 @include proof.includes();
 @include reference.includes();
 @include ordered_list.includes();
+
+.definition {
+    padding: 10px;
+    border: 1px solid #333;
+    box-shadow:  -1px 1px #333,
+            -2px 2px #333,
+            -3px 3px #333,
+            -4px 4px #333,
+            -5px 5px #333;
+    
+}

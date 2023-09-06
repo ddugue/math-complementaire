@@ -1,0 +1,76 @@
+\documentclass[12pt]{book}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{comment}
+\usepackage{mathpazo} % Palatino font
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{relsize}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage[makeroom]{cancel}
+
+\usepackage[margin=0.5in]{geometry}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\newcommand*\conj[1]{\overbar{#1}}
+% STATS Shortcut
+\newcommand{\BP}{\Bbb P}
+\newcommand{\BR}{\Bbb R}
+\let\Bbb\mathbb
+\def\sep{\phantom{}}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section]
+\newtheorem*{example}{Exemple}
+\newtheorem{theorem}{Theorême}[section]
+\newtheorem{corollary}{Corollaire}[theorem]
+\newtheorem{lemma}[theorem]{Lemme}
+
+\title{Topologie}
+
+\begin{document}
+\chapter{Introduction}
+Qu'est-ce que la topologie?
+\chapter{Notions préalables}
+Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
+de références pour les exemples et les preuves qui seront amenés dans les chapitres suivants. Pour une explication
+plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre précédent: Analyse des Réels.
+
+\begin{definition}[Voisinage dans $\Bbb R$]
+    \label{def:voisinage_reels}
+    Ensemble de point satisfaisant l'expression
+    suivante: $$V(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \}$$
+\end{definition}
+
+\begin{definition}[Voisinage troué dans $\Bbb R$ os]
+    \label{def:voisinage_troue_reels}
+    Ensemble de point satisfaisant l'expression
+    suivante: $$V'(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \land x \neq a \}$$
+\end{definition}
+
+\begin{definition}[Points intérieurs de E]
+    \label{def:point_int}
+    Ensemble de points satisfaisant l'expression
+    suivante: $$int(E) = \{ x \in E : \exists \delta > 0, V(x, \delta) \subseteq E \} $$
+\end{definition}
+ts
+
+\begin{definition}[Ensemble ouvert]
+    \label{def:ensemble_ouvert}
+    Un ensemble est dit ouvert si tous ces éléments sont des \hyperref[def:point_int]{points intérieurs.}
+\end{definition}
+
+Ceci est un \autoref{def:ensemble_ouvert}
+\end{document}

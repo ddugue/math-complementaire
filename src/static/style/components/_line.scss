@@ -1,0 +1,29 @@
+@use "variables" as *;
+@use "x";
+
+$Line: x.component("Line", "hr", $doc: "Represents a horizontal line") !default;
+
+$color: x.param(--line-color, $color-active, $doc: "Color of the line");
+$background: x.param(--line-background-color, $color-active, $doc: "Background color for the glyph");
+
+@mixin includes() {
+    @include x.doc("Line");
+    @include x.extend($Line) {
+        overflow: visible; /* For IE */
+        padding: 0;
+        border: none;
+        border-top: medium double $color;
+        color: $color;
+        text-align: center;
+
+        &:after {
+            content: "§";
+            display: inline-block;
+            position: relative;
+            top: -0.9em;
+            font-size: 1em;
+            padding: 0 0.25em;
+            background: $background;
+        }
+    }
+}

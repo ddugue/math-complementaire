@@ -13,15 +13,13 @@
   </div>
   {% set previous = book.previous_index(chapter) %}
   {% set next = book.next_index(chapter) %}
-  {% if previous %}
-      <a id="back" href="/books/{{ book.id }}/{{ slug(previous.index) }}/">
-          <span class="material-symbols-rounded">
-              chevron_left
-          </span>
-      </a>
-      {% else %}
-      <a id="back" style="visibility:hidden"></a>
-  {% endif %}
+  
+  <a id="back" {% if previous %}href="/books/{{ book.id }}/{{ slug(previous.index) }}/"{% else %}style="visibility:hidden"{% endif%}>
+      <span class="material-symbols-rounded">
+          chevron_left
+      </span>
+  </a>
+
   {% if next %}
       <a id="next" href="/books/{{ book.id }}/{{ slug(next.index) }}/">
           <span class="material-symbols-rounded">

@@ -1,4 +1,4 @@
-// Page - Represents a book page.
+// Page - Represents the main root index page.
 @use "x";
 
 @use "components/text";
@@ -20,7 +20,7 @@
     h1,h2,h3 { font-weight: 700; }
 
     @include x.extend(ordered_list.$Item) {
-        a { text-decoration: underline dashed; color: inherit; }
+        a[href] { text-decoration: underline dashed; color: inherit; }
     }
 
     h1 {

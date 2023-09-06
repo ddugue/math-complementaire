@@ -28,7 +28,7 @@
   <div id="right">
     <header>
       <a id="menu"><span class="material-symbols-rounded">menu</span></a>
-      <a id="pdf" href="/pdf/{{ book.id }}.pdf"><span class="material-symbols-rounded">picture_as_pdf</span></a>
+      <a id="pdf" target="_blank" href="/pdf/{{ book.id }}.pdf"><span class="material-symbols-rounded">picture_as_pdf</span></a>
       <a id="logo" href="/">∅’ – <em>Le Complémentaire</em></a>
       <a><span class="material-symbols-rounded">live_help</span></a>
     </header>
@@ -36,10 +36,6 @@
 
     {% endblock main %}
     {% block references %}
-        <div class="ui popover">
-            <p>This a a <strong>boo</strong> $\forall x$.</p>
-            <a href="http://google.com">Reference</a>
-        </div>
     {% endblock %}
   </div>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>

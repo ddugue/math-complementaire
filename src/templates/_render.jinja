@@ -88,8 +88,8 @@
 {%- endmacro %}
 
 {% macro definition(token) -%}
-<p{% if token.label %}id="{{ slug(token.label.id) }}"{% endif %}>
-    <strong>{{ token.name }}</strong>
+<p class="definition" {% if token.label %}id="{{ slug(token.label.id) }}"{% endif %}>
+    <strong>{{ token.name }}</strong>.
     {% for t in token.tokens %}
         {{ render(t) }}
     {% endfor %}
