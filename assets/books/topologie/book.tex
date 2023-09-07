@@ -36,7 +36,7 @@
 \newtheorem*{example}{Exemple}
 \newtheorem{theorem}{Theorême}[section]
 \newtheorem{corollary}{Corollaire}[theorem]
-\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{lemma}[theorem]{Lemme}  
 
 \title{Topologie}
 
@@ -49,13 +49,13 @@ Voici une série de définition importantes à considérer lors de la lecture de
 de références pour les exemples et les preuves qui seront amenés dans les chapitres suivants. Pour une explication
 plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre précédent: Analyse des Réels.
 
-\begin{definition}[Voisinage dans $\Bbb R$]
+\begin{definition}[Voisinage dans les Réels]
     \label{def:voisinage_reels}
     Ensemble de point satisfaisant l'expression
     suivante: $$V(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \}$$
 \end{definition}
 
-\begin{definition}[Voisinage troué dans $\Bbb R$ os]
+\begin{definition}[Voisinage troué dans les Réels]
     \label{def:voisinage_troue_reels}
     Ensemble de point satisfaisant l'expression
     suivante: $$V'(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \land x \neq a \}$$
@@ -66,14 +66,10 @@ plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre pré
     Ensemble de points satisfaisant l'expression
     suivante: $$int(E) = \{ x \in E : \exists \delta > 0, V(x, \delta) \subseteq E \} $$
 \end{definition}
-ts
 
 \begin{definition}[Ensemble ouvert]
     \label{def:ensemble_ouvert}
     Un ensemble est dit ouvert si tous ces éléments sont des \hyperref[def:point_int]{points intérieurs.}
 \end{definition}
 
-Ceci est un \autoref{def:ensemble_ouvert}
-
-\chapter{Other Chapter}
 \end{document}

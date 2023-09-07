@@ -13,11 +13,19 @@ nav {
     width: 300px;
     position: relative;
     font-size: 0.8em;
+    background: var(--background-color);
 
     #{x.v(--menu-item-reserved)}: 0.5rem;
     #{x.v(menu.$submenu-padding)}: 1em;
     #{x.v(menu.$menu-item-padding)}: 0.5em;
     #{x.v(menu.$submenu-font-size)}: 0.9em;
+
+    @media only screen and (max-width: 700px) {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 1;
+    }
 
 
     @include x.extend(menu.$Clickable) {

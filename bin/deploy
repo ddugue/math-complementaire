@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+set -e
+AWS_PROFILE=kumo aws s3 cp dist s3://math.kumoweb.ca --recursive

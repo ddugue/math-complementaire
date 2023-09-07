@@ -89,7 +89,6 @@ def parse_section(clss, section, contents):
     
     if isinstance(section, Chapter):
         section.is_appendix = is_appendix
-        print(section.is_appendix)
     yield section
     yield from next_tokens
   
