@@ -86,6 +86,7 @@ class Subsection(Section):
 
 class Chapter(Section):
     numbering: ClassVar = 'CHAPTERS'
+    is_appendix: bool = False
 
     @property
     def sections(self):

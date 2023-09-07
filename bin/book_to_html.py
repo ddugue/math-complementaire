@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser(
                     prog='Latex Book to html',
                     description='Script to try to convert a latex book to our special html')
 parser.add_argument('book')
+parser.add_argument('--debug', action='store_true')
 
         
 if __name__ == "__main__":
@@ -33,8 +34,9 @@ if __name__ == "__main__":
 
     for chapter in book.chapters:
         filename = f"dist/books/{book.id}/{slugify(chapter.index)}/index.html"
-        #pp = pprint.PrettyPrinter(indent=1)
-        #pp.pprint(chapter)
+        if args.debug:
+            pp = pprint.PrettyPrinter(indent=1)
+            pp.pprint(chapter)
         references = book.references
         # print(references)
         is_text = lambda x: isinstance(x, Inline)

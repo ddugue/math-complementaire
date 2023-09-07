@@ -1,5 +1,5 @@
 {% from '_render.jinja' import render with context %}
-<main>
+<main class="{% if chapter.is_appendix %}appendix{% endif %}">
   <div id="scroller">
   <div id="top"></div>
     <div id="inner">

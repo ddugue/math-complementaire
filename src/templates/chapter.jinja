@@ -5,7 +5,11 @@
 <ul class="menu">
     <li><a href="/books/{{ book.id }}">{{ book.title }}</a></li>
     {% for book_chapter in book.chapters %}
-        <li class="{% if book_chapter.index == chapter.index %}current{% endif %}"><a href="/books/{{ book.id }}/{{ slug(book_chapter.index) }}/"><b>{{ book_chapter.index }}</b> <span>{{ book_chapter.title }}</span></a></li>
+        <li class="{% if book_chapter.index == chapter.index %}current{% endif %}">
+            <a href="/books/{{ book.id }}/{{ slug(book_chapter.index) }}/">
+            <b>{% if book_chapter.is_appendix %}Annexe {% endif %}{{ book_chapter.index }}</b> <span>{{ book_chapter.title }}</span>
+            </a>
+        </li>
         <ul>
         {% for section in book_chapter.sections %}
             <li><a href="#{{ slug(section.title) }}"><b>{{ section.index }}</b> <span>{{ section.title }}</span></a></li>

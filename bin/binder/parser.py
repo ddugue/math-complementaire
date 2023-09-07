@@ -2,7 +2,7 @@ from TexSoup import TexSoup
 
 from .utils import pop_or_none, next_or_none, get_or_none
 from .model import *
-from .numbering import Numbering
+from .numbering import Index
 
 
 def parse_until(cls, contents):
@@ -62,17 +62,35 @@ def parse_text(cls, text, contents):
     yield from following
 
 def parse_label(label, contents):
-    yield Label(id=str(label.args[0].string), section_index=NUMBERING.get_index('CHAPTERS.SECTIONS.SUBSECTIONS'))
+    yield Label(id=str(label.args[0].string), section_index=NUMBERING.value('CHAPTERS.SECTIONS.SUBSECTIONS'))
 
 
-NUMBERING = Numbering({ 'CHAPTERS': { 'SECTIONS': {'SUBSECTIONS': {}, 'THEOREMS': { 'COROLLARIES': {}}}}})
+NUMBERING = Index({ 
+    'CHAPTERS': Index({ 
+        'SECTIONS': Index({
+            'SUBSECTIONS': Index(),
+            'THEOREMS': Index({ 
+                'COROLLARIES': Index(),
+            }),
+        })
+    })
+})
+IS_APPENDIX = False
 
 def parse_section(clss, section, contents):
     title = section.string
     cls = clss[-1] # We assume the actual token class is the last separator
-    inx = NUMBERING.bump(cls.numbering)
+    NUMBERING.get(cls.numbering).bump()
+    inx = NUMBERING.value(cls.numbering)
+    is_appendix = IS_APPENDIX
+    
     tokens, next_tokens = parse_until(clss, contents)
-    yield cls(index=inx, title=title, tokens=tokens)
+    section = cls(index=inx, title=title, tokens=tokens)
+    
+    if isinstance(section, Chapter):
+        section.is_appendix = is_appendix
+        print(section.is_appendix)
+    yield section
     yield from next_tokens
   
 
@@ -94,7 +112,10 @@ def parse_definition(definition, contents):
     yield item
 
 def parse_example_or_proof(cls, example, contents):
-    inx = NUMBERING.bump('CHAPTERS.SECTIONS.THEOREMS.COROLLARIES')
+    NUMBERING.get('CHAPTERS.SECTIONS.THEOREMS.COROLLARIES').bump()
+    inx = NUMBERING.value('CHAPTERS.SECTIONS.THEOREMS.COROLLARIES')
+    
+
     name = get_or_none(example.args, 0)
     if name:
         tokens, _ = parse_until([], example.contents[1:])
@@ -129,7 +150,9 @@ def parse_example_or_proof(cls, example, contents):
     yield from next_tokens
 
 def parse_theorem(cls, theorem, contents):
-    inx = NUMBERING.bump(cls.numbering)
+    NUMBERING.get(cls.numbering).bump()
+    inx = NUMBERING.value(cls.numbering)
+
     name = get_or_none(theorem.args, 0)
     if name:
         tokens, _ = parse_until([], theorem.contents[1:])
@@ -195,6 +218,10 @@ def parse_token(token, contents):
                 yield from parse_ref(Reference, token, contents)
             case 'href':
                 yield from parse_ref(Hyperlink, token, contents)
+            case 'appendix':
+                NUMBERING.get('CHAPTERS').change_format(Index.UPPERCASE)
+                global IS_APPENDIX
+                IS_APPENDIX = True
             case _:
                 print(f"Unknown parsing for {token.name}")
     else:
@@ -203,6 +230,8 @@ def parse_token(token, contents):
 def parse_book(id, filename):
     chapters = []
     title = "Livre Sans Nom"
+    global IS_APPENDIX
+    IS_APPENDIX = False
 
     with open(filename, mode="r", encoding="utf-8") as f:
         txt = f.read()
