@@ -2,13 +2,13 @@
 mkdir -p var/
 ln -s $PWD/etc/bsconfig.json var/bsconfig.json
 set -e
-virtualenv var/venv --python=python3.6
+virtualenv var/venv
 
 var/venv/bin/pip install -e /home/ddugue/Projects/garden-stake
 var/venv/bin/pip install aws-cdk.core aws-cdk.aws-lambda aws-cdk.aws_apigateway aws-cdk.aws_cognito boto3 aws-cdk.aws_dynamodb aws-cdk.aws_stepfunctions aws-cdk.aws_stepfunctions_tasks aws-cdk.aws-lambda-event-sources
 var/venv/bin/pip install -r assets/base_requirements.txt
 var/venv/bin/pip install -r assets/command_requirements.txt
-var/venv/bin/pip install jinja2 pyyaml mypy
+var/venv/bin/pip install jinja2 pyyaml mypy TexSoup watchdog
 
 bin/yarn install
 
