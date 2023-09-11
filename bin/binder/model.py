@@ -31,6 +31,10 @@ class BreakLine(Text):
 class Dots(Text):
     # The ... character
     pass
+
+@dataclass
+class TextGroup:
+    tokens: list
     
 ## SECTIONS: Sections and subsections with a numbering
 
@@ -194,3 +198,12 @@ class Book:
                 d[ref.label.id] = ref
         return d
 
+@dataclass
+class Item:
+    """ Represent an item """
+    tokens: list[Text]
+
+@dataclass
+class List:
+    """ Represent a simple list of items """
+    items: list[Item]

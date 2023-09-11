@@ -96,6 +96,18 @@
 </p>
 {%- endmacro %}
 
+{% macro list(token) -%}
+<ul>
+    {% for i in token.items %}
+        {{ render(i) }}
+    {% endfor %}
+</ul>
+{%- endmacro %}
+
+{% macro item(token)%}
+    <li>{% for t in token.tokens %}{{ render(t) }}{% endfor %}</li>
+{% endmacro%}
+
 {% macro render(token, root=False) -%}
     {% if token %}
         {% if is_text(token) %}
@@ -135,6 +147,10 @@
             {% endif %}
         {% elif token.__class__.__name__ == 'Definition' %}
             {{ definition(token) }}
+        {% elif token.__class__.__name__ == 'List' %}
+            {{ list(token) }}
+        {% elif token.__class__.__name__ == 'Item' %}
+            {{ item(token) }}
         {% else %}
             DO NOT KNOW HOW TO RENDER {{ token.__class__.__name__ }}.
         {% endif %}

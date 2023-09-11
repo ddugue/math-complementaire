@@ -1,0 +1,85 @@
+\documentclass[12pt]{book}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{comment}
+\usepackage{mathpazo} % Palatino font
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{relsize}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage[makeroom]{cancel}
+
+\usepackage[margin=0.5in]{geometry}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\newcommand*\conj[1]{\overbar{#1}}
+% STATS Shortcut
+\newcommand{\BP}{\Bbb P}
+\newcommand{\BR}{\Bbb R}
+\let\Bbb\mathbb
+\def\sep{\phantom{}}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section]
+\newtheorem*{example}{Exemple}
+\newtheorem{theorem}{Theorême}[section]
+\newtheorem{corollary}{Corollaire}[theorem]
+\newtheorem{lemma}[theorem]{Lemme}  
+
+\title{Modèles de régression}
+
+\begin{document}
+\chapter{Introduction}
+Comment modéliser une relation statistique? Existe-il un lien entre deux ou plusieurs variables, et si oui, comment
+le représenter. Il est possible lors de la création d'un modèle de régression de modéliser ce type de relation. Un modèle de régression tente de créer un lien mathématique entre ces 
+variables et permet même d'estimer à un certain degré de certitude une prévision quant à la valeur que prendra ces 
+variables dans certains contextes.
+
+Par exemple, existe-t-il un lien entre le coût d'une main-d'oeuvre et le nombre d'unités produites? Grâce à un modèle de régression
+linéaire, on peut décrire et établir ce lien.
+
+\chapter{Régression linéaire simple}
+\subsection{Diagramme de dispersion}
+\subsection{Description du modèle}
+Soit X, une variable aléatoire indépendante et Y une variable aléatoire dépendante. Supposant un lien entre cette variable X et Y 
+et la présence de $n$ couples de données $(x_i, y_i), i=1 \dots n$, le modèle linéaire de régression linéaire simple aura la forme 
+suivante:
+$$ y_i = \beta_0 + \beta_1 x_i + \epsilon_i, i=1 \dots n $$ 
+
+
+Ce modèle est caractérisé par trois paramètres: $\beta_0, \beta_1 \text{ et } \epsilon$.
+
+\begin{itemize}
+    \item $\beta_0$ est une constante.
+    \item $\beta_1$ est un coefficient.
+    \item $\epsilon$ est une variable aléatoire qui varie selon l'index $i$ et représente le degré d'erreur du modèle en soit.
+\end{itemize}
+
+\begin{example}
+    Supposons que l'on cherche d'établir combien nous coûterait la production d'1 million de canards en plastique.
+    On a X, le nombre de canards en plastique produit. \sep
+    On a Y, le coût en main d'oeuvre. \sep
+    On a présentement $n=5$ données basées sur nos observations dans notre usine. \sep
+    Supposons qu'on aie $(x_1 = 500, y_1 = 1000\$)$,$ (x_2 = 10, y_2 = 500\$)$, \dots, $(x_5 = 5000, y_5 = 50400\$)$ \sep 
+    À partir de ce moment on peut trouver un $\beta_0, \beta_1 $ et établir l'intervalle de $\epsilon$. \sep
+    Dans cet exemple, $\beta_0 = 400$, $\beta_1 = 10$ \sep 
+    et $\epsilon = 0$ et ne varie pas. En effet, les valeurs arrivent \textit{exactement} et n'ont donc pas d'erreur.
+\end{example}
+Concrètement parlant, si on a une variable X représentant le nombre d'unitées produites et une variable Y représantant le coût de la main d'oeuvre pour produire ces unités,
+on aurait $x_1$ qui représente la première valeur
+Un modèle de régression linéaire simple représente le lien entre une variable indépendante X [TODO ADD DEF] et une variable dépendante Y.
+Notez bien l'utilisation
+
+\end{document}
