@@ -7,7 +7,7 @@ import argparse
 
 from jinja2 import Environment, BaseLoader, FileSystemLoader
 from binder.model import *
-from binder.parser import *
+from binder.parsing import *
 from binder.numbering import *
 from binder.utils import *
 

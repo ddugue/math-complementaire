@@ -6,7 +6,7 @@
       <div id="page">
         <h1>{{ chapter.title }}</h1>
         {% for token in chapter.tokens %}
-            {{ render(token, 'p') }}
+            {{ render(token) }}
         {% endfor %}
       </div>
     </div>

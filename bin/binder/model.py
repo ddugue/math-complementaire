@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Inline:
-    following: "Inline"
+    pass
 
 @dataclass
 class Text(Inline):
@@ -33,8 +33,16 @@ class Dots(Text):
     pass
 
 @dataclass
-class TextGroup:
+class Group:
+    # Arbitrary group of things
     tokens: list
+    
+class TextGroup(Group):
+    pass
+    
+@dataclass
+class ProofGroup(Group):
+    index: str
     
 ## SECTIONS: Sections and subsections with a numbering
 
@@ -76,6 +84,7 @@ class Section:
     index: str
     title: str
     tokens: list
+    node_name: ClassVar = 'section'
 
     @property
     def references(self):
@@ -87,10 +96,12 @@ class Section:
 
 class Subsection(Section):
     numbering: ClassVar = 'CHAPTERS.SECTIONS.SUBSECTIONS'
+    node_name: ClassVar = 'subsection'
 
 class Chapter(Section):
     numbering: ClassVar = 'CHAPTERS'
     is_appendix: bool = False
+    node_name: ClassVar = 'chapter'
 
     @property
     def sections(self):
@@ -129,7 +140,7 @@ class Corollary(Theorem):
     def name(self):
         if self._name: return self._name
         return f"Corollaire {self.index}"
-    
+
 
 @dataclass
 class Explanation:
@@ -141,14 +152,6 @@ class Proof:
     index: str
     _name: str = None
     explanation: Explanation = None
-    following: "Proof" = None
-    preceding: "Proof" = None
-
-    @property
-    def children(self):
-        yield self
-        if self.following:
-            yield from self.following.children
 
     @property
     def name(self):

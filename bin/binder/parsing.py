@@ -11,30 +11,56 @@ def parse_ref(cls, ref, contents):
         name = ref.args[1].string
     return cls(id=str(ref.args[0].string), _name=name)
 
-def parse_text_group(tokens):
-    "Take arbitrary tokens and tries to group them for text"
+
+# TODO: Move this to Model class? or at least to OOP
+def regroup(tokens):
+    "Take arbitrary tokens and tries to group them together"
     groups = []
     group = None
+
+    def close_group(groups, group):
+        if group:
+            groups.append(group)
+            group = None
+        return (groups, group)
+
+    def singleton(groups, ins, group):
+        "Ensures that we have a single instance of a group type at any moment"
+        if group is None or group.__class__ != ins.__class__:
+            if group:
+                groups.append(group)
+            return (groups, ins)
+        return (groups, group)
+
     while tokens:
-        token = tokens.pop()
+        token = pop_or_none(tokens)
         if isinstance(token, Inline):
-            if not group:
-                group = TextGroup(tokens=[])
+            groups, group = singleton(groups, TextGroup(tokens=[]), group)
+            close = False
             if isinstance(token, Text):
                 cls = token.__class__
                 splitted = token.text.split('\n\n', 1)
-                if len(splitted) > 1:
+                if len(splitted) > 1 and splitted[1]:
                     token = cls(text=splitted[0])
-                    tokens.append(cls(text=splitted[1]))
+                    tokens.insert(0, cls(text=splitted[1]))
+                    close = True
+            group.tokens.append(token)
+            if close: 
+                groups, group = close_group(groups, group)
+        elif isinstance(token, Proof):
+            groups, group = singleton(groups, ProofGroup(tokens=[], index=token.index), group)
+            peek = pop_or_none(tokens)
+            if isinstance(peek, Explanation):
+                token.explanation = peek
+            else:
+                tokens.insert(0, peek) # We reinsert to be treated since it isn't an explanation.
             group.tokens.append(token)
         else:
-            # Not a text object! We must close the current active group
-            if group:
-                groups.append(group)
-                group = None
-            groups.append(token)
-    if group:
-        groups.append(group)
+            # Not a groupped object! We must close the current active group
+            groups, group = close_group(groups, group)
+            if token:
+                groups.append(token)
+    groups, group = close_group(groups, group)
     return groups
 
 
@@ -66,7 +92,7 @@ def parse_section(clss, section, contents):
     inx = NUMBERING.value(cls.numbering)
     is_appendix = IS_APPENDIX
     
-    tokens = parse_text_group(parse_content(contents, until=clss))
+    tokens = regroup(parse_content(contents, until=[c.node_name for c in clss]))
     section = cls(index=inx, title=title, tokens=tokens)
     
     if isinstance(section, Chapter):
@@ -94,7 +120,7 @@ def parse_definition(definition, contents):
 def parse_example_or_proof(cls, example, contents):
     NUMBERING.get('CHAPTERS.SECTIONS.THEOREMS.COROLLARIES').bump()
     inx = NUMBERING.value('CHAPTERS.SECTIONS.THEOREMS.COROLLARIES')
-    
+    explanation = None
 
     name = get_or_none(example.args, 0)
     if name:
@@ -102,33 +128,14 @@ def parse_example_or_proof(cls, example, contents):
         name = name.string
     else:
         tokens = parse_content(example.contents)
+    return cls(tokens=tokens, index=inx, _name=name)
+    next_token = get_or_none(contents, 0)
+    if next_token:
+        n = parse_token(next_token, [])
 
-##########
-    next_tokens = parse_token(pop_or_none(contents), contents)
-    n = next_or_none(next_tokens)
+        if isinstance(n, Explanation):
+            explanation = n
 
-    if n and n.__class__ == cls:
-        # No Explanation but a following example
-        item = cls(tokens=tokens, index=inx, _name=name, following=n)
-        n.preceding = item
-        yield item
-    elif isinstance(n, Explanation):
-        # An explanation, we need to check the following one too
-        nn = next_or_none(next_tokens)
-        if not nn:
-            next_tokens = parse_token(pop_or_none(contents), contents)
-            nn = next_or_none(next_tokens)
-        if nn.__class__ == cls:
-            item = cls(tokens=tokens, index=inx, _name=name, explanation=n, following=nn)
-            nn.preceding = item
-            yield item
-        else:
-            yield cls(tokens=tokens, index=inx, _name=name, explanation=n)
-            if nn: yield nn       
-    else:
-        yield cls(tokens=tokens, index=inx, _name=name)
-        if n: yield n # N exists, but is not an explanation or a following proof/example
-    yield from next_tokens
 
 def parse_theorem(cls, theorem, contents):
     NUMBERING.get(cls.numbering).bump()
@@ -159,7 +166,8 @@ def parse_list(list, contents):
     return List(items=tokens)
 
 def parse_item(item, contents):
-    tokens = parse_content(contents, until='item')
+    print(item)
+    tokens = parse_content(item.contents)
     return Item(tokens=tokens)
 
 def parse_tokens(token, contents):
@@ -242,19 +250,20 @@ def parse_book(id, filename):
         
     return Book(id=id, title=title, chapters=chapters)
 
-def parse_content(contents, until=None):
+def parse_content(contents, until=[]):
     """ Return a list of Model objects for our AST """
     models = []
     
     while True:
         content = pop_or_none(contents)
-        peek = get_or_none(contents, 0)
-        if content:
-            tokens = parse_tokens(content, contents)
-            if isinstance(tokens, list):
-                models.extend(tokens)
-            else:
-                models.append(tokens) # Single item
-        if peek is None or peek == until:
+        if not content: break 
+        if hasattr(content, 'name') and content.name in until:
+            # We went too far:
+            contents.insert(0, content) # We reinsert it so it doesn't disappear
             break
+        tokens = parse_tokens(content, contents)
+        if isinstance(tokens, list):
+            models.extend(tokens)
+        else:
+            models.append(tokens) # Single item
     return models
