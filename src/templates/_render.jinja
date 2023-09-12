@@ -43,7 +43,7 @@
 {%- endmacro %}
 
 {% macro theorem(token, type) -%}
-<p {% if token.label %}id="{{ slug(token.label.id) }}"{% endif %}>
+<p class="theorem" {% if token.label %}id="{{ slug(token.label.id) }}"{% endif %}>
     <strong>
         {{ token.name }}
     </strong>
@@ -97,7 +97,7 @@
 
 {% macro definition(token) -%}
 <p class="definition" {% if token.label %}id="{{ slug(token.label.id) }}"{% endif %}>
-    <strong>{{ token.name }}</strong>.
+    <strong>{{ token.name }}</strong>
     {% for t in token.tokens %}
         {{ render(t) }}
     {% endfor %}

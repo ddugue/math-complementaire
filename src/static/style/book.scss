@@ -15,15 +15,24 @@
 @include reference.includes();
 @include ordered_list.includes();
 
-.appendix  .definition {
-    padding: 10px;
-    border: 1px solid #333;
-    box-shadow:  -1px 1px #333,
-            -2px 2px #333,
-            -3px 3px #333,
-            -4px 4px #333,
-            -5px 5px #333;
-    
+.definition, .theorem {
+    padding: 17px;
+    margin-top: 2em;
+    position: relative;
+    text-align: center;
+    border: 1px solid var(--text-color);
+    box-shadow:  -1px 1px var(--text-color),
+            -2px 2px var(--text-color),
+            -3px 3px var(--text-color),
+            -4px 4px var(--text-color),
+            -5px 5px var(--text-color);
+
+    & > strong:first-child {
+        position: absolute;
+        top: -1em;
+        left: 5px;
+        background: var(--background-color);
+    }
 }
 
 @media only screen and (max-width: 700px) {

@@ -1,0 +1,178 @@
+\documentclass[12pt]{book}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{comment}
+\usepackage{mathpazo} % Palatino font
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{relsize}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage[makeroom]{cancel}
+
+\usepackage[margin=0.5in]{geometry}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\newcommand*\conj[1]{\overbar{#1}}
+% STATS Shortcut
+\newcommand{\BP}{\Bbb P}
+\newcommand{\BR}{\Bbb R}
+\let\Bbb\mathbb
+\def\sep{\phantom{}}
+\newcommand\todo[1]{\phantom{#1}}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section]
+\newtheorem*{example}{Exemple}
+\newtheorem{theorem}{Theorême}[section]
+\newtheorem{corollary}{Corollaire}[theorem]
+\newtheorem{lemma}[theorem]{Lemme}  
+
+\title{Théorie des groupes}
+
+\begin{document}
+\chapter{Introduction}
+Qu'est-ce qu'un groupe?
+\chapter{Les Opérations}
+Il est tout d'abord nécessaire d'aborder le principe d'\textbf{opérations} avant de parler de groupes à proprement parlé.
+On connaît généralement le principe de ce qu'est une opération plutôt intuitivement, mais on pourrait donner plusieurs exemples d'opérations:
+l'\textbf{addition} (dénoté avec l'opérateur +), la soustraction (dénoté avec l'opérateur -) ou la multiplication (dénoté par $\cdot$).
+
+Évidemment une opération n'est pas simplement défini pour l'arithmétie. L'opérateur $\subset$ dénote une opération de sous-ensemble sur les ensembles par exemple.
+
+Il est aussi possible de créer de nouveaux opérateurs et de nouvelles opérations, mais tout d'abord, commençons par définir les propriétés et les
+définitions entourant le principe d'opérations. Dans le cadre de cet ouvrage, nous commencerons par l'\textbf{opération binaire}, un type
+d'opération qui nous permettra d'établir la définition de ce qu'est un groupe.
+\section{L'Opération Binaire}
+
+\begin{definition}[Opération binaire]
+    \label{def:operation_binaire}
+    Soit $S$, un ensemble non-vide, toute \hyperref[def:fonction]{fonction} dont le domaine est l'ensemble des \hyperref[def:relations]{relations} sur $S$ et l'image est $S$ tel que
+    
+    $$\ast : S \times S \mapsto S$$ est une \textbf{opération binaire}.
+\end{definition}
+
+On en comprend qu'une opération binaire:
+\begin{itemize}
+    \item Existe dans le cadre d'un ensemble non-vide.
+    \item Que c'est une \hyperref[def:fonction]{fonction} qui prend essentielement deux valeurs et en retourne une.
+    \item Que les composants de la \hyperref[def:pre_image]{préimage} et de l'\hyperref[def:image]{image} proviennent nécessairement du même ensemble.
+    \item Que toutes les combinaisons possibles $X \times X$ sont définies pour cette fonction
+\end{itemize}
+
+\todo{Add Examples}
+
+\section{Principe de fermeture}
+\todo{Add lien avec topologie}
+\begin{definition}[Fermeture de l'opération binaire]
+    \label{def:fermeture}
+    Soit $\ast$ une \hyperref[def:operation_binaire]{opération binaire} sur $S$ et $A$ un \hyperref[def:sous_ensemble]{sous-ensemble} de $S$. 
+    $A$ est \textbf{fermé} sous $\ast$ si et seulement si $\forall a,b \in A, a \ast b \in A$
+\end{definition}
+En d'autres mots, $A$ représente un sous-ensemble de $S$ pour lesquels chacun de ces éléments dont on applique l'opération binaire
+produira un élément aussi présent dans $A$.
+
+Par la définiton même de l'\hyperref[def:operation_binaire]{opération binaire}, $S$ est considéré fermé sous $\ast$. Donc si $\ast$
+est considéré comme une opération binaire sur $S$, elle est nécessairement fermée par définition.
+\todo{Ajouter example table de Caley}
+
+\section{Associativité}
+Généralement, afin d'être utile en mathématiques, on cherche à travailler avec des opérateurs dit \textbf{associatifs}. Cette 
+propriété nous permet d'abstraire l'opérateur de son fonctionnement. Tout d'abord la définition:
+\begin{definition}[Associativité]
+    \label{def:associativite}
+    Soit $\ast$ une \hyperref[def:operation_binaire]{opération binaire} sur $S$, $\ast$ est associative si et seulement si 
+    $$\forall a,b,c \in S, a \ast (b \ast c) = (a \ast b) \ast c$$
+\end{definition}
+Ainsi, peu importe l'ordre dans laquelle on applique l'opération donnera le même résultat. Par exemple, l'addition est associative alors
+que la soustraction ne l'est pas.
+\section{Commutativité}
+La commutativité, souvent de paire avec l'associativité est une propriété pratique lorsque l'on fait de l'algèbre, mais en aucun cas requise.
+\begin{definition}[Commutativité]
+    \label{def:commutativite}
+    Soit $\ast$ une \hyperref[def:operation_binaire]{opération binaire} sur $S$, $\ast$ est commutative si et seulement si 
+    $$\forall a,b \in S, a \ast b = b \ast a$$
+\end{definition}
+Ainsi, peu importe l'ordre des paramètres passées à la fonction ou à l'opération, le résultat sera le même.
+L'addition est commutative, mais la composition de fonction ne l'est pas.
+
+\section{Élément neutre}
+La présence d'un élément neutre dans une opération indique qu'il existe un élément pour lequel s'il est utilisé comme 
+paramètre de la fonction, redonnera la même valeur que l'autre paramètre. 
+
+\begin{definition}[Élément neutre]
+    \label{def:neutre}
+    Soit $e$ un élément de $S$ et $\ast$ une opération binaire de $S$. Si $$\forall a \in S, a \ast e = e \ast a = a$$
+    alors $e$ est un \textbf{élément neutre}.
+\end{definition}
+Un exemple classique est 1 pour la multiplication et le 0 pour l'addition.
+
+\begin{theorem}
+    \label{thm:neutre_unique} Soit $e$ un \hyperref[def:neutre]{élément neutre} de $S$ sur $\ast$, alors $e$ est unique.
+\end{theorem}
+
+\begin{proof}
+    Soit $e$ et $e'$, deux \hyperref[def:neutre]{éléments neutres} de $S$ sur $\ast$. \sep
+    $\forall a \in S, a \ast e = a$ \sep et $\forall a \in S, e' \ast a = a$. \sep
+    Il en suit que $e' \ast e = e'$ et $e' \ast e = e$ \sep.
+    Donc $e' = e' \ast e = e$, $e' = e$.
+\end{proof}
+\begin{comment}
+    On suppose deux éléments neutres différents afin de prouver qu'il n'existe
+    qu'une seule valeur possible et qu'en fait, en bout de ligne $e = e'$. \sep 
+    On utilise ici la définiton même de ce qu'est un élément neutre pour $e$. \sep 
+    Maintenant, on le fait pour $e'$ \sep 
+    On utilise le cas particulier de $a = e$ (puisque c'est $\forall a \in S$) et $a = e'$ \sep 
+    On en conclut que $e = e'$ et est donc unique.
+\end{comment}
+\section{Élément inverse}
+
+\chapter{Structures algébriques}
+
+\section{Semi-groupe}
+\section{Monoïde}
+\section{Groupe}
+\chapter{Propriétés des groupes}
+\appendix
+\chapter{Notions préalables}
+Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
+de références pour les exemples et les preuves qui seront amenés dans les chapitres suivants. Pour une explication
+plus complète et rigoureuse, il sera nécessaire de se réferrer aux livres précédents
+
+\begin{definition}[Sous-ensemble]
+    \label{def:sous_ensemble}
+\end{definition}
+
+\begin{definition}[Pré-image]
+    \label{def:pre_image}
+\end{definition}
+
+\begin{definition}[Image]
+    \label{def:image}
+\end{definition}
+
+\begin{definition}[Relation]
+    \label{def:relation}
+\end{definition}
+
+\begin{definition}[Produit cartésien]
+    \label{def:produit_cartesien}
+\end{definition}
+
+\begin{definition}[Fonction]
+    \label{def:fonction}
+\end{definition}
+
+
+\end{document}
