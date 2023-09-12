@@ -48,3 +48,5 @@ book.out
 book.log
 book.synctex.gz
 book.pdf
+
+.garden.json
