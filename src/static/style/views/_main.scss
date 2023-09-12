@@ -3,12 +3,20 @@
 
 body {
     --background-color: #FDFDFD;
+    --border-color: #DDD;
+    --link-color: #4183c4;
     background: var(--background-color);
     margin: 0;
     display: flex;
     #{x.v(--text-color)}: #333;
     #{x.v(--text-size)}: 20px;
     #{x.v(--text-font)}: unquote("'Arimo', sans-serif");
+    &.yesterday {
+        --background-color: #190F00;
+        #{x.v(--text-color)}: #FF9000;
+        --link-color: #FF9000;
+        --border-color: #844D05;
+    }
 }
 
 main {

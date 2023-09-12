@@ -9,7 +9,7 @@
 nav {
     // background: linear-gradient(to right, darken($base-color, 10%), darken($base-color, 15%));
     // background: #F0F0F0;
-    border-right: solid 1px #DDD;
+    border-right: solid 1px var(--border-color);
     width: 300px;
     position: relative;
     font-size: 0.8em;

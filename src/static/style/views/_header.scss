@@ -1,7 +1,7 @@
 header {
     height: 9vh;
     padding: 0 1em;
-    border-bottom: 1px solid #DDD;
+    border-bottom: 1px solid var(--border-color, #DDD);
     display: flex;
     align-items: center;
     &:hover #logo {
@@ -14,7 +14,11 @@ header {
         &:hover, &.active {
             opacity: 1;
         }
+        [href] {
+            color: inherit;
+        }
     }
+    :link { color: inherit; }
 
     #logo {
         opacity: 0;

@@ -20,7 +20,7 @@
     text-size-adjust: 100%;
     #{x.v(line.$color)}: var(--text-color);
     #{x.v(line.$background)}: var(--background-color);
-
+    
     h1,h2 { margin-top: 1.275em; }
     h1 { font-size: 2em; }
     h2 { font-size: 1.75em; }
@@ -29,7 +29,7 @@
 
     @include x.extend(text.$Text) {
             a {
-            color: #4183c4;
+            color: var(--link-color);
             text-decoration: none;
         }
     }
