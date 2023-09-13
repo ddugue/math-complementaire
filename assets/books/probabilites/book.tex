@@ -1,0 +1,61 @@
+\documentclass[12pt]{book}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{comment}
+\usepackage{mathpazo} % Palatino font
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{relsize}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage[makeroom]{cancel}
+
+\usepackage[margin=0.5in]{geometry}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\newcommand*\conj[1]{\overbar{#1}}
+% STATS Shortcut
+\newcommand{\BP}{\Bbb P}
+\newcommand{\BR}{\Bbb R}
+\let\Bbb\mathbb
+\def\sep{\phantom{}}
+\newcommand\todo[1]{\phantom{#1}}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section]
+\newtheorem*{example}{Exemple}
+\newtheorem{theorem}{Theorême}[section]
+\newtheorem{corollary}{Corollaire}[theorem]
+\newtheorem{lemma}[theorem]{Lemme}  
+
+\title{Théorie des groupes}
+
+\begin{document}
+\chapter{Introduction}
+Qu'est-ce que les probablités?
+
+\chapter{Terminologie}
+On tente ici de définir plusieurs termes utilisés en statistique. En effet, il est nécessaire d'introduire
+certaines définitions afin de pouvoir bien établir ce dont on parle.
+
+\section{Expérience probabiliste}
+\begin{definition}[Expérience aléatoire]
+    \label{def:exp_ale}
+    Soit $e$ un élément de $S$ et $\ast$ une opération binaire de $S$. Si $$\forall a \in S, a \ast e = e \ast a = a$$
+    alors $e$ est un \textbf{élément neutre}.
+\end{definition}
+
+
+
+\end{document}

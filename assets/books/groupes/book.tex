@@ -106,6 +106,7 @@ La commutativité, souvent de paire avec l'associativité est une propriété pr
 \end{definition}
 Ainsi, peu importe l'ordre des paramètres passées à la fonction ou à l'opération, le résultat sera le même.
 L'addition est commutative, mais la composition de fonction ne l'est pas.
+\todo{Ajouter définition commute}
 
 \section{Élément neutre}
 La présence d'un élément neutre dans une opération indique qu'il existe un élément pour lequel s'il est utilisé comme 
@@ -137,6 +138,17 @@ Un exemple classique est 1 pour la multiplication et le 0 pour l'addition.
     On en conclut que $e = e'$ et est donc unique.
 \end{comment}
 \section{Élément inverse}
+Un élément inverse dans une opération est un élément différent pour chaque élément de l'ensemble duquel l'opération 
+resultera en l'élément neutre.
+\begin{definition}[Élément inverse]
+    \label{def:inverse}
+    Soit $S$ un ensemble et $\ast$ un opération binaire sur $S$ avec un \hyperref[def:neutre]{élément neutre} $e$.
+
+    Un élément $a$ est dit posséder un \textbf{élément inverse} $a^{-1}$ si et seulement si 
+    $$ a \ast a^{-1} = a^{-1} \ast a = e $$
+\end{definition}
+
+Crucialement, il est important de noter que $e = e^{-1}$. \todo{Ajouter preuve}.
 
 \chapter{Structures algébriques}
 
