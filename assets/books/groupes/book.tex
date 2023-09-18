@@ -151,10 +151,78 @@ resultera en l'élément neutre.
 Crucialement, il est important de noter que $e = e^{-1}$. \todo{Ajouter preuve}.
 
 \chapter{Structures algébriques}
+Commençons par définir ce qu'on entend par structure algébrique:
+\begin{definition}[Structure algébrique]
+    \label{def:structure_algebrique}
+    Une \textbf{structure algébrique} $(S, \ast, \dots)$ est un ensemble \textit{non vide} d'éléments avec une ou plusieurs
+    operations binaires définies sur cet ensemble.
+\end{definition}
+Notons que pour toute structure algébrique:
+\begin{itemize}
+    \item L'ensemble $S$ doit être non vide
+    \item Être définie pour l'ensemble complet par ses opérateurs, surjective sur ses opérateurs \todo{Add link}.
+    \item En d'autres mot, les opérateurs sont \hyperref[def:fermeture]{fermés} sur $S$
+\end{itemize}
+
+Il existe différents types de structure algébrique possédant différentes propriétés et définis par certaines
+caractéristiques sur l'ensemble $S$ ou sur les operations binaires le composant.
 
 \section{Semi-groupe}
+\begin{definition}[Semi-groupe]
+    \label{def:semi_groupe}
+    Un \textbf{semi-groupe} est une \hyperref[def:structure_algebrique]{structure algébrique} dont l'\hyperref[def:operation_binaire]{opérateur} est 
+    \hyperref[def:associativite]{associatif}.
+\end{definition}
+Afin de prouver qu'une structure algébrique soit un semi-groupe, il faut:
+\begin{itemize}
+    \item Prouver que l'opérateur $\ast$ est fermé sur $S$. (et donc que $S$ est aussi non-vide)
+    \item Prouver que l'opérateur $\ast$ est associatif.
+\end{itemize}
+
 \section{Monoïde}
+\begin{definition}[Monoïde]
+    \label{def:monoide}
+    Un \textbf{monoïde} est un \hyperref[def:semi_groupe]{semi-groupe} (une structure algébrique associative) avec un \hyperref[def:neutre]{élément neutre}.
+\end{definition}
+Afin de prouver qu'une structure algébrique soit un monoïde, il faut:
+\begin{itemize}
+    \item Prouver que l'opérateur $\ast$ est fermé sur $S$. (et donc que $S$ est aussi non-vide)
+    \item Prouver que l'opérateur $\ast$ est associatif.
+    \item Trouver l'élément neutre (ou prouver qu'il existe).
+\end{itemize}
+\todo{Add exemple 2.26}
+\begin{example}
+    Prouvons que l'ensemble des paires ordonnées $S = \{(a, b) | a, b \in \Bbb R\}$ et l'opération $\ast$ tel que $(a, b) \ast (c, d) = (a + c, b + d + 2bd)$ est un monoïde. \sep \\
+    1. L'opérateur $\ast$ est fermé, car le résultat de l'opération $\ast$ est $\in \Bbb R$ pour la paire ordonnée résultante.\sep 
+    En effet $a + c \in \Bbb R$, car $a, c \in \Bbb R$ est l'addition de deux nombres réels est un réel. \sep 
+    L'argument est similaire pour $b + d + 2bd$, car $b, d, 2 \in \Bbb R$. \sep \\
+    2.L'opérateur est associatif, car $(a_1,b_1) \ast ( (a_2, b_2) \ast (a_3, b_3) ) =  $ \sep $(a_1,b_1) \ast (a_2 + a_3, b_2 + b_3 + 2b_2b_3) =$ \sep  $(a_1 + a_2 + a_3, b_1 + b_2 + b_3 + 2b_2b_3 + 2b_1b_2 + 2b_1b_3 + 4b_1b_2b_3)$ \sep 
+    et $( (a_1,b_1) \ast (a_2, b_2)  ) \ast (a_3, b_3) = $ \sep $ (a_1 + a_2, b_1 + b_2 + 2b_1b_2) \ast (a_3, b_3) = $ \sep $(a_1 + a_2 + a_3, b_3 + b_1 + b_2 + 2b_1b_2 + 2b_3b_1 + 2b_3b_2 + 4b_1b_2b_3)$ \\
+    3.On retrouve l'élément neutre en $(0, 0)$, car $(a_1, b_1) \ast (0, 0) =$ \sep $(a_1 + 0, b_1 + 0 + 2b_10) = $ \sep $(a_1, b_1)$
+\end{example}
+
 \section{Groupe}
+\begin{definition}[Groupe]
+    \label{def:groupe}
+    Un \textbf{groupe} est un \hyperref[def:monoide]{monoïde} (une structure algébrique associative avec un élément neutre), noté $(G, \ast)$, dont chaque élément possède un \hyperref[def:inverse]{inverse}.
+\end{definition}
+Afin de prouver qu'une structure algébrique soit un groupe, il faut:
+\begin{itemize}
+    \item Prouver que l'opérateur $\ast$ est fermé sur $S$. (et donc que $S$ est aussi non-vide)
+    \item Prouver que l'opérateur $\ast$ est associatif.
+    \item Trouver l'élément neutre (ou prouver qu'il existe).
+    \item Trouver ou prouver que chaque élément $a \in G$ possède un inverse $a^{-1}$
+\end{itemize}
+\begin{example}
+    Soit $a \in \Bbb R - \{0, 1\}$ et $G_a = \{a^k | k \in \Bbb Z\}$. Prouvons que c'est un groupe avec $\cdot$, la multiplication habituelle: \sep \\
+    1. La fermeture: $a^{k1} \cdot a^{k2} = a^{k1 + k2}$. Or, $(k_1 + k_2) \in \Bbb Z \implies a^{k1 + k2} \in G_a$ \sep \\
+    2. L'associativité: $a^{k1} \cdot (a^{k2} \cdot a^{k3}) =$ \sep 
+    $a^{k1} \cdot (a^{k2 + k3}) = a^{k1 + k2 + k3}$ et \sep 
+    $(a^{k1} \cdot a^{k2}) \cdot a^{k3} = a^{k1 + k2} \cdot a^{k3} = a^{k1 + k2 + k3}$ \sep \\
+    3. L'élément neutre: Posons $e = a^0$, en effet $a^k \cdot a^0 = a^0 \cdot a^k = a^k \cdot 1 = a^k$ \sep \\
+    4. L'inverse: Posons $a^{-k}$, ainsi, $a^k \cdot a^{-k} = a^{k + (-k)} = a^0 = e$ 
+\end{example}
+
 \chapter{Propriétés des groupes}
 \appendix
 \chapter{Notions préalables}
