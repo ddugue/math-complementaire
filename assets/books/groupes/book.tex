@@ -119,6 +119,8 @@ paramètre de la fonction, redonnera la même valeur que l'autre paramètre.
 \end{definition}
 Un exemple classique est 1 pour la multiplication et le 0 pour l'addition.
 
+\subsection{Unicité de la neutralité}
+Une propriété importante est l'unicité de l'élément neutre dans un monoïde.
 \begin{theorem}
     \label{thm:neutre_unique} Soit $e$ un \hyperref[def:neutre]{élément neutre} de $S$ sur $\ast$, alors $e$ est unique.
 \end{theorem}
@@ -137,6 +139,7 @@ Un exemple classique est 1 pour la multiplication et le 0 pour l'addition.
     On utilise le cas particulier de $a = e$ (puisque c'est $\forall a \in S$) et $a = e'$ \sep 
     On en conclut que $e = e'$ et est donc unique.
 \end{comment}
+
 \section{Élément inverse}
 Un élément inverse dans une opération est un élément différent pour chaque élément de l'ensemble duquel l'opération 
 resultera en l'élément neutre.
@@ -148,7 +151,37 @@ resultera en l'élément neutre.
     $$ a \ast a^{-1} = a^{-1} \ast a = e $$
 \end{definition}
 
-Crucialement, il est important de noter que $e = e^{-1}$. \todo{Ajouter preuve}.
+Un exemple simple d'inverse est pour l'addition sur les $\Bbb R$: si $a = 2 \implies a^{-1} = -2$. En effet $2 + (-2) = 0$ (0 est l'élément neutre de l'addition).
+
+\subsection{Inverse de l'élément neutre}
+\begin{theorem}
+    \label{thm:inverse_neutre} Soit $e$ un \hyperref[def:neutre]{élément neutre} et $e^{-1}$, l'\hyperref[def:inverse]{inverse} de $e$ pour l'opération binaire $\ast$,
+    alors $e = e^{-1}$.
+\end{theorem}
+\begin{proof}
+    Par la définition de l'\hyperref[def:inverse]{inverse}: $ e^{-1} \ast e = e $. \\ \sep 
+    Par la définition de l'\hyperref[def:neutre]{élément neutre}: $ e^{-1} \ast e = e^{-1} $ \\ \sep
+    Donc: $e^{-1} = e$
+\end{proof}
+
+\subsection{Unicité de l'inversibilité}
+\begin{theorem}
+    \label{thm:inverse_unique} Soit $a$ et $a^{-1}$, son inverse sur $\ast$, une \hyperref[def:operation_binaire]{opération binaire} \hyperref[def:associativite]{associative}, $a^{-1}$ est unique.
+\end{theorem}
+\begin{proof}
+    Soit $a$, $a_1^{-1}$, $a_2^{-1}$ et $e$, un élément quelconque, deux \hyperref[def:inverse]{éléments inverses} et l'\hyperref[def:neutre]{élément neutre} sur $\ast$. \sep \\
+    Par définition de l'inverse: $a \ast a_1^{-1} = e$ et $a_2^{-1} \ast a = e$. \sep \\
+    $a_2^{-1} \ast e = a_2^{-1}$ \sep \\
+    $\implies a_2^{-1} \ast (a \ast a_1^{-1}) = a_2^{-1}$ \sep \\
+    $\implies (a_2^{-1} \ast a) \ast a_1^{-1} = a_2^{-1}$ \sep \\
+    $\implies e \ast a_1^{-1} = a_2^{-1}$ \sep \\
+    $\implies a_1^{-1} = a_2^{-1}$.
+    Donc l'inverse est unique.
+\end{proof}
+
+Attention, cela ne veut pas dire que $a^{-1}$ est distinct! Il est possible que $a = a^{-1}$ par exemple, voir l'exemple \hyperref[thm:inverse_neutre]{ci-haut}.
+
+
 
 \chapter{Structures algébriques}
 Commençons par définir ce qu'on entend par structure algébrique:
@@ -223,7 +256,50 @@ Afin de prouver qu'une structure algébrique soit un groupe, il faut:
     4. L'inverse: Posons $a^{-k}$, ainsi, $a^k \cdot a^{-k} = a^{k + (-k)} = a^0 = e$ 
 \end{example}
 
-\chapter{Propriétés des groupes}
+\section{Groupe abélien}
+\begin{definition}[Groupe abélien]
+    \label{def:groupe_abelien}
+    Un \textbf{groupe abélien} ou \textbf{groupe commutatif} est un \hyperref[def:groupe]{groupe} 
+    (une structure algébrique associative avec un élément neutre et un élément inverse $\exists a^{-1} \forall a \in G$), 
+    dont l'opération binaire est \hyperref[def:commutativite]{commutative}.
+\end{definition}
+Afin de prouver qu'une structure algébrique soit un groupe, il faut:
+\begin{itemize}
+    \item Prouver que l'opérateur $\ast$ est fermé sur $S$. (et donc que $S$ est aussi non-vide)
+    \item Prouver que l'opérateur $\ast$ est associatif.
+    \item Prouver que l'opérateur $\ast$ est commutatif.
+    \item Trouver l'élément neutre (ou prouver qu'il existe).
+    \item Trouver ou prouver que chaque élément $a \in G$ possède un inverse $a^{-1}$
+\end{itemize}
+
+
+\chapter{Propriété des groupes}
+Maintenant que les définitions axiomatiques ont été données, nous pouvons commencer á donner les propriétés intéressantes
+des groupes.
+
+\section{Inversibilité dans un groupe}
+\begin{theorem}
+    \label{thm:groupe_inversible}
+    Soit $(G, \ast)$ un groupe et $a, b \in G$, alors $(a \ast b)^{-1} = b^{-1} \ast a^{-1}$
+\end{theorem}
+\begin{proof}
+    Posons $c = (a \ast b)$ et $d = b^{-1} \ast a^{-1}$. \sep
+    $c, d \in G$ par le principe de fermeture. \sep \\
+    $c^{-1} \ast c = e$ et $d \ast d^{-1} = e$ \sep \\
+    $\implies (c^{-1} \ast (a \ast b)) \ast ((b^{-1} \ast a^{-1}) \ast d^{-1}) = e$ \sep \\
+    $\implies (c^{-1} \ast a) \ast (b \ast b^{-1}) \ast (a^{-1} \ast d^{-1}) = e$ \sep \\
+    $\implies (c^{-1} \ast a) \ast e \ast (a^{-1} \ast d^{-1}) = e$ \sep \\
+    $\implies c^{-1} \ast (a \ast a^{-1}) \ast d^{-1} = e$ \sep \\
+    $\implies c^{-1} \ast e \ast d^{-1} = e$ \sep \\
+    $\implies c^{-1} \ast d^{-1} = e$ \sep \\
+    $d^{-1}$ est l'inverse de $c^{-1}$ et puisque l'élément inverse est unique et $c$ est l'inverse de $c^{-1}$, $c = d^{-1}\implies (a \ast b)^{-1} = b^{-1} \ast a^{-1}$
+\end{proof}
+\section{Loi d'associativité généralisée}
+\section{Loi de simplification}
+\section{Unicité des solutions}
+\section{Cardinalité d'un groupe}
+\section{Loi des exposants}
+
 \appendix
 \chapter{Notions préalables}
 Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
@@ -254,5 +330,22 @@ plus complète et rigoureuse, il sera nécessaire de se réferrer aux livres pr�
     \label{def:fonction}
 \end{definition}
 
+\chapter{Cheatsheet}
+Voici ici un résumé de certaines propriétés importantes d'objets mathématique. Utile lorsque l'on désire une vue d'ensemble.
+\section{Groupe}
+Un \hyperref[def:groupe]{groupe} est un type de \hyperref[def:monoide]{monoide} qui est un type de \hyperref[def:semi_groupe]{semi-groupe} qui est une \hyperref[def:structure_algebrique]{structure algébrique}
+, s'écrit $(G, \ast)$ et possède les propriétés suivantes:
+\begin{itemize}
+    \item $\ast$ est une \hyperref[def:operation_binaire]{opération binaire} \hyperref[def:associativite]{associative} et \hyperref[def:fermeture]{fermée} sur $G$.
+    \item Si $\ast$ est \hyperref[def:commutativite]{commutative}, alors on dit que le groupe est un \hyperref[def:groupe_abelien]{groupe abélien}.
+    \item Possède un \hyperref[def:neutre]{élément neutre} \hyperref[thm:neutre_unique]{unique}.
+    \item Possède pour chaque élément de $G$ un \hyperref[def:inverse]{inverse} \hyperref[thm:inverse_unique]{unique}.
+    \item L'inverse du résultat de l'opération = l'opération sur les inverses. Théorême.
+    \item Possède la possibilité de se simplifier: $a \ast c = b \ast c \implies a = b$.
+    \item Les solutions aux équations sont uniques.
+    \item Possède au moins six éléments si non-commutatif.
+    \item Obéissent aux lois des exposants.
+\end{itemize}
+\todo{Add links to def and thm}
 
 \end{document}
