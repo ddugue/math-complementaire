@@ -15,6 +15,10 @@
 @include reference.includes();
 @include ordered_list.includes();
 
+.tabs {
+    margin-bottom: 0.85em;
+}
+
 .definition, .theorem {
     padding: 17px;
     margin-top: 2em;
