@@ -31,6 +31,7 @@
 \newcommand{\BR}{\Bbb R}
 \let\Bbb\mathbb
 \def\sep{\phantom{}}
+\newcommand\todo[1]{\phantom{#1}}
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}[section]
 \newtheorem*{example}{Exemple}
@@ -43,14 +44,87 @@
 \begin{document}
 \chapter{Introduction}
 Qu'est-ce que la topologie?
-\chapter{Espaces normés}
+
+
+\chapter{Espaces vectoriels}
+\todo{Complete}
+\begin{definition}
+    \label{def:espace_vectoriel} 
+    Soit $K$ un corps commutatif, Un \textbf{espace vectoriel} est un ensemble de vecteurs $V$ muni de deux opérations binaires
+\end{definition}
+
+\section{Addition de vecteurs}
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\section{Multiplication par un scalaire}
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\section{Produit scalaire}
+\begin{definition}
+    \label{def:produit_scalaire}
+\end{definition}
+\subsection{Produit scalaire dans R}
+\begin{definition}
+    \label{def:produit_scalaire_r}
+\end{definition}
+\subsection{Produit scalaire dans Rn}
+\begin{definition}
+    \label{def:produit_scalaire_rn}
+\end{definition}
+
+
+\chapter{Inégalité de Cauchy-Schwarz}
 \begin{lemma}[Inégalité de Cauchy-Schwarz]
-Soit $a_1,a_2,\dots,a_n$ et $b_1,b_2,\dots,b_n$ des nombre réels arbitraires, alors:
-$$ (\sum_{i=1}^{n}a_ib_i)^2 \leq (\sum_{i=1}^{n}a_i^2)(\sum_{i=1}^{n}b_i^2) $$   
+    Soit $a_1,a_2,\dots,a_n$ et $b_1,b_2,\dots,b_n$ des nombre réels arbitraires, alors:
+    $$ (\sum_{i=1}^{n}a_ib_i)^2 \leq (\sum_{i=1}^{n}a_i^2)(\sum_{i=1}^{n}b_i^2) $$   
 \end{lemma}
+
 \begin{proof}
-    On cherche 
 \end{proof}
+
+
+\chapter{Espaces normés}
+
+\section{Norme}
+\begin{definition}
+    \label{def:norme}
+\end{definition}
+
+\subsection{Norme dans R}
+
+\subsection{Norme dans Rn}
+
+\subsection{Norme par le produit scalaire}
+
+\section{Espace préhilbertien}
+
+\chapter{Espaces métriques}
+\section{Les métriques}
+\begin{definition}
+    \label{def:metrique}
+\end{definition}
+
+\section{Convergence des suites}
+\section{Bornes}
+\section{Suites de Cauchy}
+\section{Complétude}
+\section{Continuité}
+\section{Contractions}
+\section{Points fixes}
+
+
+\chapter{Espaces topologiques}
+\section{Topologie}
+\section{Boule}
+\section{Voisinage}
+\section{Point intérieur}
+\section{Ouverture}
+
+
 \appendix
 \chapter{Notions préalables}
 Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
@@ -80,4 +154,16 @@ plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre pré
     Un ensemble est dit ouvert si tous ces éléments sont des \hyperref[def:point_int]{points intérieurs.}
 \end{definition}
 
+\begin{definition}[Groupe abélien]
+    \label{def:groupe_abelien}
+    Un \textbf{groupe abélien} ou \textbf{groupe non-commutatif} est un groupe
+    (une structure algébrique associative avec un élément neutre et un élément inverse $(\forall a \in G, \exists a^{-1})$), 
+    dont l'opération binaire est commutative.
+\end{definition}
+\todo{Add reference}
+
+\chapter{Cheatsheet}
+\section{Espace Rn}
+\section{Norme}
+\section{Métrique}
 \end{document}
