@@ -31,6 +31,7 @@
 \newcommand{\BR}{\Bbb R}
 \let\Bbb\mathbb
 \def\sep{\phantom{}}
+\newcommand\todo[1]{\phantom{#1}}
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}[section]
 \newtheorem*{example}{Exemple}
@@ -43,6 +44,87 @@
 \begin{document}
 \chapter{Introduction}
 Qu'est-ce que la topologie?
+
+
+\chapter{Espaces vectoriels}
+\todo{Complete}
+\begin{definition}
+    \label{def:espace_vectoriel} 
+    Soit $K$ un corps commutatif, Un \textbf{espace vectoriel} est un ensemble de vecteurs $V$ muni de deux opérations binaires
+\end{definition}
+
+\section{Addition de vecteurs}
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\section{Multiplication par un scalaire}
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\section{Produit scalaire}
+\begin{definition}
+    \label{def:produit_scalaire}
+\end{definition}
+\subsection{Produit scalaire dans R}
+\begin{definition}
+    \label{def:produit_scalaire_r}
+\end{definition}
+\subsection{Produit scalaire dans Rn}
+\begin{definition}
+    \label{def:produit_scalaire_rn}
+\end{definition}
+
+
+\chapter{Inégalité de Cauchy-Schwarz}
+\begin{lemma}[Inégalité de Cauchy-Schwarz]
+    Soit $a_1,a_2,\dots,a_n$ et $b_1,b_2,\dots,b_n$ des nombre réels arbitraires, alors:
+    $$ (\sum_{i=1}^{n}a_ib_i)^2 \leq (\sum_{i=1}^{n}a_i^2)(\sum_{i=1}^{n}b_i^2) $$   
+\end{lemma}
+
+\begin{proof}
+\end{proof}
+
+
+\chapter{Espaces normés}
+
+\section{Norme}
+\begin{definition}
+    \label{def:norme}
+\end{definition}
+
+\subsection{Norme dans R}
+
+\subsection{Norme dans Rn}
+
+\subsection{Norme par le produit scalaire}
+
+\section{Espace préhilbertien}
+
+\chapter{Espaces métriques}
+\section{Les métriques}
+\begin{definition}
+    \label{def:metrique}
+\end{definition}
+
+\section{Convergence des suites}
+\section{Bornes}
+\section{Suites de Cauchy}
+\section{Complétude}
+\section{Continuité}
+\section{Contractions}
+\section{Points fixes}
+
+
+\chapter{Espaces topologiques}
+\section{Topologie}
+\section{Boule}
+\section{Voisinage}
+\section{Point intérieur}
+\section{Ouverture}
+
+
 \appendix
 \chapter{Notions préalables}
 Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
@@ -71,5 +153,82 @@ plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre pré
     \label{def:ensemble_ouvert}
     Un ensemble est dit ouvert si tous ces éléments sont des \hyperref[def:point_int]{points intérieurs.}
 \end{definition}
+
+\begin{definition}[Groupe abélien]
+    \label{def:groupe_abelien}
+    Un \textbf{groupe abélien} ou \textbf{groupe non-commutatif} est un groupe
+    (une structure algébrique associative avec un élément neutre et un élément inverse $(\forall a \in G, \exists a^{-1})$), 
+    dont l'opération binaire est commutative.
+\end{definition}
+\todo{Add reference}
+
+\chapter{Cheatsheet}
+\section{Formules}
+\subsection{Inégalité de Cauchy-Schwarz}
+$$(\sum_{i=1}^{n} a_ib_i)^2 \leq \sum_{i=1}^{n} a_i^2 \cdot \sum_{i=1}^{n} b_i ^ 2$$ 
+\subsection{Convergence série géométrique}
+$$|r| < 1 \implies \sum_{n=0}^{\infty} r^n \to \frac{1}{1 - r} $$
+\subsection{Inégalité du triangle}
+$$| ||x|| - ||y|| | \leq ||x \pm y|| \leq ||x|| + ||y|| $$
+\section{Types d'espace}
+\begin{itemize}
+    \item Espace vectoriel: Ensemble d'éléments appellés vecteurs, muni de l'addition et de la multiplication par un scalaire.
+    \item Espace préhilbertien: Espace vectoriel muni d'un produit scalaire.
+    \item Espace normé: Espace vectoriel muni d'une norme.
+    \item Espace métrique: Ensemble \textbf{quelconque} munie d'une métrique.
+    \item Espace métrique complet:
+    \item Espace topologique:
+\end{itemize}
+\section{Fonctions spéciales}
+\subsection{Produit scalaire}
+\begin{itemize}
+    \item Un produit scalaire est une fonction de $V \times V \to \Bbb R$, noté $\langle x, y \rangle$ avec 5 propriétés qui la définisse
+    \item $\langle x, x \rangle \geq 0$
+    \item $\langle x, x \rangle = 0 \iff x = 0$
+    \item $\langle x, y \rangle = \langle y, x \rangle$
+    \item $\langle x + y, z\rangle = \langle x, z \rangle + \langle y, z \rangle$
+    \item $\alpha\langle x, y \rangle = \langle \alpha x, y \rangle \forall \alpha \in \Bbb R$
+\end{itemize}
+\subsection{Norme}
+\begin{itemize}
+    \item Une norme sur $V$ est une fonction $V$ vers $\Bbb R$, noté $x \mapsto ||x||$ avec 4 propriétés qui la définisse:
+    \item $||x|| \geq 0$
+    \item $||x|| = 0 \iff x = 0$
+    \item $||\alpha x|| = |\alpha| \cdot ||x||$
+    \item $||x + y || \leq ||x|| + ||y||$
+    \item Norme euclidienne: $\sqrt{x_1^2 + x_2^2 + \dots + x_n^2}$
+    \item Le produit scalaire est une norme.
+\end{itemize}
+\subsection{Métrique}
+\begin{itemize}
+    \item Une métrique est une fonction $X \times X \to [0, \infty$ avec les 4 propriétés suivantes:
+    \item $d(x,y) \geq 0$
+    \item $d(x,y) = d(y, x)$
+    \item $d(x,y) = 0 \iff x = y$
+    \item $d(x,y) \leq d(x, z) + d(z, y)$
+    \item Métrique discrète: $d(x,y) = 0$ si $x = y$, 1 si $x \neq 1$
+    \item La norme est une métrique
+\end{itemize}
+\section{Définition topologiques}
+\begin{itemize}
+    \item \textbf{Boule ouverte} : $B(x, r) = \{y \in R^n : || x - y || < r\}, r > 0$
+    \item \textbf{Boule fermée} : $B(x, r) = \{y \in R^n : || x - y || \leq r\}, r > 0$
+    \item \textbf{Point intérieur}: $x \in \Bbb R^n \text{ est un point intérieur de } E \iff \exists \delta > 0 : B(x, \delta) \subset E$
+    \item \textbf{Ensemble ouvert}: $E\text{ est ouvert} \iff E = int(E)$
+    \item \textbf{Convergence suite}: $\forall \epsilon > 0, \exists M \in \Bbb N \text{ t q} m \geq M \implies d(x_m, x) < \epsilon$
+    \item \textbf{Ensemble borné}: $\exists x_0 \in X \land \exists r > 0, \forall x \in A, d(x_0, x) < r$
+\end{itemize}
+
+\chapter{Exercices}
+\section{Examen 1}
+\subsection{Cours 2}
+2.1 Soit $V$, un espace vectoriel réel sur lequel on a défini un produit scalaire et posons $||x|| = \sqrt{\langle x, x \rangle}$
+2.1 a) Montrer que $\langle x, y \rangle \leq ||x|| \cdot ||y||$
+\begin{align*}
+    & \langle x, y \rangle \leq \langle ||x||x, ||y||y \rangle  \\
+    & \langle x, y \rangle \leq ||x||||y||\langle x, y \rangle \\
+    \implies & \langle x, y \rangle \leq \sqrt{\langle x, x \rangle} \cdot \sqrt{\langle y, y \rangle} \\
+    \implies & \langle x, y \rangle^2 \leq \langle x, x \rangle \cdot \langle y, y \rangle \\
+\end{align*}
 
 \end{document}
