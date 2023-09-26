@@ -1,0 +1,64 @@
+\documentclass[12pt]{book}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{comment}
+\usepackage{mathpazo} % Palatino font
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{relsize}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage[makeroom]{cancel}
+
+\usepackage[margin=0.5in]{geometry}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\newcommand*\conj[1]{\overbar{#1}}
+% STATS Shortcut
+\newcommand{\BP}{\Bbb P}
+\newcommand{\BR}{\Bbb R}
+\let\Bbb\mathbb
+\def\sep{\phantom{}}
+\newcommand\todo[1]{\phantom{#1}}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section]
+\newtheorem*{example}{Exemple}
+\newtheorem{theorem}{Theorême}[section]
+\newtheorem{corollary}{Corollaire}[theorem]
+\newtheorem{lemma}[theorem]{Lemme}  
+
+\title{Probabilités}
+
+\begin{document}
+
+\chapter{Variable aléatoire}
+\begin{definition}[Variable aléatoire]
+    \label{def:variable_aleatoire}
+    Soit $X$, une \textbf{variable aléatoire} et $\Omega$, l'ensemble de toutes les valeurs possibles
+    d'une expérience aléatoire.
+
+    $X$ est un fonction tel que:
+    $$ X: \Omega \to \Bbb R$$
+\end{definition}
+
+\begin{example}
+    Prenons l'expérience qui consiste à lancer deux dés:
+    $$ \Omega = {(\omega_1, \omega_2): \omega_1 = 1 \dots 6, \omega_2 = 1 \dots 6} $$
+    La variable aléatoire $X$ définie comme la somme des deux dés:
+    $$ X : \Omega \to {2, \dots, 12} \subset \Bbb R; (\omega_1, \omega_2) \mapsto \omega_1 + \omega_2 $$
+\end{example}
+\end{document}
+
+ f(x) = \frac{x^5}{20}-\frac{3 x^4}{4}+\frac{17 x^3}{4}-\frac{45 x^2}{4}+\frac{117 x}{10}+6

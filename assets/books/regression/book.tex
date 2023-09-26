@@ -31,6 +31,7 @@
 \newcommand{\BR}{\Bbb R}
 \let\Bbb\mathbb
 \def\sep{\phantom{}}
+\newcommand\todo[1]{\phantom{#1}}
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}[section]
 \newtheorem*{example}{Exemple}
@@ -52,13 +53,17 @@ linéaire, on peut décrire et établir ce lien.
 
 \chapter{Régression linéaire simple}
 \section{Description du modèle}
+\begin{definition}[Régression linéaire]
+    \label{def:regression_lineaire}
+    
+\end{definition}
 Soit X, une variable aléatoire indépendante et Y une variable aléatoire dépendante. Supposant un lien entre cette variable X et Y 
 et la présence de $n$ couples de données $(x_i, y_i), i=1 \dots n$, le modèle linéaire de régression linéaire simple aura la forme 
 suivante:
 $$ y_i = \beta_0 + \beta_1 x_i + \epsilon_i, i=1 \dots n $$ 
 
 
-Ce modèle est caractérisé par trois paramètres: $\beta_0, \beta_1 \text{ et } \epsilon$.
+Ce modèle est caractérisé par trois paramètres: $\beta_0, \beta_1 \text{ et } \epsilon_i$.
 
 \begin{itemize}
     \item $\beta_0$ est une constante.
@@ -76,9 +81,130 @@ Ce modèle est caractérisé par trois paramètres: $\beta_0, \beta_1 \text{ et 
     Dans cet exemple, $\beta_0 = 400$, $\beta_1 = 10$ \sep 
     et $\epsilon = 0$ ne varie pas. En effet, les valeurs arrivent \textit{exactement} et n'ont donc pas de marge d'erreur.
 \end{example}
-Concrètement parlant, si on a une variable X représentant le nombre d'unitées produites et une variable Y représantant le coût de la main d'oeuvre pour produire ces unités,
-on aurait $x_1$ qui représente la première valeur
-Un modèle de régression linéaire simple représente le lien entre une variable indépendante X [TODO ADD DEF] et une variable dépendante Y.
-Notez bien l'utilisation
+
+Supposons
+
+\section{Description des paramètres}
+Commençons par définir les deux variables de notre modèle:
+
+\begin{definition}[Variable indépendante]
+    \label{def:variable_independante_modele}
+    La \textbf{variable indépendante} \hyperref[def:variable_aleatoire]{aléatoire} dans le modèle de régression linéaire pour $n$ couples de données représentée par $X$ et
+    peut prendre les valeurs $x_i$
+\end{definition}
+\begin{definition}[Variable dépendante]
+    \label{def:variable_dependante_modele}
+    La \textbf{variable dépendante} \hyperref[def:variable_aleatoire]{aléatoire} dans le modèle de régression linéaire pour $n$ couples de données représentée par $Y$ et
+    peut prendre les valeurs $y_i$, $i = 1, \dots, n$.
+    Si la régression linéaire est significative, alors chaque $y_i$ peut être exprimée par 
+    $$ y_i = \beta_0 + \beta_1x_i + \epsilon_i $$
+\end{definition}
+
+Il est important de faire la différence entre nos données observées (notre échantillon) et l'entiereté de nos données (notre univers).
+Le modèle représente la formule pour l'entiereté des données. Donc chaque couple de données de notre univers peut être représentée 
+par le modèle en gardant le même $\beta_0$ et le même $\beta_1$ avec $\epsilon_i, x_i$ qui varient. 
+
+Toutefois, afin que le modèle fonctionne, il est crucial de supposer que le terme d'erreur $\epsilon$ suit une loi normale:
+
+\begin{definition}[Terme d'erreur]
+    \label{def:terme_erreur}
+    Soit $\epsilon_1, \epsilon_2, \dots, \epsilon_n$ représentant le \textbf{terme d'erreur} entre 
+    la droite du modèle et la véritable valeur. $\epsilon$ est une \hyperref[def:variable_aleatoire]{variable aléatoire}
+    supposée distribuée selon une \hyperref[def:loi_normale]{loi normale} de moyenne nulle et d'une variance $\sigma^2$
+    $$ \epsilon \sim N(0, \sigma^2) $$
+\end{definition}
+
+On peut ainsi déduire le théorême suivant:
+\begin{theorem}
+    \label{def:y_loi_normale}
+    Pour une valeur $x_i$ fixée de la \hyperref[def:variable_independante_modele]{variable indépendante},
+    la \hyperref[def:def:variable_dependante_modele]{variable dépendante} $y_i$ suit une loi normale de moyenne 
+    $\beta_0 + \beta_1x_i$
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+\chapter{Estimation ponctuelle de $\beta_0$ et $\beta_1$}
+
+\section{Estimation des moindres carrés}
+\section{Estimation quand $\beta_0 = 0$}
+\chapter{Intervalle de confiance de $\beta_0$ et $\beta_1$}
+\section{Calcul de l'intervalle de $\beta_0$ et $\beta_1$}
+\section{Erreur d'estimation}
+\begin{definition}[Calcul de l'erreur d'estimation]
+    \label{def:calcul_erreur_estimation}
+    Soit $alpha$, un XXX \todo{Add name + link} et $E_i$ un erreur d'estimation 
+    \todo{Add link} pour $\beta_i$ et $b_i$, le paramètre et son estimateur respectivement.
+    $$ P(|\beta_i - b_i| \leq E_i) = 1 - \alpha $$
+    En d'autres mots, la différence entre $\beta_i$ et $b_i$ est moindre que l'erreur $E_i$ dans
+    $100\% \cdot (1 - \alpha)$ des cas.
+\end{definition}
+\section{Calcul de la variance}
+\subsection{Calcul de la variance de $b_0$}
+\subsection{Calcul de la variance de $b_1$}
+\chapter{Tests de signification}
+Un test de signification est composé de quatre étapes cruciales:
+\begin{itemize}
+    \item Les hypothèses
+    \item La statistique utilisée pour le test
+    \item Règle de décision pour déterminer quand on rejette l'\hyperref[def:hypothese_nulle]{hypothèse nulle}
+    \item La conclusion du test
+\end{itemize}
+
+\section{Test de signification pour $\beta_1$}
+Unilatéral vs bilatéral
+Rejeter $H_0 \iff $
+\section{Test de signification pour $\beta_0$}
+On cherche à savoir si le paramètre $\beta_0$ est significatif. Le résultat de ce test 
+nous indiquera quelle technique d'estimation utilisée.
+\section{Test de signification pour la covariance}
+\subsection{Calcul de la covariance de $\beta_0$ avec $\beta_1$}
+\chapter{Estimation de la variable dépendante}
+Soit le modèle de régression \todo{Add link} $$y_i = \beta_0 + \beta_1x_i + \epsilon_i$$.
+On sait que pour un $x_i$ fixé et dans le modèle, $E(\epsilon_i) = 0$. En effet si on avait 
+la \textit{vraie} valeur de $\beta_0$ et $\beta_1$, alors $E(\epsilon_i) = 0$ et donc 
+$$E(y_i) = \beta_0 + \beta_1x_i$$
+\chapter{Prévision de la variable dépendante}
+P-Value
+\appendix
+\chapter{Notions préalables}
+Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
+de références pour les exemples et les preuves qui seront amenés dans les chapitres suivants. Pour une explication
+plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre précédent: Analyse des Réels.
+\begin{definition}[variable aléatoire]
+    \label{def:variable_aleatoire}
+\end{definition}
+
+\begin{definition}[loi normale]
+    \label{def:loi_normale}
+    
+\end{definition}
+
+\begin{definition}[hypothèse nulle]
+    \label{def:hypothese_nulle}
+    Soit $H_0$,l'\textbf{hypothèse nulle} représente l'hypothèse représentant le status quo et 
+    se note toujours par une égalité: $H_0 = x$.
+\end{definition}
+
+\begin{definition}[Erreur de première espèce]
+    \label{def:erreur_alpha}
+    Soit $\alpha$, représente la probabilité de rejeter mon hypothèse nulle $H_0$ \todo{Add link} sachant
+    qu'elle est vraie.
+    $$\alpha = P(\text{rejeter }H_0 | H_0\text{ est vraie})$$
+\end{definition}
+
+\begin{definition}[Erreur de deuxième espèce]
+    \label{def:erreur_beta}
+    Soit $\beta$, représente la probabilité d'accepter mon hypothèse nulle $H_0$ \todo{Add link} sachant
+    qu'elle est fausse.
+    $$\beta = P(\text{accepter }H_0 | H_0\text{ est fausse})$$
+\end{definition}
+
+\begin{definition}[Covariance]
+    La \textbf{covariance} est l'espérance jointe de $X,Y$ moins l'espérance de $X$ avec l'espérance de $Y$.
+    $$ cov(X, Y) = E(XY) - E(X)E(Y) $$
+    En effet si les variables $X,Y$ sont indépendantes, alors $E(XY) = E(X)E(Y)$.
+\end{definition}
 
 \end{document}
