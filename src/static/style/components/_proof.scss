@@ -29,7 +29,7 @@ $Explanation: x.component($Proof, "> div.explanation", $doc: "An explanation con
         font-style: italic;
         padding: 1.5em;
         border-top: 1px solid #DDD;
-        span { display: none; } // We hide them by default for a better no-js support
+        & > span { display: none; } // We hide them by default for a better no-js support
     }
 
     @include x.extend($Controls) {

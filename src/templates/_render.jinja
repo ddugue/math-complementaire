@@ -56,11 +56,11 @@
 {% macro proof_group(token) %}
 <div class="ui tabs">
     {% for child in token.tokens %}
-        <input type="radio" name="group-{{ slug(token.index) }}" id="{{ slug(child.index) }}" {% if loop.first %}checked{% endif%} />
+        <input type="radio" name="group-{{ slug(token.index) }}" id="{{ slug(child.index) }}-{{ loop.index }}" {% if loop.first %}checked{% endif%} />
     {% endfor %}
     <ul>
         {% for child in token.tokens %}
-        <li><label for="{{ slug(child.index) }}">{{ child.name }}</label></li>
+        <li><label for="{{ slug(child.index) }}-{{ loop.index }}">{{ child.name }}</label></li>
         {% endfor %}
     </ul>
     {% for proof in token.tokens %}
