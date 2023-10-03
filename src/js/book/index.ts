@@ -2,7 +2,7 @@
 function initializeProofs(parent: HTMLElement) {
     parent.querySelectorAll<HTMLElement>(".ui.proof").forEach((proof) => {
         const inners = proof.querySelectorAll<HTMLElement>('.inner > span');
-        const explanations = proof.querySelectorAll<HTMLElement>('.explanation span');
+        const explanations = proof.querySelectorAll<HTMLElement>('.explanation > span');
         const skipButton = proof.querySelector('.skip');
         const nextButton = proof.querySelector('.next');
         const restartButton = proof.querySelector('.previous');
