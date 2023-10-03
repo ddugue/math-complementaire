@@ -55,12 +55,12 @@ Qu'est-ce que la topologie?
 
 \section{Addition de vecteurs}
 \begin{itemize}
-    \item 
+    \item ao
 \end{itemize}
 
 \section{Multiplication par un scalaire}
 \begin{itemize}
-    \item 
+    \item ao
 \end{itemize}
 
 \section{Produit scalaire}
@@ -108,11 +108,30 @@ Qu'est-ce que la topologie?
     \label{def:metrique}
 \end{definition}
 
+
 \section{Convergence des suites}
+\subsection{Convergence uniforme}
 \section{Bornes}
 \section{Suites de Cauchy}
+\begin{definition}
+    \label{def:suite_cauchy} Soit la suite \todo{Add link} ${x_m}$ d'éléments d'un espace métrique $(X, d)$
+    Elle est dite \textbf{suite de Cauchy} si:
+    $$ \forall \epsilon > 0, \exists M_\epsilon \in \Bbb N \text{ tel que } m, n \geq M_\epsilon \implies d(x_m, x_n) $$
+\end{definition}
 \section{Complétude}
+\begin{definition}
+    \label{def:completude}
+    Soit un espace métrique $(X, d)$, l'espace est dit \textbf{complet} si toute \hyperref[def:suite_cauchy]{suite de Cauchy} converge vers un élément de X.
+\end{definition}
+\subsection{Complétude de Rn}
+
 \section{Continuité}
+\begin{definition}
+    \label{def:continuite}
+    Soit $(X, d_X), (Y, d_Y)$, deux \hyperref[def:metrique]{espaces métriques} avec deux \hyperref[def:metrique]{métriques} et $f: X \to Y$ une fonction de $X$ vers $Y$.
+    $f$ est dite \textbf{continue} en un point $x_0 \in X$ si:
+    $$ \forall \epsilon 0, \exists \delta > 0,\text{ tel que }d_x(x, x_) < \delta \implies d_Y(f(x), f(x_0)) < \epsilon $$
+\end{definition}
 \section{Contractions}
 \section{Points fixes}
 
@@ -201,7 +220,7 @@ $$| ||x|| - ||y|| | \leq ||x \pm y|| \leq ||x|| + ||y|| $$
 \end{itemize}
 \subsection{Métrique}
 \begin{itemize}
-    \item Une métrique est une fonction $X \times X \to [0, \infty$ avec les 4 propriétés suivantes:
+    \item Une métrique est une fonction $X \times X \to \Bbb R^+ \cup \{0\}$ avec les 4 propriétés suivantes:
     \item $d(x,y) \geq 0$
     \item $d(x,y) = d(y, x)$
     \item $d(x,y) = 0 \iff x = y$

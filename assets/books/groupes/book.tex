@@ -297,9 +297,85 @@ des groupes.
 \section{Loi d'associativité généralisée}
 \section{Loi de simplification}
 \section{Unicité des solutions}
+\begin{theorem}
+    Soit un groupe $(G, \ast)$, les équations $a \ast x = b$ et $y \ast a = b$ possèdent des solutions uniques.
+\end{theorem}
+\subsection{Table de Caley}
 \section{Cardinalité d'un groupe}
+\begin{theorem}
+    Tout groupe non-commutatif possède au moins six éléments.
+\end{theorem}
+\begin{proof}
+\end{proof}
 \section{Loi des exposants}
+\chapter{Groupe de multiplication à gauche}
+\chapter{Groupe des permutations}
+\section{Groupe des symmétries du carré}
+\chapter{Groupe des entiers modulo}
+\section{Propriétés des entiers modulo}
+\subsection{Congruence modulo}
 
+Commençons par la définition de deux entiers congrus modulo.
+
+\begin{definition}
+    \label{def:mod}
+    Soit $n \in \Bbb Z^+$, $a$ et $b$ sont dit \textbf{congrus modulo} n, noté $a \equiv b\text{ (mod n)}$
+    si $\exists k \in \Bbb N $ tq $ a = b + kn$.
+\end{definition}
+
+De plus, on observe les propriétés suivantes:
+\begin{itemize}
+    \item $a \equiv a\text{ (mod n)}$
+    \item $a \equiv b\text{ (mod n)} \implies b \equiv a\text{ (mod n)}$
+    \item $a \equiv a\text{ (mod n)}$
+    \item $a \equiv a\text{ (mod n)}$
+    \item $a \equiv a\text{ (mod n)}$
+    \item $a \equiv a\text{ (mod n)}$
+\end{itemize}
+
+\subsection{Classe de congruence}
+
+On peut maintenant dénoté ce qu'on entend par la classe de congruence.
+\begin{definition}
+    \label{def:classe_congruence}
+    Soit $[a]$, la \textbf{classe de congruence} modulo n de a tel que 
+    $$ [a] = \{ x \in \Bbb Z | x \equiv a\text{ (mod n)} \}$$
+\end{definition}
+
+Ainsi, par exemple, si on travaille avec la congruence modulo 3, nous avons $[0] = [3] = [6], [1] = [4] = [7], [2] = [5] = [8]$
+
+\subsection{Famille de congruence}
+On obtient ainsi l'ensemble $Z_n$ l'ensemble des classes de congruence modulo $n$:
+\begin{definition}
+    \label{def:famille_congruence}
+    Soit $n \in \Bbb Z^+$, alors la \textbf{famille de congruence} de $n$ notée $Z_n$ est définie tel que:
+    $$ Z_n = \{[0], [1], \dots, [n-1]\} $$
+\end{definition}
+
+Et on peut définir l'opération binaire $+_n$ sur une famille de congruence $Z_n$:
+\begin{definition}
+    \label{def:addition_congruence}
+    Soit $+_n$, une opération binaire définie sur une famille $Z_n$, telle que $[a] +_n [b] = [a + b]$
+\end{definition}
+
+\section{Groupe des entiers modulo n}
+\begin{theorem}
+    \label{thm:groupe_modulo}
+    Soit $(Z_n, +_n)$ forme un \hyperref[def:groupe_abelien]{groupe abélien} nommé \textbf{groupe des entiers modulo n}.
+\end{theorem}
+\begin{proof}[Preuve fermeture]
+    Soit $[a] +_n [b] = [a + b]$ \sep \\
+    $[a + nk] = [a](\forall k \in \Bbb N)$ et $[b + nk] = [b](\forall k \in \Bbb N)$ \sep \\
+    On cherche à démontrer que $[a + b] = [(a + b) + nk]$ \sep \\
+    Or $[a + nk] +_n [b + nk] = [a + b + 2nk] = [a + b + nk]$ puisque $2 \in \Bbb N$. \sep \\
+    Donc nous avons fermeture.
+\end{proof}
+\begin{proof}[Preuve associativité]
+    Soit $([a] +_n [b]) +_n [c]$ \sep \\
+    $= [a + b] +_n [c] = [(a + b) + c] = [a + (b + c)]$ \sep \\
+    $= [a] +_n [b + c]$ \sep \\
+    $= [a] +_n ([b] + _n [c])$
+\end{proof}
 \appendix
 \chapter{Notions préalables}
 Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
@@ -329,6 +405,7 @@ plus complète et rigoureuse, il sera nécessaire de se réferrer aux livres pr�
 \begin{definition}[Fonction]
     \label{def:fonction}
 \end{definition}
+
 
 \chapter{Cheatsheet}
 Voici ici un résumé de certaines propriétés importantes d'objets mathématique. Utile lorsque l'on désire une vue d'ensemble.

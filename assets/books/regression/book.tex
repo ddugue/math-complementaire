@@ -55,15 +55,10 @@ linéaire, on peut décrire et établir ce lien.
 \section{Description du modèle}
 \begin{definition}[Régression linéaire]
     \label{def:regression_lineaire}
-    
+    Soit $n$ couples de données tel que $(x_i, y_i), i=1 \dots n$. Un modèle de \textbf{régression linéaire} consiste 
+    de deux paramètres $\beta_0$ et $\beta_1$ tel que: 
+    $$  y_i = \beta_0 + \beta_1 x_i + \epsilon_i, i=1 \dots n $$
 \end{definition}
-Soit X, une variable aléatoire indépendante et Y une variable aléatoire dépendante. Supposant un lien entre cette variable X et Y 
-et la présence de $n$ couples de données $(x_i, y_i), i=1 \dots n$, le modèle linéaire de régression linéaire simple aura la forme 
-suivante:
-$$ y_i = \beta_0 + \beta_1 x_i + \epsilon_i, i=1 \dots n $$ 
-
-
-Ce modèle est caractérisé par trois paramètres: $\beta_0, \beta_1 \text{ et } \epsilon_i$.
 
 \begin{itemize}
     \item $\beta_0$ est une constante.
@@ -92,11 +87,12 @@ Commençons par définir les deux variables de notre modèle:
     La \textbf{variable indépendante} \hyperref[def:variable_aleatoire]{aléatoire} dans le modèle de régression linéaire pour $n$ couples de données représentée par $X$ et
     peut prendre les valeurs $x_i$
 \end{definition}
+
 \begin{definition}[Variable dépendante]
     \label{def:variable_dependante_modele}
     La \textbf{variable dépendante} \hyperref[def:variable_aleatoire]{aléatoire} dans le modèle de régression linéaire pour $n$ couples de données représentée par $Y$ et
     peut prendre les valeurs $y_i$, $i = 1, \dots, n$.
-    Si la régression linéaire est significative, alors chaque $y_i$ peut être exprimée par 
+    Si la \hyperref[def:def:regression_lineaire]{régression linéaire} est significative, alors chaque $y_i$ peut être exprimée par 
     $$ y_i = \beta_0 + \beta_1x_i + \epsilon_i $$
 \end{definition}
 
@@ -119,16 +115,59 @@ On peut ainsi déduire le théorême suivant:
     \label{def:y_loi_normale}
     Pour une valeur $x_i$ fixée de la \hyperref[def:variable_independante_modele]{variable indépendante},
     la \hyperref[def:def:variable_dependante_modele]{variable dépendante} $y_i$ suit une loi normale de moyenne 
-    $\beta_0 + \beta_1x_i$
+    $\beta_0 + \beta_1x_i$ tel que:
+    $$ y_i \sim N(\beta_0 + \beta_1x_i, \sigma^2) $$
 \end{theorem}
 
 \begin{proof}
-    
+    Soit $y_i = \beta_0 + \beta_1x_i + \epsilon_i$. Or, $\epsilon \sim N(0, \sigma^2)$,
+    Donc par la \hyperref[def:loi_normale_additivite]{propriété d'additivité de la loi normale}: $y_i \sim N(\beta_0 + \beta_1x_i, \sigma^2)$
 \end{proof}
+
+N'oublions pas que le modèle ne représente pas une \textit{fonction} à une variable! Il est possible que dans nos couples de données, qu'il existe 
+plusieurs valeurs $y$ pour un même $x$. Donc, lorsque nous parlons de la variable aléatoire $y_i$ (et non $Y$), c'est l'ensemble de valeurs que peut 
+prendre $y_i$ pour un $x_i$ fixé!
+
+Puisque la variable aléatoire $y_i$ suit une loi normale, on peut déduire que:
+\begin{corollary}
+    \label{def:y_moyenne}
+    La \textbf{moyenne} ou l'\textbf{espérance} de $E(y_i) = \beta_0 + \beta_1x_i$
+\end{corollary}
+
+
 \chapter{Estimation ponctuelle de $\beta_0$ et $\beta_1$}
+Supposons que nous voulons créer un \hyperref[def:regression_lineaire]{modèle de régression linéaire} valide pour l'univers de donnée.
+Nous désirons trouver une valeur pour $\beta_0$ et $\beta_1$ pour lesquels le modèle fonctionne. Toutefois, nous ne possédons pas 
+l'entiereté des données de l'univers, mais seulement un échantillon avec $n$ données. Ainsi, nous n'obtiendrons qu'une \textit{estimation}
+de $\beta_0$ et  $\beta_1$, noté $b_0, b_1$ respectivement.
+
+On cherche un $b_0, b_1$ tel que, idéalement, $\epsilon \to 0$. Ainsi:
+
+$$ \hat{y_i} = b_0 + b_1x_i$$ où $\hat{y_i}$ est une valeur théorique où $\epsilon = 0$ et \textit{aussi} une estimation.
 
 \section{Estimation des moindres carrés}
+On cherche à minimiser la différence entre notre $\hat{y_i}$ théorique et notre "vrai" $y_i$.
+\begin{lemma}
+    \label{lem:estimation_erreur}
+    Soit $e$, une \textit{estimation } de l'erreur théorique sur $\hat{y_i}$:
+    $y_i = e + \hat{y_i} \implies e = y_i - \hat{y_i}$
+\end{lemma}
+
+Soit $y_i$ défini par $(\beta_0, \beta_1)$ et $\hat{y_i}$ défini par $(b_0, b_1)$. La distance entre $y_i$ et $\hat{y_i}$ peut s'exprimer
+par la norme euclidienne:
+\begin{lemma}
+    $$ d(y_i, \hat{y_i}) = \sqrt{(y_i - \hat{y_i})^2} = \sqrt{(y_i - b_0 - b_1x_i)} $$
+\end{lemma}
+
+Ainsi, on cherche le $b_0, b_1$ pour lesquels la distance est minimale pour tout les $x_i, y_i$ et on peut noter cette distance par une fonction 
+en $\Bbb R^2$ tel que:
+\begin{lemma}
+    $$ L(b_0, b_1) = \sum_{i=1}^{n} d(y_i, \hat{y_i}) = \sum_{i=1}^{n} \sqrt{(y_i - b_0 - b_1x_i)^2} $$
+\end{lemma}
+
+Maintenant, il suffit d'\textit{optimiser} la fonction $L(b_0, b_1)$
 \section{Estimation quand $\beta_0 = 0$}
+
 \chapter{Intervalle de confiance de $\beta_0$ et $\beta_1$}
 \section{Calcul de l'intervalle de $\beta_0$ et $\beta_1$}
 \section{Erreur d'estimation}
@@ -205,6 +244,11 @@ plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre pré
     La \textbf{covariance} est l'espérance jointe de $X,Y$ moins l'espérance de $X$ avec l'espérance de $Y$.
     $$ cov(X, Y) = E(XY) - E(X)E(Y) $$
     En effet si les variables $X,Y$ sont indépendantes, alors $E(XY) = E(X)E(Y)$.
+\end{definition}
+
+\begin{definition}
+    P-value =  probabilité
+    $\text{p-value} < \alpha \to \text{ rejette } h_0$
 \end{definition}
 
 \end{document}
