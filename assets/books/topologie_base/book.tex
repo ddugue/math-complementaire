@@ -1,0 +1,210 @@
+\documentclass[12pt]{book}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{comment}
+\usepackage{mathpazo} % Palatino font
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{relsize}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage[makeroom]{cancel}
+
+\usepackage[margin=0.5in]{geometry}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\newcommand*\conj[1]{\overbar{#1}}
+% STATS Shortcut
+\newcommand{\BP}{\Bbb P}
+\newcommand{\BR}{\Bbb R}
+\let\Bbb\mathbb
+\def\sep{\phantom{}}
+\newcommand\todo[1]{\phantom{#1}}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section]
+\newtheorem*{example}{Exemple}
+\newtheorem{theorem}{Theorême}[section]
+\newtheorem{corollary}{Corollaire}[theorem]
+\newtheorem{lemma}[theorem]{Lemme}  
+
+\title{Topologie}
+
+\begin{document}
+\chapter{Introduction}
+Qu'est-ce que la topologie? C'est l'Analyse d'espaces abstraits. Toutefois, l'objectif de la topologie est surtout d'analyser la continuité de ces 
+espaces entre eux et sur eux. En ayant une continuité on peut alors modifier l'espace, parfois infini, d'une manière satisfaisante.
+
+L'idée de ce "livre" est d'initier aux différentes définitions topologiques généralisés. Il sera ainsi possible de réutiliser ces définitions 
+et ces explications abstraites lors de l'analyse des différents types d'espaces topologiques.
+\chapter{Espaces topologiques}
+\section{Topologie}
+\begin{definition}[Topologie]
+    \label{def:topologie} 
+    Soit $\mathcal{O}$, une \hyperref[def:famille]{famille} est une \textbf{topologie} sur $X$ si et seulement si:\\
+    $(x \in \mathcal{O} \implies x \subset X)$ (chaque élément de la famille est un sous-ensemble de $X$)\\
+    $(\emptyset \in \mathcal{O} \land X \in \mathcal{O})$ \\
+    $(x \subset \mathcal{O} \land y \subset \mathcal{O} \implies x \cap y \in \mathcal{O})$ (si $x,y$ sont finis) \\
+    $(x \subset \mathcal{O} \land y \subset \mathcal{O} \implies x \cup y \in \mathcal{O})$ \\
+\end{definition}
+En d'autres mots, c'est la famille de tous les ensembles qu'on peut former de $X$ lesquels peuvent se réunir ou s'intersecter et 
+générer un ensemble qui fait partie de la famille.
+
+Bref, il existe une multitude de façon de générer une topologie pour un ensemble. Si on prend par exemple la topologie 
+pour $X = \{1,2,3,4\} \text{ tq } \mathcal{O} = \{\emptyset, X\}$, on peut voir que celle-ci correspond à la définition de 
+notre topologie ci-dessus. Toutefois cette topologie (appellée la topologie triviale) est généralement peu intéressante.
+
+Particulièrement, on peut définir, ce qu'en entend par espace topologique:
+\begin{definition}[Espace topologique]
+    \label{def:espace_topologique}
+    Un \textbf{espace topologique} est un ensemble $X$ muni d'une \hyperref[def:topologie]{topologie} (sur $X$)
+\end{definition}
+
+\section{Ouverture}
+Un concept clé dans une topologie est le concept d'ensembles ouverts et fermés. La définition d'un ensemble ouvert dans 
+une topologie est la suivante:
+\begin{definition}[Ensemble ouvert]
+    \label{def:topologie_ouvert}
+    Soit $\mathcal{O}$, une topologie sur $X$. Un \textbf{ensemble ouvert} est un ensemble $O$, tel que $O \in \mathcal{O}$.
+\end{definition}
+Bref, la définition d'un ensemble ouvert dans une topologie est plus ou moins tautologique. Il est important donc 
+de comprendre que la définition de ce qu'est un ensemble ouvert est directement liée à comment on défini notre topologie.
+
+\section{Fermeture}
+Parallèlement, on peut maintenant définire la notion d'un ensemble fermé.
+\begin{definition}[Ensemble fermé]
+    \label{def:topologie_ferme}
+    Soit $\mathcal{O}$ une topologie sur $X$. Un \textbf{ensemble fermé} est un ensemble $F$, tel que $F \subseteq X$ et
+    l'exclusion de $F$ sur $X$, $X / F \in \mathcal{O}$ est un \hyperref[def:topologie_ouvert]{ensemble ouvert}.
+\end{definition}
+
+En d'autres mots, un ensemble est dit fermé si son complément $F^c$ est un \hyperref[def:topologie_ouvert]{ensemble ouvert}.
+Notons toutefois qu'il est possible pour un ensemble d'être à la fois ouvert et fermé (un ensemble fouvert), tout comme il est 
+possible pour un ensemble d'être ni fermé, ni ouvert.
+
+\chapter{Continuité}
+L'idée intéressante et cruciale de la topologie, c'est-à-dire la continuité, a d'abord été développée afin de généraliser 
+la continuité dans les espaces métriques. On est donc partie de la définition de continuité dans un espace métrique pour 
+appliquer une version encore plus générale de la continuité qui englobait cette définition de continuité dans un espace métrique.
+
+\section{Définition générale}
+Ainsi, on est arrivé à développer cette nouvelle définition uniquement basé sur la continuité:
+\begin{definition}
+    Soit $X$ et $Y$, deux espaces munis d'une \hyperref[def:topologie]{topologie} $\tau_X$ et $\tau_Y$,et $f: X \to Y$.
+    Alors $f$ est \textbf{continue} $\iff$ $t_Y \in \tau_Y \implies f^{-1}(t_y) \in \tau_X$
+\end{definition}
+\chapter{Compacité}
+Qu'entend-t-on par la "Compacité" d'un espace ou d'un sous-espace?
+\chapter{Connexité}
+
+\appendix
+\chapter{Notions préalables}
+Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
+de références pour les exemples et les preuves qui seront amenés dans les chapitres suivants. Pour une explication
+plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre précédent: Analyse des Réels.
+
+\begin{definition}[Voisinage dans les Réels]
+    \label{def:voisinage_reels}
+    Ensemble de point satisfaisant l'expression
+    suivante: $$V(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \}$$
+\end{definition}
+
+\begin{definition}[Voisinage troué dans les Réels]
+    \label{def:voisinage_troue_reels}
+    Ensemble de point satisfaisant l'expression
+    suivante: $$V'(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \land x \neq a \}$$
+\end{definition}
+
+\begin{definition}[Points intérieurs de E]
+    \label{def:point_int}
+    Ensemble de points satisfaisant l'expression
+    suivante: $$int(E) = \{ x \in E : \exists \delta > 0, V(x, \delta) \subseteq E \} $$
+\end{definition}
+
+\begin{definition}[Ensemble ouvert]
+    \label{def:ensemble_ouvert}
+    Un ensemble est dit ouvert si tous ces éléments sont des \hyperref[def:point_int]{points intérieurs.}
+\end{definition}
+
+\begin{definition}[Groupe abélien]
+    \label{def:groupe_abelien}
+    Un \textbf{groupe abélien} ou \textbf{groupe non-commutatif} est un groupe
+    (une structure algébrique associative avec un élément neutre et un élément inverse $(\forall a \in G, \exists a^{-1})$), 
+    dont l'opération binaire est commutative.
+\end{definition}
+
+\begin{definition}[Famille d'ensemble]
+    \label{def:famille}
+    Une \textbf{famille} ou \textbf{collection} est simplement un ensemble d'ensemble.
+\end{definition}
+\todo{Add reference}
+
+\chapter{Cheatsheet}
+\section{Formules}
+\subsection{Inégalité de Cauchy-Schwarz}
+$$(\sum_{i=1}^{n} a_ib_i)^2 \leq \sum_{i=1}^{n} a_i^2 \cdot \sum_{i=1}^{n} b_i ^ 2$$ 
+\subsection{Convergence série géométrique}
+$$|r| < 1 \implies \sum_{n=0}^{\infty} r^n \to \frac{1}{1 - r} $$
+\subsection{Inégalité du triangle}
+$$| ||x|| - ||y|| | \leq ||x \pm y|| \leq ||x|| + ||y|| $$
+\section{Types d'espace}
+\begin{itemize}
+    \item Espace vectoriel: Ensemble d'éléments appellés vecteurs, muni de l'addition et de la multiplication par un scalaire.
+    \item Espace préhilbertien: Espace vectoriel muni d'un produit scalaire.
+    \item Espace normé: Espace vectoriel muni d'une norme.
+    \item Espace métrique: Ensemble \textbf{quelconque} munie d'une métrique.
+    \item Espace métrique complet:
+    \item Espace topologique:
+\end{itemize}
+\section{Fonctions spéciales}
+\subsection{Produit scalaire}
+\begin{itemize}
+    \item Un produit scalaire est une fonction de $V \times V \to \Bbb R$, noté $\langle x, y \rangle$ avec 5 propriétés qui la définisse
+    \item $\langle x, x \rangle \geq 0$
+    \item $\langle x, x \rangle = 0 \iff x = 0$
+    \item $\langle x, y \rangle = \langle y, x \rangle$
+    \item $\langle x + y, z\rangle = \langle x, z \rangle + \langle y, z \rangle$
+    \item $\alpha\langle x, y \rangle = \langle \alpha x, y \rangle \forall \alpha \in \Bbb R$
+\end{itemize}
+\subsection{Norme}
+\begin{itemize}
+    \item Une norme sur $V$ est une fonction $V$ vers $\Bbb R$, noté $x \mapsto ||x||$ avec 4 propriétés qui la définisse:
+    \item $||x|| \geq 0$
+    \item $||x|| = 0 \iff x = 0$
+    \item $||\alpha x|| = |\alpha| \cdot ||x||$
+    \item $||x + y || \leq ||x|| + ||y||$
+    \item Norme euclidienne: $\sqrt{x_1^2 + x_2^2 + \dots + x_n^2}$
+    \item Le produit scalaire est une norme.
+\end{itemize}
+\subsection{Métrique}
+\begin{itemize}
+    \item Une métrique est une fonction $X \times X \to 0, \infty$ avec les 4 propriétés suivantes:
+    \item $d(x,y) \geq 0$
+    \item $d(x,y) = d(y, x)$
+    \item $d(x,y) = 0 \iff x = y$
+    \item $d(x,y) \leq d(x, z) + d(z, y)$
+    \item Métrique discrète: $d(x,y) = 0$ si $x = y$, 1 si $x \neq 1$
+    \item La norme est une métrique
+\end{itemize}
+\section{Définition topologiques}
+\begin{itemize}
+    \item \textbf{Boule ouverte} : $B(x, r) = \{y \in R^n : || x - y || < r\}, r > 0$
+    \item \textbf{Boule fermée} : $B(x, r) = \{y \in R^n : || x - y || \leq r\}, r > 0$
+    \item \textbf{Point intérieur}: $x \in \Bbb R^n \text{ est un point intérieur de } E \iff \exists \delta > 0 : B(x, \delta) \subset E$
+    \item \textbf{Ensemble ouvert}: $E\text{ est ouvert} \iff E = int(E)$
+    \item \textbf{Convergence suite}: $\forall \epsilon > 0, \exists M \in \Bbb N \text{ t q} m \geq M \implies d(x_m, x) < \epsilon$
+    \item \textbf{Ensemble borné}: $\exists x_0 \in X \land \exists r > 0, \forall x \in A, d(x_0, x) < r$
+\end{itemize}
+
+\end{document}
