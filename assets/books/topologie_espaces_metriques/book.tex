@@ -1,0 +1,225 @@
+\documentclass[12pt]{book}
+
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{comment}
+\usepackage{mathpazo} % Palatino font
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{relsize}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage[makeroom]{cancel}
+
+\usepackage[margin=0.5in]{geometry}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\newcommand*\conj[1]{\overbar{#1}}
+% STATS Shortcut
+\newcommand{\BP}{\Bbb P}
+\newcommand{\BR}{\Bbb R}
+\let\Bbb\mathbb
+\def\sep{\phantom{}}
+\newcommand\todo[1]{\phantom{#1}}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section]
+\newtheorem*{example}{Exemple}
+\newtheorem{theorem}{Theorême}[section]
+\newtheorem{corollary}{Corollaire}[theorem]
+\newtheorem{lemma}[theorem]{Lemme}  
+
+\linespread{1.5} %regulate line spacing
+
+\title{Topologie}
+
+\begin{document}
+\chapter{Introduction}
+Qu'est-ce que la topologie?
+
+\chapter{Complétude}
+\begin{definition}[Espace métrique complet]
+    \label{def:completude}
+    Un espace métrique est dit \textbf{complet} si toute suite de Cauchy dans l'espace métrique converge vers un élément de l'espace métrique.
+\end{definition}
+
+\chapter{Compacité}
+\begin{definition}[Compacité]
+    \label{def:compacite}
+    Soit $S$, un sous-ensemble d'un espace métrique $(X,d)$. On dit que $S$ est \textbf{compact} si de tout recouvrement de $S$ par des ouverts de $X$,
+    on peut extraire un sous-recouvrement \underline{fini}.
+\end{definition}
+
+\begin{theorem}
+    Soit $(X,d)$ un espace métrique. Si $S \subseteq X$ est \hyperref[def:compacite]{compact}, alors $S$ est borné et fermé.
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:compact_implique_sous_suite}
+    Soit $(X,d)$, un espace métrique compact. Alors, toute suite ${x_n}$ de l'espace métrique admet une sous-suite convergente 
+\end{theorem}
+
+\begin{theorem}
+    Tout espace métrique compact est un espace métrique \hyperref[def:completude]{complet}.
+\end{theorem}
+
+\begin{proof}
+    Soit $X$ un espace métrique \hyperref[def:completude]{compact} et ${x_n}$ une suite de Cauchy d'éléments de $X$.\\
+    Ainsi, $\forall \epsilon > 0$, $\exists N_1\text{ tq } m,n \geq N_1 \implies d(x_n, x_m) < \frac{\epsilon}{2}$.\\
+    Par le \autoref{thm:compact_implique_sous_suite},  il existe aussi une sous-suite convergente ${x_{n_k}} \mapsto x \in X$.\\
+    Ainsi $\forall \epsilon > 0$, $\exists N_2\text{ tq } k \geq N_2 \implies d(x_{n_k}, x) < \frac{\epsilon}{2}$. \\
+    En posant $N_3 = \max(N_1, N_2)$, alors:\\
+    $\forall \epsilon > 0$, $\exists N_3\text{ tq } n,k \geq N_3$ \\
+    $\implies d(x_{n_k}, x) < \frac{\epsilon}{2} \land d(x_n,x_{n_k}) < \frac{\epsilon}{2}$\\
+    $\implies d(x_{n_k}, x) + d(x_n, x_{n_k}) < \frac{\epsilon}{2} + \frac{\epsilon}{2}$\\
+    $\implies d(x_n,x) \geq d(x_{n_k}, x) + d(x_n, x_{n_k}) < \epsilon$\\
+    Et donc que toute suite de cauchy converge vers un $x \in X$.
+\end{proof}
+
+\begin{theorem}
+    Si $f$, est une fonction continue surjective de l'espace métrique compact $(X,d)$ sur l'espace métrique $(Y, d')$, alors Y est compact.
+\end{theorem}
+\begin{proof}
+    Posons $Y \subseteq \bigcup{V_i}$ où $V_i$ sont des ensembles ouverts de $Y$. \\
+    Puisque $f$ est une fonction surjective, $\forall x \in X, f(x) \in Y$.\\
+    Ainsi $X \subseteq f^{-1}(Y) \subseteq f^{-1}(\bigcup{V_i})$ ou $X \subseteq \bigcup f^{-1}(V_i)$\\
+    Comme $f$ est continue $f^{-1}(V_i)$ est ouvert.\\
+    Alors $X$ est recouvert par le recouvrement ouvert $\bigcup f^{-1}(V_i)$\\
+    Puisque $X$ est compact, on peut extraire un sous-recouvrement fini tel que $X = \bigcup^n_{j=1} f^{-1}(V_{i_j})$.\\
+    Comme $Y = f(X) \implies Y = f(\bigcup^n_{j=1} f^{-1}(V_{i_j}))$ \\
+    $ \implies Y = \bigcup^n_{j=1} f(f^{-1}(V_{i_j})) $\\
+    $ \implies Y = \bigcup^n_{j=1} V_{i_j}$, car $f$ est surjective.\\
+    Donc, il existe un recouvrement fini d'ensemble ouvert pour $Y$.
+\end{proof}
+
+\chapter{Connexité}
+\begin{definition}[Connexité]
+    \label{def:connexite}
+    Soit $(X,d)$, un espace métrique. On dit que $(X,d)$ est connexe si il ne peut s'exprimer comme l'union de deux ouverts disjoints non-vides.
+\end{definition}
+
+\begin{theorem}
+    Si $f$, est une fonction continue surjective de l'espace métrique connexe $(X,d)$ sur l'espace métrique $(Y, d')$, alors Y est connexe.
+\end{theorem}
+
+\begin{proof}
+    Supposons que $X$ soit connexe et que $Y$ s'exprime comme l'union de deux ensembles ouverts disjoints $(U_1 \cup U_2)$.\\
+    $X = f^{-1}(Y) = f^{-1}(U_1 \cup U_2) = f^{-1}(U_1) \cup f^{-1}(U_2)$\\
+    Puisque $f$ est continue, l'image de $f$ est ouvert. \\
+    Ainsi $f^{-1}(U_1)$ et $f^{-1}(U_2)$ sont ouverts.\\
+    De plus, puisque $U_1 \cap U_2 = \emptyset \implies f^{-1}(U_1) \cap f^{-1}(U_2) = \emptyset$\\
+    Ensuite $U_1 \neq \emptyset \implies f^{-1}(U_1) \neq \emptyset$ puisque $f$ est surjectif\\
+    Donc cela implique que $X$ ne serait pas connexe, une contradiction.
+\end{proof}
+
+\appendix
+\chapter{Notions préalables}
+Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
+de références pour les exemples et les preuves qui seront amenés dans les chapitres suivants. Pour une explication
+plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre précédent: Analyse des Réels.
+
+\begin{definition}[Voisinage dans les Réels]
+    \label{def:voisinage_reels}
+    Ensemble de point satisfaisant l'expression
+    suivante: $$V(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \}$$
+\end{definition}
+
+\begin{definition}[Voisinage troué dans les Réels]
+    \label{def:voisinage_troue_reels}
+    Ensemble de point satisfaisant l'expression
+    suivante: $$V'(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \land x \neq a \}$$
+\end{definition}
+
+\begin{definition}[Points intérieurs de E]
+    \label{def:point_int}
+    Ensemble de points satisfaisant l'expression
+    suivante: $$int(E) = \{ x \in E : \exists \delta > 0, V(x, \delta) \subseteq E \} $$
+\end{definition}
+
+\begin{definition}[Ensemble ouvert]
+    \label{def:ensemble_ouvert}
+    Un ensemble est dit ouvert si tous ces éléments sont des \hyperref[def:point_int]{points intérieurs.}
+\end{definition}
+
+\begin{definition}[Groupe abélien]
+    \label{def:groupe_abelien}
+    Un \textbf{groupe abélien} ou \textbf{groupe non-commutatif} est un groupe
+    (une structure algébrique associative avec un élément neutre et un élément inverse $(\forall a \in G, \exists a^{-1})$), 
+    dont l'opération binaire est commutative.
+\end{definition}
+
+\begin{definition}[Famille d'ensemble]
+    \label{def:famille}
+    Une \textbf{famille} ou \textbf{collection} est simplement un ensemble d'ensemble.
+\end{definition}
+\todo{Add reference}
+
+\chapter{Cheatsheet}
+\section{Formules}
+\subsection{Inégalité de Cauchy-Schwarz}
+$$(\sum_{i=1}^{n} a_ib_i)^2 \leq \sum_{i=1}^{n} a_i^2 \cdot \sum_{i=1}^{n} b_i ^ 2$$ 
+\subsection{Convergence série géométrique}
+$$|r| < 1 \implies \sum_{n=0}^{\infty} r^n \to \frac{1}{1 - r} $$
+\subsection{Inégalité du triangle}
+$$| ||x|| - ||y|| | \leq ||x \pm y|| \leq ||x|| + ||y|| $$
+\section{Types d'espace}
+\begin{itemize}
+    \item Espace vectoriel: Ensemble d'éléments appellés vecteurs, muni de l'addition et de la multiplication par un scalaire.
+    \item Espace préhilbertien: Espace vectoriel muni d'un produit scalaire.
+    \item Espace normé: Espace vectoriel muni d'une norme.
+    \item Espace métrique: Ensemble \textbf{quelconque} munie d'une métrique.
+    \item Espace métrique complet:
+    \item Espace topologique:
+\end{itemize}
+\section{Fonctions spéciales}
+\subsection{Produit scalaire}
+\begin{itemize}
+    \item Un produit scalaire est une fonction de $V \times V \to \Bbb R$, noté $\langle x, y \rangle$ avec 5 propriétés qui la définisse
+    \item $\langle x, x \rangle \geq 0$
+    \item $\langle x, x \rangle = 0 \iff x = 0$
+    \item $\langle x, y \rangle = \langle y, x \rangle$
+    \item $\langle x + y, z\rangle = \langle x, z \rangle + \langle y, z \rangle$
+    \item $\alpha\langle x, y \rangle = \langle \alpha x, y \rangle \forall \alpha \in \Bbb R$
+\end{itemize}
+\subsection{Norme}
+\begin{itemize}
+    \item Une norme sur $V$ est une fonction $V$ vers $\Bbb R$, noté $x \mapsto ||x||$ avec 4 propriétés qui la définisse:
+    \item $||x|| \geq 0$
+    \item $||x|| = 0 \iff x = 0$
+    \item $||\alpha x|| = |\alpha| \cdot ||x||$
+    \item $||x + y || \leq ||x|| + ||y||$
+    \item Norme euclidienne: $\sqrt{x_1^2 + x_2^2 + \dots + x_n^2}$
+    \item Le produit scalaire est une norme.
+\end{itemize}
+\subsection{Métrique}
+\begin{itemize}
+    \item Une métrique est une fonction $X \times X \to 0, \infty$ avec les 4 propriétés suivantes:
+    \item $d(x,y) \geq 0$
+    \item $d(x,y) = d(y, x)$
+    \item $d(x,y) = 0 \iff x = y$
+    \item $d(x,y) \leq d(x, z) + d(z, y)$
+    \item Métrique discrète: $d(x,y) = 0$ si $x = y$, 1 si $x \neq 1$
+    \item La norme est une métrique
+\end{itemize}
+\section{Définition topologiques}
+\begin{itemize}
+    \item \textbf{Boule ouverte} : $B(x, r) = \{y \in R^n : || x - y || < r\}, r > 0$
+    \item \textbf{Boule fermée} : $B(x, r) = \{y \in R^n : || x - y || \leq r\}, r > 0$
+    \item \textbf{Point intérieur}: $x \in \Bbb R^n \text{ est un point intérieur de } E \iff \exists \delta > 0 : B(x, \delta) \subset E$
+    \item \textbf{Ensemble ouvert}: $E\text{ est ouvert} \iff E = int(E)$
+    \item \textbf{Convergence suite}: $\forall \epsilon > 0, \exists M \in \Bbb N \text{ t q} m \geq M \implies d(x_m, x) < \epsilon$
+    \item \textbf{Ensemble borné}: $\exists x_0 \in X \land \exists r > 0, \forall x \in A, d(x_0, x) < r$
+\end{itemize}
+
+\end{document}
