@@ -1,5 +1,6 @@
 \documentclass[12pt]{book}
 
+\usepackage[framemethod=TikZ]{mdframed}
 \usepackage[utf8]{inputenc} % Required for inputting international characters
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 
@@ -39,319 +40,88 @@
 \newtheorem{corollary}{Corollaire}[theorem]
 \newtheorem{lemma}[theorem]{Lemme}  
 
+\linespread{1.5} %regulate line spacing
+
 \title{Topologie}
 
 \begin{document}
 \chapter{Introduction}
 Qu'est-ce que la topologie?
 
-
-\chapter{Espaces vectoriels}
-\todo{Complete}
-\begin{definition}
-    \label{def:espace_vectoriel} 
-    Soit $K$ un corps commutatif, Un \textbf{espace vectoriel} est un ensemble de vecteurs $V$ muni de deux opérations binaires
-\end{definition}
-
-\section{Addition de vecteurs}
-\begin{itemize}
-    \item ao
-\end{itemize}
-
-\section{Multiplication par un scalaire}
-\begin{itemize}
-    \item ao
-\end{itemize}
-
-\section{Produit scalaire}
-\begin{definition}
-    \label{def:produit_scalaire}
-\end{definition}
-\subsection{Produit scalaire dans R}
-\begin{definition}
-    \label{def:produit_scalaire_r}
-\end{definition}
-\subsection{Produit scalaire dans Rn}
-\begin{definition}
-    \label{def:produit_scalaire_rn}
-\end{definition}
-
-
-\chapter{Inégalité de Cauchy-Schwarz}
-\begin{lemma}[Inégalité de Cauchy-Schwarz]
-    Soit $a_1,a_2,\dots,a_n$ et $b_1,b_2,\dots,b_n$ des nombre réels arbitraires, alors:
-    $$ (\sum_{i=1}^{n}a_ib_i)^2 \leq (\sum_{i=1}^{n}a_i^2)(\sum_{i=1}^{n}b_i^2) $$   
-\end{lemma}
-
-\begin{proof}
-    Tout d'abord si $\sum_{i=1}^{n}a_i^2 = 0 \implies a_i = 0(\forall i)$ \sep \\
-    Donc l'inégalité est confirmée par $ (\sum_{i=1}^{n}0b_i)^2 \leq 0(\sum_{i=1}^{n}b_i^2) \implies 0 \leq 0$. \sep \\
-    Supposons donc $\sum_{i=1}^{n}a_i^2 > 0$ \sep \\
-    Soit $\sum_{i=1}^{n} (a_ix + b_i)^2$, Puisque $z^2 \geq 0(\forall z) \implies \sum_{i=1}^{n} (a_ix + b_i)^2 \geq 0 (\forall x)$ \sep \\
-    Or $\sum_{i=1}^{n} (a_ix + b_i)^2 = \sum_{i=1}^{n} a_ix^2 + 2b_ia_ix + b_i^2$ \sep \\
-    $= \sum_{i=1}^{n} a_i^2x^2 + \sum_{i=1}^{n} 2b_ia_ix + \sum_{i=1}^{n} b_i^2$ \sep \\
-    $= (\sum_{i=1}^{n} a_i^2) \cdot x^2 + (\sum_{i=1}^{n} b_ia_i) \cdot 2x + (\sum_{i=1}^{n} b_i^2)$ \sep \\
-    $= Ax^2 + 2Bx + C$, en posant $A = (\sum_{i=1}^{n} a_i^2), B = (\sum_{i=1}^{n} b_ia_i), C = (\sum_{i=1}^{n} b_i^2)$ \sep \\
-    $=Ax^2 + 2Bx + \frac{B^2}{A} - \frac{B^2}{A} + C$ $(A > 0)$ \sep \\
-    $=A \cdot (x^2 + 2\frac{B}{A}x + \frac{B^2}{A^2}) + C - \frac{B^2}{A}$ \sep \\
-    $=A \cdot (x + \frac{B}{A})^2 + \frac{AC - B^2}{A}$ \sep \\
-    Or puisque $\sum_{i=1}^{n} (a_ix + b_i)^2 \geq 0 (\forall x)$, c'est particulièrement vrai pour $x = \frac{-B}{A}$ \sep \\
-    $\implies A \cdot (\frac{-B}{A} + \frac{B}{A})^2 + \frac{AC - B^2}{A} \geq 0$ \sep \\
-    $\implies A \cdot (A \cdot 0 + \frac{AC - B^2}{A}) \geq (A \cdot 0)$ \sep \\
-    $\implies AC - B^2 \geq 0$ \sep \\
-    $\implies AC \geq B^2 \implies (\sum_{i=1}^{n} a_i^2)(\sum_{i=1}^{n} b_i^2) \geq (\sum_{i=1}^{n} b_ia_i)^2$ \sep \\
-    Ce qui conclut notre Inégalité.
-\end{proof}
-
-
-\chapter{Espaces normés}
-
-\section{Norme}
-\begin{definition}
-    \label{def:norme}
-\end{definition}
-
-\subsection{Norme dans R}
-
-\subsection{Norme dans Rn}
-
-\subsection{Norme par le produit scalaire}
-
-\section{Espace préhilbertien}
-
-\chapter{Espaces métriques}
-\section{Les métriques}
-\begin{definition}[Métrique]
-    \label{def:metrique}
-    Soit $X$, un ensemble, une \textbf{métrique} sur $X$ est une fonction $d: X \times X \to \Bbb R_+$ tel que: \\
-    $d(x, y) \geq 0$ \\
-    $d(x, y) = 0 \iff x = y$ \\
-    $d(x, y) = d(y, x)$ \\
-    $d(x, y) \leq d(x, z) + d(z, y)$ \\
-\end{definition}
-\subsection{Métrique sur l'ensemble des fonctions continues}
-Prenons par exemple la métrique suivante définie sur l'ensemble des fonctions continues sur $[0, 1]$:
-$$ d(f, g) = \sup_{x \in [0,1]} |f(x) - g(x)| $$
-
-\begin{proof}[1ere prop.]
-    $|f(x) - g(x)| \geq 0$, car $|x| \geq 0$, donc $d(f, g) \geq 0$ \sep \\
-    Donc $d(x, y) \geq 0$
-\end{proof}
-
-\begin{proof}[2ieme prop.]
-    Supposons que $d(f, g) = 0$, alors $\sup_{x \in [0, 1]} |f(x) - g(x)| = 0$. \sep \\
-    $\implies (\forall x \in [0, 1]) |f(x) - g(x)| = 0$, car si il existe un $x$ tel que $|f(x) - g(x)| > 0$, alors le $sup = x$ \sep \\
-    $\implies (\forall x \in [0, 1]) f(x) = g(x)$ \sep \\
-    Maintenant supposons que $f(x) = g(x)$ \sep \\
-    $\implies \sup_{x \in [0, 1]} |f(x) - g(x)| = \sup_{x \in [0, 1]} |f(x) - f(x)| = \sup_{x \in [0, 1]} |0| = 0$ \sep \\
-    Donc $d(x, y) = 0 \iff x = y$
-\end{proof} 
-
-\begin{proof}[3ieme prop.]
-    $|x - y| = |y - x|$ \sep \\
-    $\implies |f(x) - g(x)| = |g(x) - f(x)|$ \sep \\
-    $\implies \sup_{x \in [0, 1]} |f(x) - g(x)| = \sup_{x \in [0, 1]} |g(x) - f(x)|$ \sep \\
-    $\implies d(x, y) = d(y, x)$ 
-\end{proof}
-
-\begin{proof}[4ieme prop.]
-    Soit $|f(x) - g(x)| = |f(x) - h(x) + h(x) - g(x)|$ \sep \\
-    $|f(x) - h(x) + h(x) - g(x)| \leq |f(x) - h(x)| + |h(x) - g(x)|$ \sep \\
-    et $|f(x) - h(x)| \leq \sup_{x \in [0, 1]} |f(x) - h(x)|$ \sep \\
-    $\implies |f(x) - h(x)| + |h(x) - g(x)| \leq \sup_{x \in [0, 1]} |f(x) - h(x)| + \sup_{x \in [0, 1]}|h(x) - g(x)| $ \sep \\
-    Donc: $\sup_{x \in [0, 1]} |f(x) - g(x)| \leq$ \sep \\
-    $\sup_{x \in [0, 1]} (|f(x) - h(x)| + |h(x) - g(x)|) \leq$ \sep \\
-    $\sup_{x \in [0, 1]}(\sup_{x \in [0, 1]} |f(x) - h(x)| + \sup_{x \in [0, 1]}|h(x) - g(x)|) =$
-    $\sup_{x \in [0, 1]} |f(x) - h(x)| + \sup_{x \in [0, 1]}|h(x) - g(x)|$
-\end{proof}
-\section{Convergence des suites}
-\begin{definition}[Convergence]
-    \label{def:convergence_metrique}
-    Soit $(X, d)$, un espace métrique et ${x_n}$ une suite d'éléments de X. ${x_n}$ \textbf{converge} vers $x$ ($x_n \to x)$ si:
-    $$ (\forall \epsilon > 0)(\exists M \in \Bbb N)\text{ tq }n > M \implies d(x_m, x) < \epsilon $$
-\end{definition}
-
-\begin{theorem}[Unicité convergence]
-    Soit $(X, d)$ un espace métrique, $x, y \in X$ et $\{x_n\}$ une suite. Si $x_m \to x$ et $x_m \to y$, alors $x = y$
-\end{theorem}
-
-\begin{proof}
-    Supposons que $x_n \to x$ et $x_n \to y$, mais que $x \neq y$. \sep \\
-    Puisque $x \neq y \implies d(x, y) > 0$ \sep \\
-    et $(\forall \epsilon > 0)(\exists M_1 \in \Bbb N, \exists M_2 \in \Bbb N)\text{ tq }d(x_{M1}, x) < \epsilon \land d(x_{M2}, y) < \epsilon$ 
-    Posons $\epsilon = \frac{1}{2}d(x, y)$ et $M = \max{\{M_1,M_2\}}$ \sep \\
-    Donc il existe un $m > M \implies d(x, x_m) < \frac{1}{2}d(x, y) \land d(y, x_m) < \frac{1}{2}d(x, y)$ \sep \\
-    $\implies m > M \implies d(x, x_m) + d(y, x_m) \leq \frac{1}{2}d(x, y) + \frac{1}{2}d(x, y)$ \sep \\
-    $\implies d(x, x_m) + d(x_m, y) \leq d(x, y)$ \sep \\
-    Or $d(x, y) \leq d(x, x_m) + d(x_m, y)$, donc nous avons une contradiction.
-\end{proof}
-\section{Bornes}
-
-\section{Suites de Cauchy}
-\begin{definition}[Suite de Cauchy]
-    \label{def:suite_cauchy}
-    Soit $\{x_m\}$ une suite dans un espace métrique $(X, d)$. $\{x_m\}$ est une \textbf{suite de Cauchy} si:
-    $$ \forall \epsilon > 0, \exists M \text{ tel que} m, n \geq M \implies d(x_m, x_n) < \epsilon $$
-\end{definition}
-
-\section{Complétude}
-\begin{definition}[Completude]
+\chapter{Complétude}
+\begin{definition}[Espace métrique complet]
     \label{def:completude}
-    Soit $(X, d)$ un espace métrique. $(X, d)$ est dit \textbf{complet} si toute \hyperref[def:suite_cauchy]{suite de Cauchy} dans $X$ converge vers un élément de $X$.
+    Un espace métrique est dit \textbf{complet} si toute suite de Cauchy dans l'espace métrique converge vers un élément de l'espace métrique.
 \end{definition}
 
-\section{Continuité}
-\begin{definition}[Continuité]
-    \label{def:continuite}
-    Soit $(X, d_X)$ et $(Y, d_Y)$, deux espaces \hyperref[def:metrique]{métriques} et $f: X \to Y$, une fonction de $X$ vers $Y$.
-    $f$ est \textbf{continue} en un point $x_0 \in X$ si:
-    $$ \forall \epsilon > 0, \exists \delta > 0,\text{ tel que }d_X(x, x_0) < \delta \implies d_Y(f(x), f(x_0)) < \epsilon $$ 
+\chapter{Compacité}
+\begin{definition}[Compacité]
+    \label{def:compacite}
+    Soit $S$, un sous-ensemble d'un espace métrique $(X,d)$. On dit que $S$ est \textbf{compact} si de tout recouvrement de $S$ par des ouverts de $X$,
+    on peut extraire un sous-recouvrement \underline{fini}.
 \end{definition}
 
-On observe un lien entre la convergence et la continuité:
 \begin{theorem}
-    \label{thm:continuite_convergence} Soit $(X, d_X)$, $(Y, d_Y)$ et $f:X \to Y$. \\
-    $f$ est  \hyperref[def:continuite]{continue} au point 
-    $a \in X$ $\iff$ pour toute suite $\{x_n\}$ tel que $x_n \to a$, la suite $\{f(x_n)\}$ \hyperref[def:convergence_metrique]{converge} vers $f(a)$.
+    Soit $(X,d)$ un espace métrique. Si $S \subseteq X$ est \hyperref[def:compacite]{compact}, alors $S$ est borné et fermé.
 \end{theorem}
 
-\begin{proof}[=>]
-    Soit $f$, continue en $a$ et $x_n \to a$ \sep \\
-    Alors, $\forall \epsilon_1 > 0, \exists M : m \geq M \implies d(x_m, a) < \epsilon_1$ \sep
-    et, $\forall \epsilon > 0, \exists \delta > 0, d_X(x_n, a) < \delta \implies d_Y(f(x_n), f(a)) < \epsilon$ \sep \\
-    En posant $\delta = \epsilon_1$ \sep \\
-    On obtient $\forall \epsilon > 0, \exists M : m \geq M \implies d(x_m, a) < \epsilon_1 \implies d(f(x_m), f(a)) < \epsilon$ \sep \\
-    et en réduistant $\forall \epsilon > 0, \exists M : m \geq M \implies d(f(x_m), f(a)) < \epsilon$ \sep \\
-\end{proof}
+\begin{theorem}
+    \label{thm:compact_implique_sous_suite}
+    Soit $(X,d)$, un espace métrique compact. Alors, toute suite ${x_n}$ de l'espace métrique admet une sous-suite convergente 
+\end{theorem}
 
-\begin{comment}
-    Nos hypothèses de départ. \sep
-    En utilisant la définition d'une \hyperref[def:convergence_metrique]{suite convergente}. \sep
-    En utilisant la définition de la \hyperref[def:continuite]{continuité} au point $a$ \sep
-    Puisque $x_n$ converge vers $a$, on peut substituer $\epsilon_1$ pour $\delta$ \sep.
-    On conclut
-\end{comment}
+\begin{theorem}
+    Tout espace métrique compact est un espace métrique \hyperref[def:completude]{complet}.
+\end{theorem}
 
-\begin{proof}[<=]
-    Soit $x_n \to a$ et $f(x_n) \to f(a)$ \sep \\
-    $\forall \epsilon > 0, \exists M_1 : m \geq M_1 \implies d(x_m, a) < \epsilon$ et $\forall \epsilon > 0, \exists M_2 : m \geq M_2 \implies d(f(x_m), f(a)) < \epsilon$ \sep \\
-    Posons $M =\max{M_1, M_2}$ \sep \\
-    Donc
-\end{proof}
-
-\section{Contractions}
-\begin{definition}[Lambda-contractante]
-    \label{def:lambda_contractante}
-    Soit $f: X \to Y$, $f$ est \textbf{$\lambda$-contractante} si 
-    $$ \exists \lambda, \forall x,y \in X, d_Y(f(x), f(y)) \leq \lambda d_X(x,y) $$
-\end{definition}
-
-\begin{definition}[Contraction]
-    \label{def:contraction}
-    Soit $f: X \to Y$, $f$ est une \textbf{contraction} si elle est \hyperref[def:lambda_contractante]{$\lambda$-contractante}
-    pour $$ 0 \leq \lambda \leq 1$$
-\end{definition}
-
-\begin{lemma}
-    \label{lem:contractante_continue}
-    Si $f: X \to X$ est \hyperref[def:contraction]{contractante}, alors $f$ est \hyperref[def:continuite]{continue}
-\end{lemma}
 \begin{proof}
-    Soit $f: X \to X$, $\lambda$-contractante \sep 
-    Alors $d(f(x), f(y)) \leq \lambda d(x, y)$ \sep. On cherche à démontrer que 
-    $\forall \epsilon > 0, \exists \delta > 0, d(x, y) < \delta \implies d(f(x), f(y)) < \epsilon$ \sep 
-    En posant $\delta = \frac{\epsilon}{\lambda + 1}$ ($\lambda$ peut $= 0$) \sep 
-    $\delta > 0$, car $\epsilon > 0$ Donc si $d(x, y) < \frac{\epsilon}{\lambda + 1}$ et que $d(f(x), f(y)) \leq \lambda d(x,y)$ \sep 
-    alors $d(f(x), f(y)) \leq \lambda d(x,y) < \lambda \cdot \frac{\epsilon}{\lambda + 1}$ \sep 
-    Or $\lambda \cdot \frac{\epsilon}{\lambda + 1} <\epsilon$ \sep 
-    En effet, si $\lambda = 0 \implies 0 < \epsilon$ \sep 
-    Si $0 < \lambda$, $\frac{\epsilon}{\lambda + 1} < \frac{\epsilon}{\lambda} \implies \lambda \cdot \frac{\epsilon}{\lambda + 1} < \lambda \cdot \frac{\epsilon}{\lambda}$ \sep
-    Donc $\forall \epsilon > 0, \exists \delta = \frac{\epsilon}{\lambda + 1}, d(x, y) < \delta \implies d(f(x), f(y)) < \lambda \cdot \frac{\epsilon}{\lambda + 1} < \epsilon$  \sep     
+    Soit $X$ un espace métrique \hyperref[def:completude]{compact} et ${x_n}$ une suite de Cauchy d'éléments de $X$.\\
+    Ainsi, $\forall \epsilon > 0$, $\exists N_1\text{ tq } m,n \geq N_1 \implies d(x_n, x_m) < \frac{\epsilon}{2}$.\\
+    Par le \autoref{thm:compact_implique_sous_suite},  il existe aussi une sous-suite convergente ${x_{n_k}} \mapsto x \in X$.\\
+    Ainsi $\forall \epsilon > 0$, $\exists N_2\text{ tq } k \geq N_2 \implies d(x_{n_k}, x) < \frac{\epsilon}{2}$. \\
+    En posant $N_3 = \max(N_1, N_2)$, alors:\\
+    $\forall \epsilon > 0$, $\exists N_3\text{ tq } n,k \geq N_3$ \\
+    $\implies d(x_{n_k}, x) < \frac{\epsilon}{2} \land d(x_n,x_{n_k}) < \frac{\epsilon}{2}$\\
+    $\implies d(x_{n_k}, x) + d(x_n, x_{n_k}) < \frac{\epsilon}{2} + \frac{\epsilon}{2}$\\
+    $\implies d(x_n,x) \geq d(x_{n_k}, x) + d(x_n, x_{n_k}) < \epsilon$\\
+    Et donc que toute suite de cauchy converge vers un $x \in X$.
 \end{proof}
 
-\section{Points fixes}
+\begin{theorem}
+    Si $f$, est une fonction continue surjective de l'espace métrique compact $(X,d)$ sur l'espace métrique $(Y, d')$, alors Y est compact.
+\end{theorem}
+\begin{proof}
+    Posons $Y \subseteq \bigcup{V_i}$ où $V_i$ sont des ensembles ouverts de $Y$. \\
+    Puisque $f$ est une fonction surjective, $\forall x \in X, f(x) \in Y$.\\
+    Ainsi $X \subseteq f^{-1}(Y) \subseteq f^{-1}(\bigcup{V_i})$ ou $X \subseteq \bigcup f^{-1}(V_i)$\\
+    Comme $f$ est continue $f^{-1}(V_i)$ est ouvert.\\
+    Alors $X$ est recouvert par le recouvrement ouvert $\bigcup f^{-1}(V_i)$\\
+    Puisque $X$ est compact, on peut extraire un sous-recouvrement fini tel que $X = \bigcup^n_{j=1} f^{-1}(V_{i_j})$.\\
+    Comme $Y = f(X) \implies Y = f(\bigcup^n_{j=1} f^{-1}(V_{i_j}))$ \\
+    $ \implies Y = \bigcup^n_{j=1} f(f^{-1}(V_{i_j})) $\\
+    $ \implies Y = \bigcup^n_{j=1} V_{i_j}$, car $f$ est surjective.\\
+    Donc, il existe un recouvrement fini d'ensemble ouvert pour $Y$.
+\end{proof}
 
-\begin{definition}[Point fixe]
-    \label{def:point_fixe}
-    Soit $f: X \to X$ et $x_0 \in X$, $x_0$ est un \textbf{point fixe} de $f$ si, $f(x_0) = x_0$.
+\chapter{Connexité}
+\begin{definition}[Connexité]
+    \label{def:connexite}
+    Soit $(X,d)$, un espace métrique. On dit que $(X,d)$ est connexe si il ne peut s'exprimer comme l'union de deux ouverts disjoints non-vides.
 \end{definition}
 
-\begin{theorem}[Point fixe de Banach]
-    \label{thm:point_fixe_banach}
-    Soit $f: X \to X$, une \hyperref[def:contraction]{contraction}, si X est un espace métrique \hyperref[def:completude]{complet},
-    $f$ admet un \hyperref[def:point_fixe]{point fixe} unique.
+\begin{theorem}
+    Si $f$, est une fonction continue surjective de l'espace métrique connexe $(X,d)$ sur l'espace métrique $(Y, d')$, alors Y est connexe.
 \end{theorem}
 
-\begin{proof}[I. Suite de Cauchy récursive]
-    Soit $\{x_n\}$, une suite d'éléments de $X$ tel que: $\{x_1 = f(x_0), x_2 = f(x_1) = f(f(x_0)), x_3 = f(x_2), \dots \}$ \sep
-    Démontrons que cette suite $\{x_n\}$ est une suite de Cauchy: \sep \\
-    Pour un $n > 1$, $d(f(x_{n-1}), f(x_n)) \leq \lambda d(x_{n-1}, x_n)$ \sep
-    Or $d(f(x_{n-1}), f(x_n)) = d(x_n x_{n+1})$ \sep 
-    Donc $d(x_n x_{n+1}) \leq \lambda d(x_{n-1}, x_n) \leq \lambda \cdot \lambda d(x_{n-2}, x_{n-1}) \leq \dots $ \sep
-    Ou en généralisant $d(x_n x_{n+1}) \leq \lambda^n d(x_0, x_1)$ \sep 
-    Or $d(x_n, x_m) \leq d(x_n, x_{n+1}) + d(x_{n+1}, x_{n+2}) + \dots + d(x_{m-1}, x_m)$ \sep 
-    Donc $d(x_n, x_m) \leq  \lambda^n d(x_0, x_1) + \lambda^{n+1} d(x_0, x_1) + \dots + \lambda^{m-1} d(x_0, x_1)$ \sep
-    En factorisant $d(x_n, x_m) \leq \lambda^n \cdot d(x_0, x_1) \cdot (1 + \lambda + \lambda^2 + \dots + \lambda^{m-n-1})$ \sep 
-    $(1 + \lambda + \lambda^2 + \dots + \lambda^{m-n-1}) = \sum_{i=0}^{m-n-1} \lambda^i$  \sep 
-    $\sum_{i=0}^{m-n-1} \lambda^i < \sum_{i=0}^{\infty} \lambda^i$ \sep 
-    Puisque $0 \leq \lambda < 1$, $\sum_{i=0}^{m-n-1} \lambda^i < \frac{1}{1-\lambda}$ \sep
-    Donc nous avons $d(x_n, x_m) \leq \lambda^n \cdot d(x_0, x_1) \cdot \sum_{i=0}^{m-n-1} \lambda^i <  \lambda^n \cdot d(x_0, x_1) \cdot \frac{1}{1-\lambda} $ \sep
-    Posons: $d(x_0, x_1) = \alpha$, car c'est une valeur réelle finie \sep 
-    Si $\alpha = 0$ ou $\lambda = 0$, la solution est triviale. \sep 
-    De plus $\lambda^{\lceil n \rceil} \cdot d(x_0, x_1) \cdot \frac{1}{1-\lambda} < \lambda^{n} \cdot d(x_0, x_1) \cdot \frac{1}{1-\lambda}$, car $\lambda < 1$ \sep
-    Posons $n = \log_{\lambda}\frac{\epsilon(1 - \lambda)}{\alpha}$ \sep 
-    Ainsi $\lambda^{\lceil n \rceil} \cdot \alpha \cdot \frac{1}{1-\lambda} < \lambda^{\log_{\lambda}\frac{\epsilon(1 - \lambda)}{\alpha}} \cdot \alpha \cdot \frac{1}{1-\lambda}$ \sep
-    $\implies \lambda^{\lceil n \rceil} \cdot \alpha \cdot \frac{1}{1-\lambda} < \frac{\epsilon(1 - \lambda)}{\alpha} \cdot \frac{\alpha}{(1 - \lambda)}$ \sep 
-    $\implies \lambda^{\lceil n \rceil} \cdot \alpha \cdot \frac{1}{1-\lambda} < \epsilon$ \sep
-    Donc c'est une suite de Cauchy.
+\begin{proof}
+    Supposons que $X$ soit connexe et que $Y$ s'exprime comme l'union de deux ensembles ouverts disjoints $(U_1 \cup U_2)$.\\
+    $X = f^{-1}(Y) = f^{-1}(U_1 \cup U_2) = f^{-1}(U_1) \cup f^{-1}(U_2)$\\
+    Puisque $f$ est continue, l'image de $f$ est ouvert. \\
+    Ainsi $f^{-1}(U_1)$ et $f^{-1}(U_2)$ sont ouverts.\\
+    De plus, puisque $U_1 \cap U_2 = \emptyset \implies f^{-1}(U_1) \cap f^{-1}(U_2) = \emptyset$\\
+    Ensuite $U_1 \neq \emptyset \implies f^{-1}(U_1) \neq \emptyset$ puisque $f$ est surjectif\\
+    Donc cela implique que $X$ ne serait pas connexe, une contradiction.
 \end{proof}
-
-\begin{comment}
-    On construit une suite récursive, qui on le verra aura des propriétés intéressantes. \sep 
-    On cherche à démontrer que c'est une suite de Cauchy. \sep
-    Puisque $f$ est une fonction \hyperref[def:lambda_contractante]{$\lambda$-contractante} \sep 
-    On utilise la définition de notre suite récursive. \sep 
-    On "remonte" la différence de la suite jusqu'au début. \sep 
-    Attention ca ne marche que pour $\lambda \geq 0$!. \sep 
-    Par l'inégalité du triangle sur les suites. \sep 
-    Grâce à notre inégalité $d(x_n x_{n+1}) \leq \lambda^n d(x_0, x_1)$ \sep
-    On factorise nos $\lambda$ \sep 
-    On équivaut nos $\lambda$ en une sommation pour retrouver la série géométrique \sep.
-    En effet, une série finie positive est nécessairement plus petite qu'une série infinie positive \sep.
-    On utilise le fait que la série géométrique infinie converge vers $\frac{1}{1-\lambda}$ \sep.
-\end{comment}
-
-\begin{proof}[II. Existence du point fixe]
-    Soit $\{x_n\}$, une suite de Cauchy dans $X$ tel que $\{x_1 = f(x_0), x_2 = f(x_1) = f(f(x_0)), x_3 = f(x_2), \dots \}$ \sep
-    Puisque $X$ est complet, $\{x_n\}$ converge vers un point $x \in X$ \sep 
-    La sous-suite $\{x_{(n+1)}\}$ converge également vers le point $x \in X$ \sep
-    Et $\{f(x_n)\} = \{x_{(n + 1)}\}$ \sep 
-    Or puisque $f$ est continue, $\{f(x_n)\}$ converge vers $f(x)$ \sep 
-    Donc $\{f(x_n)\}$ converge vers $f(x)$ et converge vers $x$ \sep
-    Mais par le théorême d'unicité, $f(x) = x$. Un point fixe \sep  
-\end{proof}
-\begin{proof}[III. Unicité du point fixe]
-    Supposons qu'il existe deux points fixes tel que $x_0$, $x_1$ et $f(x_0) = x_0$ et $f(x_1) = x_1$. \sep 
-    Puisque $f$ est une contraction $d(f(x_0), f(x_1)) \leq \lambda d(x_0, x_1)$ \sep 
-    Et puisque $f(x_0) = x_0$ et $f(x_1) = x_1$, $\implies d(x_0, x_1) \leq \lambda d(x_0, x_1)$ \sep 
-    $\implies d(x_0, x_1) \leq 0 \implies x_0 = x_1$
-\end{proof}
-
-\chapter{Espaces topologiques}
-\section{Topologie}
-\begin{definition}[Topologie]
-    \label{def:topologie} 
-    Soit $\mathcal{O}$, une \hyperref[def:famille]{famille} est une \textbf{topologie} sur $X$ si et seulement si:\\
-    $(x \in \mathcal{O} \implies x \subset X)$ (chaque élément de la famille est un sous-ensemble de $X$)\\
-    $(\emptyset \in \mathcal{O} \land X \in \mathcal{O})$ \\
-    $(x \subset \mathcal{O} \land y \subset \mathcal{O} \implies x \cap y \in \mathcal{O})$ (si $x,y$ sont finis) \\
-    $(x \subset \mathcal{O} \land y \subset \mathcal{O} \implies x \cup y \in \mathcal{O})$ \\
-\end{definition}
-En d'autres mots, c'est la famille de tous les ensembles qu'on peut former de $X$ lesquels peuvent se réunir ou s'intersecter et 
-générer un ensemble qui fait partie de la famille.
-\section{Fermeture}
-\section{Continuité}
-
 
 \appendix
 \chapter{Notions préalables}
