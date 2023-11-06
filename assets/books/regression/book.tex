@@ -126,9 +126,9 @@ On peut ainsi déduire le théorême suivant:
 
 N'oublions pas que le modèle ne représente pas une \textit{fonction} à une variable! Il est possible que dans nos couples de données, qu'il existe 
 plusieurs valeurs $y$ pour un même $x$. Donc, lorsque nous parlons de la variable aléatoire $y_i$ (et non $Y$), c'est l'ensemble de valeurs que peut 
-prendre $y_i$ pour un $x_i$ fixé!
+prendre $y_i$ pour un $x_i$ fixé! E
 
-Puisque la variable aléatoire $y_i$ suit une loi normale, on peut déduire que:
+Puisque la variable aléatoire $y_i$ suit une loi normale et que la loi normale est basée sur la moyenne, on peut déduire que:
 \begin{corollary}
     \label{def:y_moyenne}
     La \textbf{moyenne} ou l'\textbf{espérance} de $E(y_i) = \beta_0 + \beta_1x_i$
@@ -143,7 +143,7 @@ de $\beta_0$ et  $\beta_1$, noté $b_0, b_1$ respectivement.
 
 On cherche un $b_0, b_1$ tel que, idéalement, $\epsilon \to 0$. Ainsi:
 
-$$ \hat{y_i} = b_0 + b_1x_i$$ où $\hat{y_i}$ est une valeur théorique où $\epsilon = 0$ et \textit{aussi} une estimation.
+$$ \hat{y_i} = b_0 + b_1x_i$$ où $\hat{y_i}$ est une valeur théorique et où $\epsilon = 0$ est \textit{aussi} une estimation.
 
 \section{Estimation des moindres carrés}
 On cherche à minimiser la différence entre notre $\hat{y_i}$ théorique et notre "vrai" $y_i$.
@@ -154,18 +154,52 @@ On cherche à minimiser la différence entre notre $\hat{y_i}$ théorique et not
 \end{lemma}
 
 Soit $y_i$ défini par $(\beta_0, \beta_1)$ et $\hat{y_i}$ défini par $(b_0, b_1)$. La distance entre $y_i$ et $\hat{y_i}$ peut s'exprimer
-par la norme euclidienne:
-\begin{lemma}
-    $$ d(y_i, \hat{y_i}) = \sqrt{(y_i - \hat{y_i})^2} = \sqrt{(y_i - b_0 - b_1x_i)} $$
-\end{lemma}
+par la métrique de valeur absolue:
+$$ d(y_i, \hat{y_i}) = \sqrt{(y_i - \hat{y_i})^2} = \sqrt{(y_i - b_0 - b_1x_i)} $$
+
+Toutefois il puisque la valeur absolue n'est pas dérivable (et que nous devrons dérivé), nous pouvons
+utiliser une métrique carrée: $d(x, y) = (x - y)^2$
+
+Tout d'abord vérifions que c'est une métrique acceptable:
+\begin{theorem}
+    La fonction en $\Bbb R^2$, $d(x, y) = (x - y)^2$ défini une métrique.
+\end{theorem}
+
+\begin{proof}
+    $d(x, y) \geq 0 \forall x,y$, car la fonction est toujours positive. \\
+    $d(x, y) = 0 \implies x = y$, si $(x - y)^2 = 0 \implies x - y = 0 \implies x = y$ \\
+    $x = y \implies d(x, y)$, si $x = y \implies (x - y)^ 2= 0^2 \implies d(x, y) = 0$ \\
+    $d(x, y) = d(y, x)$, $(x - y)^2 = x^2 - 2xy + y^2 = (y - x)^2$ \\
+    $d(x, y) \leq d(x, z) + d(z, y)$, TODO.
+\end{proof}
 
 Ainsi, on cherche le $b_0, b_1$ pour lesquels la distance est minimale pour tout les $x_i, y_i$ et on peut noter cette distance par une fonction 
 en $\Bbb R^2$ tel que:
 \begin{lemma}
-    $$ L(b_0, b_1) = \sum_{i=1}^{n} d(y_i, \hat{y_i}) = \sum_{i=1}^{n} \sqrt{(y_i - b_0 - b_1x_i)^2} $$
+    $$ L(b_0, b_1) = \sum_{i=1}^{n} d(y_i, \hat{y_i}) = \sum_{i=1}^{n} \sqrt{(y_i - b_0 - b_1x_i)} $$
 \end{lemma}
 
-Maintenant, il suffit d'\textit{optimiser} la fonction $L(b_0, b_1)$
+Maintenant, il suffit d'\textit{optimiser} la fonction $L(b_0, b_1)$:
+
+\begin{lemma}
+    $$ L(b_0, b_1) = \min{L(b_0, b_1)} \iff \frac{\partial L}{\partial b_0} = 0 \land \frac{\partial L}{\partial b_1} = 0 $$
+\end{lemma}
+
+En effet, la fonction $L$ est positive pour $\forall b_0,b_1$, et on sait donc qu'il n'existe qu'un point critique et que celui-ci sera le minimum local.
+Un diagramme de la fonction aiderait ici.
+
+\begin{lemma}
+    $$ \frac{\partial L}{\partial b_0} = 2 $$
+\end{lemma}
+\begin{proof}
+    $\frac{\partial L}{\partial b_0} = \frac{\partial}{\partial b_0} \sum_{i=1}^{n} \sqrt{(y_i - b_0 - b_1x_i)^2} $\\
+    $ = \sum_{i=1}^{n} \frac{\partial}{\partial b_0} \sqrt{(y_i - b_0 - b_1x_i)^2} $\\
+    $ = \sum_{i=1}^{n} \frac{1}{2 \sqrt{(y_i - b_0 - b_1x_i)^2}} \cdot \frac{\partial}{\partial b_0} (y_i - b_0 - b_1x_i)^2 $\\
+    $ = \sum_{i=1}^{n} \frac{1}{2 \sqrt{(y_i - b_0 - b_1x_i)^2}} \cdot 2 (y_i - b_0 - b_1x_i) \cdot \frac{\partial}{\partial b_0} (y_i - b_0 - b_1x_i) $\\
+    $ = \sum_{i=1}^{n} \frac{1}{2 \sqrt{(y_i - b_0 - b_1x_i)^2}} \cdot 2 (y_i - b_0 - b_1x_i) \cdot -1 $\\
+    $ = \sum_{i=1}^{n} -\frac{(y_i - b_0 - b_1x_i)}{|(y_i - b_0 - b_1x_i)|} $\\
+\end{proof}
+
 \section{Estimation quand $\beta_0 = 0$}
 
 \chapter{Intervalle de confiance de $\beta_0$ et $\beta_1$}
