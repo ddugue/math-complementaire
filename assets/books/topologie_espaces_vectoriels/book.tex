@@ -43,301 +43,43 @@
 
 \begin{document}
 \chapter{Introduction}
-Qu'est-ce que la topologie?
+Qu'entend-on par espaces vectoriels?
 
+\chapter{Compacité}
 
-\chapter{Espaces vectoriels}
-\todo{Complete}
+\chapter{Continuité}
 \begin{definition}
-    \label{def:espace_vectoriel} 
-    Soit $K$ un corps commutatif, Un \textbf{espace vectoriel} est un ensemble de vecteurs $V$ muni de deux opérations binaires
-\end{definition}
-
-\section{Addition de vecteurs}
-\begin{itemize}
-    \item ao
-\end{itemize}
-
-\section{Multiplication par un scalaire}
-\begin{itemize}
-    \item ao
-\end{itemize}
-
-\section{Produit scalaire}
-\begin{definition}
-    \label{def:produit_scalaire}
-\end{definition}
-\subsection{Produit scalaire dans R}
-\begin{definition}
-    \label{def:produit_scalaire_r}
-\end{definition}
-\subsection{Produit scalaire dans Rn}
-\begin{definition}
-    \label{def:produit_scalaire_rn}
-\end{definition}
-
-
-\chapter{Inégalité de Cauchy-Schwarz}
-\begin{lemma}[Inégalité de Cauchy-Schwarz]
-    Soit $a_1,a_2,\dots,a_n$ et $b_1,b_2,\dots,b_n$ des nombre réels arbitraires, alors:
-    $$ (\sum_{i=1}^{n}a_ib_i)^2 \leq (\sum_{i=1}^{n}a_i^2)(\sum_{i=1}^{n}b_i^2) $$   
-\end{lemma}
-
-\begin{proof}
-    Tout d'abord si $\sum_{i=1}^{n}a_i^2 = 0 \implies a_i = 0(\forall i)$ \sep \\
-    Donc l'inégalité est confirmée par $ (\sum_{i=1}^{n}0b_i)^2 \leq 0(\sum_{i=1}^{n}b_i^2) \implies 0 \leq 0$. \sep \\
-    Supposons donc $\sum_{i=1}^{n}a_i^2 > 0$ \sep \\
-    Soit $\sum_{i=1}^{n} (a_ix + b_i)^2$, Puisque $z^2 \geq 0(\forall z) \implies \sum_{i=1}^{n} (a_ix + b_i)^2 \geq 0 (\forall x)$ \sep \\
-    Or $\sum_{i=1}^{n} (a_ix + b_i)^2 = \sum_{i=1}^{n} a_ix^2 + 2b_ia_ix + b_i^2$ \sep \\
-    $= \sum_{i=1}^{n} a_i^2x^2 + \sum_{i=1}^{n} 2b_ia_ix + \sum_{i=1}^{n} b_i^2$ \sep \\
-    $= (\sum_{i=1}^{n} a_i^2) \cdot x^2 + (\sum_{i=1}^{n} b_ia_i) \cdot 2x + (\sum_{i=1}^{n} b_i^2)$ \sep \\
-    $= Ax^2 + 2Bx + C$, en posant $A = (\sum_{i=1}^{n} a_i^2), B = (\sum_{i=1}^{n} b_ia_i), C = (\sum_{i=1}^{n} b_i^2)$ \sep \\
-    $=Ax^2 + 2Bx + \frac{B^2}{A} - \frac{B^2}{A} + C$ $(A > 0)$ \sep \\
-    $=A \cdot (x^2 + 2\frac{B}{A}x + \frac{B^2}{A^2}) + C - \frac{B^2}{A}$ \sep \\
-    $=A \cdot (x + \frac{B}{A})^2 + \frac{AC - B^2}{A}$ \sep \\
-    Or puisque $\sum_{i=1}^{n} (a_ix + b_i)^2 \geq 0 (\forall x)$, c'est particulièrement vrai pour $x = \frac{-B}{A}$ \sep \\
-    $\implies A \cdot (\frac{-B}{A} + \frac{B}{A})^2 + \frac{AC - B^2}{A} \geq 0$ \sep \\
-    $\implies A \cdot (A \cdot 0 + \frac{AC - B^2}{A}) \geq (A \cdot 0)$ \sep \\
-    $\implies AC - B^2 \geq 0$ \sep \\
-    $\implies AC \geq B^2 \implies (\sum_{i=1}^{n} a_i^2)(\sum_{i=1}^{n} b_i^2) \geq (\sum_{i=1}^{n} b_ia_i)^2$ \sep \\
-    Ce qui conclut notre Inégalité.
-\end{proof}
-
-
-\chapter{Espaces normés}
-
-\section{Norme}
-\begin{definition}
-    \label{def:norme}
-\end{definition}
-
-\subsection{Norme dans R}
-
-\subsection{Norme dans Rn}
-
-\subsection{Norme par le produit scalaire}
-
-\section{Espace préhilbertien}
-
-\chapter{Espaces métriques}
-\section{Les métriques}
-\begin{definition}[Métrique]
-    \label{def:metrique}
-    Soit $X$, un ensemble, une \textbf{métrique} sur $X$ est une fonction $d: X \times X \to \Bbb R_+$ tel que: \\
-    $d(x, y) \geq 0$ \\
-    $d(x, y) = 0 \iff x = y$ \\
-    $d(x, y) = d(y, x)$ \\
-    $d(x, y) \leq d(x, z) + d(z, y)$ \\
-\end{definition}
-\subsection{Métrique sur l'ensemble des fonctions continues}
-Prenons par exemple la métrique suivante définie sur l'ensemble des fonctions continues sur $[0, 1]$:
-$$ d(f, g) = \sup_{x \in [0,1]} |f(x) - g(x)| $$
-
-\begin{proof}[1ere prop.]
-    $|f(x) - g(x)| \geq 0$, car $|x| \geq 0$, donc $d(f, g) \geq 0$ \sep \\
-    Donc $d(x, y) \geq 0$
-\end{proof}
-
-\begin{proof}[2ieme prop.]
-    Supposons que $d(f, g) = 0$, alors $\sup_{x \in [0, 1]} |f(x) - g(x)| = 0$. \sep \\
-    $\implies (\forall x \in [0, 1]) |f(x) - g(x)| = 0$, car si il existe un $x$ tel que $|f(x) - g(x)| > 0$, alors le $sup = x$ \sep \\
-    $\implies (\forall x \in [0, 1]) f(x) = g(x)$ \sep \\
-    Maintenant supposons que $f(x) = g(x)$ \sep \\
-    $\implies \sup_{x \in [0, 1]} |f(x) - g(x)| = \sup_{x \in [0, 1]} |f(x) - f(x)| = \sup_{x \in [0, 1]} |0| = 0$ \sep \\
-    Donc $d(x, y) = 0 \iff x = y$
-\end{proof} 
-
-\begin{proof}[3ieme prop.]
-    $|x - y| = |y - x|$ \sep \\
-    $\implies |f(x) - g(x)| = |g(x) - f(x)|$ \sep \\
-    $\implies \sup_{x \in [0, 1]} |f(x) - g(x)| = \sup_{x \in [0, 1]} |g(x) - f(x)|$ \sep \\
-    $\implies d(x, y) = d(y, x)$ 
-\end{proof}
-
-\begin{proof}[4ieme prop.]
-    Soit $|f(x) - g(x)| = |f(x) - h(x) + h(x) - g(x)|$ \sep \\
-    $|f(x) - h(x) + h(x) - g(x)| \leq |f(x) - h(x)| + |h(x) - g(x)|$ \sep \\
-    et $|f(x) - h(x)| \leq \sup_{x \in [0, 1]} |f(x) - h(x)|$ \sep \\
-    $\implies |f(x) - h(x)| + |h(x) - g(x)| \leq \sup_{x \in [0, 1]} |f(x) - h(x)| + \sup_{x \in [0, 1]}|h(x) - g(x)| $ \sep \\
-    Donc: $\sup_{x \in [0, 1]} |f(x) - g(x)| \leq$ \sep \\
-    $\sup_{x \in [0, 1]} (|f(x) - h(x)| + |h(x) - g(x)|) \leq$ \sep \\
-    $\sup_{x \in [0, 1]}(\sup_{x \in [0, 1]} |f(x) - h(x)| + \sup_{x \in [0, 1]}|h(x) - g(x)|) =$
-    $\sup_{x \in [0, 1]} |f(x) - h(x)| + \sup_{x \in [0, 1]}|h(x) - g(x)|$
-\end{proof}
-\section{Convergence des suites}
-\begin{definition}[Convergence]
-    \label{def:convergence_metrique}
-    Soit $(X, d)$, un espace métrique et ${x_n}$ une suite d'éléments de X. ${x_n}$ \textbf{converge} vers $x$ ($x_n \to x)$ si:
-    $$ (\forall \epsilon > 0)(\exists M \in \Bbb N)\text{ tq }n > M \implies d(x_m, x) < \epsilon $$
-\end{definition}
-
-\begin{theorem}[Unicité convergence]
-    Soit $(X, d)$ un espace métrique, $x, y \in X$ et $\{x_n\}$ une suite. Si $x_m \to x$ et $x_m \to y$, alors $x = y$
-\end{theorem}
-
-\begin{proof}
-    Supposons que $x_n \to x$ et $x_n \to y$, mais que $x \neq y$. \sep \\
-    Puisque $x \neq y \implies d(x, y) > 0$ \sep \\
-    et $(\forall \epsilon > 0)(\exists M_1 \in \Bbb N, \exists M_2 \in \Bbb N)\text{ tq }d(x_{M1}, x) < \epsilon \land d(x_{M2}, y) < \epsilon$ 
-    Posons $\epsilon = \frac{1}{2}d(x, y)$ et $M = \max{\{M_1,M_2\}}$ \sep \\
-    Donc il existe un $m > M \implies d(x, x_m) < \frac{1}{2}d(x, y) \land d(y, x_m) < \frac{1}{2}d(x, y)$ \sep \\
-    $\implies m > M \implies d(x, x_m) + d(y, x_m) \leq \frac{1}{2}d(x, y) + \frac{1}{2}d(x, y)$ \sep \\
-    $\implies d(x, x_m) + d(x_m, y) \leq d(x, y)$ \sep \\
-    Or $d(x, y) \leq d(x, x_m) + d(x_m, y)$, donc nous avons une contradiction.
-\end{proof}
-\section{Bornes}
-
-\section{Suites de Cauchy}
-\begin{definition}[Suite de Cauchy]
-    \label{def:suite_cauchy}
-    Soit $\{x_m\}$ une suite dans un espace métrique $(X, d)$. $\{x_m\}$ est une \textbf{suite de Cauchy} si:
-    $$ \forall \epsilon > 0, \exists M \text{ tel que} m, n \geq M \implies d(x_m, x_n) < \epsilon $$
-\end{definition}
-
-\section{Complétude}
-\begin{definition}[Completude]
-    \label{def:completude}
-    Soit $(X, d)$ un espace métrique. $(X, d)$ est dit \textbf{complet} si toute \hyperref[def:suite_cauchy]{suite de Cauchy} dans $X$ converge vers un élément de $X$.
-\end{definition}
-
-\section{Continuité}
-\begin{definition}[Continuité]
     \label{def:continuite}
-    Soit $(X, d_X)$ et $(Y, d_Y)$, deux espaces \hyperref[def:metrique]{métriques} et $f: X \to Y$, une fonction de $X$ vers $Y$.
-    $f$ est \textbf{continue} en un point $x_0 \in X$ si:
-    $$ \forall \epsilon > 0, \exists \delta > 0,\text{ tel que }d_X(x, x_0) < \delta \implies d_Y(f(x), f(x_0)) < \epsilon $$ 
+    Soit $f$, une fonction de domaine $\Bbb R^n$. $f$ est continue en $a$ si 
+    $$\forall \epsilon > 0, \exists \delta > 0 \text{ tq } x \in D \land 0 < ||x - a|| < \delta \implies || f(x) - f(a) || < \epsilon$$
 \end{definition}
 
-On observe un lien entre la convergence et la continuité:
+Si une fonction est continue sur l'entiereté de son domaine, on dira alors que celle-ci est continue uniformément:
+\begin{definition}
+    \label{def:continuite_uniforme}
+    Soit $f$, une fonction de domaine $\Bbb R^n$. $f$ est \textbf{uniformément continue} sur $D$ si 
+    $$\forall \epsilon > 0, \exists \delta > 0 \text{ tq } \forall x, a \in D \land 0 < ||x - a|| < \delta \implies || f(x) - f(a) || < \epsilon$$
+\end{definition}
+
 \begin{theorem}
-    \label{thm:continuite_convergence} Soit $(X, d_X)$, $(Y, d_Y)$ et $f:X \to Y$. \\
-    $f$ est  \hyperref[def:continuite]{continue} au point 
-    $a \in X$ $\iff$ pour toute suite $\{x_n\}$ tel que $x_n \to a$, la suite $\{f(x_n)\}$ \hyperref[def:convergence_metrique]{converge} vers $f(a)$.
+    \label{def:compact_implique_continuite_uniforme}
+    Soit $f$, une fonction continue de domaine $K$ et $K \subseteq \Bbb R^n$. Si $K$ est \hyperref[def:compacite]{compact}, alors $f$ est 
+    \hyperref[def:continuite_uniforme]{uniformément continue}.
 \end{theorem}
 
-\begin{proof}[=>]
-    Soit $f$, continue en $a$ et $x_n \to a$ \sep \\
-    Alors, $\forall \epsilon_1 > 0, \exists M : m \geq M \implies d(x_m, a) < \epsilon_1$ \sep
-    et, $\forall \epsilon > 0, \exists \delta > 0, d_X(x_n, a) < \delta \implies d_Y(f(x_n), f(a)) < \epsilon$ \sep \\
-    En posant $\delta = \epsilon_1$ \sep \\
-    On obtient $\forall \epsilon > 0, \exists M : m \geq M \implies d(x_m, a) < \epsilon_1 \implies d(f(x_m), f(a)) < \epsilon$ \sep \\
-    et en réduistant $\forall \epsilon > 0, \exists M : m \geq M \implies d(f(x_m), f(a)) < \epsilon$ \sep \\
-\end{proof}
-
-\begin{comment}
-    Nos hypothèses de départ. \sep
-    En utilisant la définition d'une \hyperref[def:convergence_metrique]{suite convergente}. \sep
-    En utilisant la définition de la \hyperref[def:continuite]{continuité} au point $a$ \sep
-    Puisque $x_n$ converge vers $a$, on peut substituer $\epsilon_1$ pour $\delta$ \sep.
-    On conclut
-\end{comment}
-
-\begin{proof}[<=]
-    Soit $x_n \to a$ et $f(x_n) \to f(a)$ \sep \\
-    $\forall \epsilon > 0, \exists M_1 : m \geq M_1 \implies d(x_m, a) < \epsilon$ et $\forall \epsilon > 0, \exists M_2 : m \geq M_2 \implies d(f(x_m), f(a)) < \epsilon$ \sep \\
-    Posons $M =\max{M_1, M_2}$ \sep \\
-    Donc
-\end{proof}
-
-\section{Contractions}
-\begin{definition}[Lambda-contractante]
-    \label{def:lambda_contractante}
-    Soit $f: X \to Y$, $f$ est \textbf{$\lambda$-contractante} si 
-    $$ \exists \lambda, \forall x,y \in X, d_Y(f(x), f(y)) \leq \lambda d_X(x,y) $$
+\chapter{Notions de limite}
+\begin{definition}
+    \label{def:limite}
+    Soit $f$, une fonction de domaine $\Bbb R^n$. Le point $b$ est considéré la \textbf{limite} de $f$ à un point d'accumulation $c$ du domaine si
+    $$\forall \epsilon > 0, \exists \delta > 0 \text{ tq } x \in D \land 0 < ||x - c|| < \delta \implies || f(x) - b || < \epsilon$$
 \end{definition}
 
-\begin{definition}[Contraction]
-    \label{def:contraction}
-    Soit $f: X \to Y$, $f$ est une \textbf{contraction} si elle est \hyperref[def:lambda_contractante]{$\lambda$-contractante}
-    pour $$ 0 \leq \lambda \leq 1$$
-\end{definition}
-
-\begin{lemma}
-    \label{lem:contractante_continue}
-    Si $f: X \to X$ est \hyperref[def:contraction]{contractante}, alors $f$ est \hyperref[def:continuite]{continue}
-\end{lemma}
-\begin{proof}
-    Soit $f: X \to X$, $\lambda$-contractante \sep 
-    Alors $d(f(x), f(y)) \leq \lambda d(x, y)$ \sep. On cherche à démontrer que 
-    $\forall \epsilon > 0, \exists \delta > 0, d(x, y) < \delta \implies d(f(x), f(y)) < \epsilon$ \sep 
-    En posant $\delta = \frac{\epsilon}{\lambda + 1}$ ($\lambda$ peut $= 0$) \sep 
-    $\delta > 0$, car $\epsilon > 0$ Donc si $d(x, y) < \frac{\epsilon}{\lambda + 1}$ et que $d(f(x), f(y)) \leq \lambda d(x,y)$ \sep 
-    alors $d(f(x), f(y)) \leq \lambda d(x,y) < \lambda \cdot \frac{\epsilon}{\lambda + 1}$ \sep 
-    Or $\lambda \cdot \frac{\epsilon}{\lambda + 1} <\epsilon$ \sep 
-    En effet, si $\lambda = 0 \implies 0 < \epsilon$ \sep 
-    Si $0 < \lambda$, $\frac{\epsilon}{\lambda + 1} < \frac{\epsilon}{\lambda} \implies \lambda \cdot \frac{\epsilon}{\lambda + 1} < \lambda \cdot \frac{\epsilon}{\lambda}$ \sep
-    Donc $\forall \epsilon > 0, \exists \delta = \frac{\epsilon}{\lambda + 1}, d(x, y) < \delta \implies d(f(x), f(y)) < \lambda \cdot \frac{\epsilon}{\lambda + 1} < \epsilon$  \sep     
-\end{proof}
-
-\section{Points fixes}
-
-\begin{definition}[Point fixe]
-    \label{def:point_fixe}
-    Soit $f: X \to X$ et $x_0 \in X$, $x_0$ est un \textbf{point fixe} de $f$ si, $f(x_0) = x_0$.
-\end{definition}
-
-\begin{theorem}[Point fixe de Banach]
-    \label{thm:point_fixe_banach}
-    Soit $f: X \to X$, une \hyperref[def:contraction]{contraction}, si X est un espace métrique \hyperref[def:completude]{complet},
-    $f$ admet un \hyperref[def:point_fixe]{point fixe} unique.
+\begin{theorem}[Unicité de la limite]
+    \label{thm:limite_unique}
+    La limite, si elle existe est unique.
 \end{theorem}
 
-\begin{proof}[I. Suite de Cauchy récursive]
-    Soit $\{x_n\}$, une suite d'éléments de $X$ tel que: $\{x_1 = f(x_0), x_2 = f(x_1) = f(f(x_0)), x_3 = f(x_2), \dots \}$ \sep
-    Démontrons que cette suite $\{x_n\}$ est une suite de Cauchy: \sep \\
-    Pour un $n > 1$, $d(f(x_{n-1}), f(x_n)) \leq \lambda d(x_{n-1}, x_n)$ \sep
-    Or $d(f(x_{n-1}), f(x_n)) = d(x_n x_{n+1})$ \sep 
-    Donc $d(x_n x_{n+1}) \leq \lambda d(x_{n-1}, x_n) \leq \lambda \cdot \lambda d(x_{n-2}, x_{n-1}) \leq \dots $ \sep
-    Ou en généralisant $d(x_n x_{n+1}) \leq \lambda^n d(x_0, x_1)$ \sep 
-    Or $d(x_n, x_m) \leq d(x_n, x_{n+1}) + d(x_{n+1}, x_{n+2}) + \dots + d(x_{m-1}, x_m)$ \sep 
-    Donc $d(x_n, x_m) \leq  \lambda^n d(x_0, x_1) + \lambda^{n+1} d(x_0, x_1) + \dots + \lambda^{m-1} d(x_0, x_1)$ \sep
-    En factorisant $d(x_n, x_m) \leq \lambda^n \cdot d(x_0, x_1) \cdot (1 + \lambda + \lambda^2 + \dots + \lambda^{m-n-1})$ \sep 
-    $(1 + \lambda + \lambda^2 + \dots + \lambda^{m-n-1}) = \sum_{i=0}^{m-n-1} \lambda^i$  \sep 
-    $\sum_{i=0}^{m-n-1} \lambda^i < \sum_{i=0}^{\infty} \lambda^i$ \sep 
-    Puisque $0 \leq \lambda < 1$, $\sum_{i=0}^{m-n-1} \lambda^i < \frac{1}{1-\lambda}$ \sep
-    Donc nous avons $d(x_n, x_m) \leq \lambda^n \cdot d(x_0, x_1) \cdot \sum_{i=0}^{m-n-1} \lambda^i <  \lambda^n \cdot d(x_0, x_1) \cdot \frac{1}{1-\lambda} $ \sep
-    Posons: $d(x_0, x_1) = \alpha$, car c'est une valeur réelle finie \sep 
-    Si $\alpha = 0$ ou $\lambda = 0$, la solution est triviale. \sep 
-    De plus $\lambda^{\lceil n \rceil} \cdot d(x_0, x_1) \cdot \frac{1}{1-\lambda} < \lambda^{n} \cdot d(x_0, x_1) \cdot \frac{1}{1-\lambda}$, car $\lambda < 1$ \sep
-    Posons $n = \log_{\lambda}\frac{\epsilon(1 - \lambda)}{\alpha}$ \sep 
-    Ainsi $\lambda^{\lceil n \rceil} \cdot \alpha \cdot \frac{1}{1-\lambda} < \lambda^{\log_{\lambda}\frac{\epsilon(1 - \lambda)}{\alpha}} \cdot \alpha \cdot \frac{1}{1-\lambda}$ \sep
-    $\implies \lambda^{\lceil n \rceil} \cdot \alpha \cdot \frac{1}{1-\lambda} < \frac{\epsilon(1 - \lambda)}{\alpha} \cdot \frac{\alpha}{(1 - \lambda)}$ \sep 
-    $\implies \lambda^{\lceil n \rceil} \cdot \alpha \cdot \frac{1}{1-\lambda} < \epsilon$ \sep
-    Donc c'est une suite de Cauchy.
-\end{proof}
-
-\begin{comment}
-    On construit une suite récursive, qui on le verra aura des propriétés intéressantes. \sep 
-    On cherche à démontrer que c'est une suite de Cauchy. \sep
-    Puisque $f$ est une fonction \hyperref[def:lambda_contractante]{$\lambda$-contractante} \sep 
-    On utilise la définition de notre suite récursive. \sep 
-    On "remonte" la différence de la suite jusqu'au début. \sep 
-    Attention ca ne marche que pour $\lambda \geq 0$!. \sep 
-    Par l'inégalité du triangle sur les suites. \sep 
-    Grâce à notre inégalité $d(x_n x_{n+1}) \leq \lambda^n d(x_0, x_1)$ \sep
-    On factorise nos $\lambda$ \sep 
-    On équivaut nos $\lambda$ en une sommation pour retrouver la série géométrique \sep.
-    En effet, une série finie positive est nécessairement plus petite qu'une série infinie positive \sep.
-    On utilise le fait que la série géométrique infinie converge vers $\frac{1}{1-\lambda}$ \sep.
-\end{comment}
-
-\begin{proof}[II. Existence du point fixe]
-    Soit $\{x_n\}$, une suite de Cauchy dans $X$ tel que $\{x_1 = f(x_0), x_2 = f(x_1) = f(f(x_0)), x_3 = f(x_2), \dots \}$ \sep
-    Puisque $X$ est complet, $\{x_n\}$ converge vers un point $x \in X$ \sep 
-    La sous-suite $\{x_{(n+1)}\}$ converge également vers le point $x \in X$ \sep
-    Et $\{f(x_n)\} = \{x_{(n + 1)}\}$ \sep 
-    Or puisque $f$ est continue, $\{f(x_n)\}$ converge vers $f(x)$ \sep 
-    Donc $\{f(x_n)\}$ converge vers $f(x)$ et converge vers $x$ \sep
-    Mais par le théorême d'unicité, $f(x) = x$. Un point fixe \sep  
-\end{proof}
-\begin{proof}[III. Unicité du point fixe]
-    Supposons qu'il existe deux points fixes tel que $x_0$, $x_1$ et $f(x_0) = x_0$ et $f(x_1) = x_1$. \sep 
-    Puisque $f$ est une contraction $d(f(x_0), f(x_1)) \leq \lambda d(x_0, x_1)$ \sep 
-    Et puisque $f(x_0) = x_0$ et $f(x_1) = x_1$, $\implies d(x_0, x_1) \leq \lambda d(x_0, x_1)$ \sep 
-    $\implies d(x_0, x_1) \leq 0 \implies x_0 = x_1$
-\end{proof}
-
-\chapter{Limites}
+\chapter{Connexité}
 
 \begin{theorem}
     Si $f: K \to \Bbb R$ est continue et $K \subseteq \Bbb R^m$, $K$ compact. Alors $\exists f(a) = inf\{f(x) : x \in K\}, f(b) = inf\{f(x) : x \in K\}$.
@@ -390,63 +132,9 @@ plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre pré
     \label{def:famille}
     Une \textbf{famille} ou \textbf{collection} est simplement un ensemble d'ensemble.
 \end{definition}
-\todo{Add reference}
 
-\chapter{Cheatsheet}
-\section{Formules}
-\subsection{Inégalité de Cauchy-Schwarz}
-$$(\sum_{i=1}^{n} a_ib_i)^2 \leq \sum_{i=1}^{n} a_i^2 \cdot \sum_{i=1}^{n} b_i ^ 2$$ 
-\subsection{Convergence série géométrique}
-$$|r| < 1 \implies \sum_{n=0}^{\infty} r^n \to \frac{1}{1 - r} $$
-\subsection{Inégalité du triangle}
-$$| ||x|| - ||y|| | \leq ||x \pm y|| \leq ||x|| + ||y|| $$
-\section{Types d'espace}
-\begin{itemize}
-    \item Espace vectoriel: Ensemble d'éléments appellés vecteurs, muni de l'addition et de la multiplication par un scalaire.
-    \item Espace préhilbertien: Espace vectoriel muni d'un produit scalaire.
-    \item Espace normé: Espace vectoriel muni d'une norme.
-    \item Espace métrique: Ensemble \textbf{quelconque} munie d'une métrique.
-    \item Espace métrique complet:
-    \item Espace topologique:
-\end{itemize}
-\section{Fonctions spéciales}
-\subsection{Produit scalaire}
-\begin{itemize}
-    \item Un produit scalaire est une fonction de $V \times V \to \Bbb R$, noté $\langle x, y \rangle$ avec 5 propriétés qui la définisse
-    \item $\langle x, x \rangle \geq 0$
-    \item $\langle x, x \rangle = 0 \iff x = 0$
-    \item $\langle x, y \rangle = \langle y, x \rangle$
-    \item $\langle x + y, z\rangle = \langle x, z \rangle + \langle y, z \rangle$
-    \item $\alpha\langle x, y \rangle = \langle \alpha x, y \rangle \forall \alpha \in \Bbb R$
-\end{itemize}
-\subsection{Norme}
-\begin{itemize}
-    \item Une norme sur $V$ est une fonction $V$ vers $\Bbb R$, noté $x \mapsto ||x||$ avec 4 propriétés qui la définisse:
-    \item $||x|| \geq 0$
-    \item $||x|| = 0 \iff x = 0$
-    \item $||\alpha x|| = |\alpha| \cdot ||x||$
-    \item $||x + y || \leq ||x|| + ||y||$
-    \item Norme euclidienne: $\sqrt{x_1^2 + x_2^2 + \dots + x_n^2}$
-    \item Le produit scalaire est une norme.
-\end{itemize}
-\subsection{Métrique}
-\begin{itemize}
-    \item Une métrique est une fonction $X \times X \to 0, \infty$ avec les 4 propriétés suivantes:
-    \item $d(x,y) \geq 0$
-    \item $d(x,y) = d(y, x)$
-    \item $d(x,y) = 0 \iff x = y$
-    \item $d(x,y) \leq d(x, z) + d(z, y)$
-    \item Métrique discrète: $d(x,y) = 0$ si $x = y$, 1 si $x \neq 1$
-    \item La norme est une métrique
-\end{itemize}
-\section{Définition topologiques}
-\begin{itemize}
-    \item \textbf{Boule ouverte} : $B(x, r) = \{y \in R^n : || x - y || < r\}, r > 0$
-    \item \textbf{Boule fermée} : $B(x, r) = \{y \in R^n : || x - y || \leq r\}, r > 0$
-    \item \textbf{Point intérieur}: $x \in \Bbb R^n \text{ est un point intérieur de } E \iff \exists \delta > 0 : B(x, \delta) \subset E$
-    \item \textbf{Ensemble ouvert}: $E\text{ est ouvert} \iff E = int(E)$
-    \item \textbf{Convergence suite}: $\forall \epsilon > 0, \exists M \in \Bbb N \text{ t q} m \geq M \implies d(x_m, x) < \epsilon$
-    \item \textbf{Ensemble borné}: $\exists x_0 \in X \land \exists r > 0, \forall x \in A, d(x_0, x) < r$
-\end{itemize}
+\begin{definition}[Compacité]
+    
+\end{definition}
 
 \end{document}
