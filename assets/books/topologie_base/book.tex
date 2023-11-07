@@ -104,6 +104,27 @@ Ainsi, on est arrivé à développer cette nouvelle définition uniquement basé
     Soit $X$ et $Y$, deux espaces munis d'une \hyperref[def:topologie]{topologie} $\tau_X$ et $\tau_Y$,et $f: X \to Y$.
     Alors $f$ est \textbf{continue} $\iff$ $t_Y \in \tau_Y \implies f^{-1}(t_y) \in \tau_X$
 \end{definition}
+
+Voici une preuve dans l'espace métrique:
+\begin{proof}[=>]
+    Soit $X$ et $Y$ et $f: X \to Y$, on cherche à prouver que si $f$ est continue sur $A$ et que $A \subseteq Y$ est ouvert, alors $f^{-1}(A)$ est ouvert. \\
+    Tout d'abord si $f^{-1}(A) = \emptyset$, alors $f^{-1}(A)$ est ouvert, puisque l'ensemble vide est toujours un ouvert. \\
+    Supposons donc que $f^{-1}(A) \neq \emptyset$, prenons le point quelconque $x_0 \in f^{-1}(A)$, si nous arrivons à démontrer que 
+    $x_0 \in B(x_0, r) \land B(x_0, r) \subseteq f^{-1}(A)$, il en suit que  $f^{-1}(A)$ est ouvert.\\
+    Or $f(x_0) \in A$ et $A$ est ouvert, donc il existe une $B(f(x_0), \epsilon_1)$ pour un $\epsilon_1 > 0$ \\
+    Puisque $f$ est continue alors $\forall \epsilon, \exists \delta, d(x, x_0) < \delta \implies d(f(x), f(x_0)) < \epsilon$ \\
+    Et donc pour un $\epsilon_1$ particulierement il existe un $\delta(\epsilon_1) > 0$ tq $d(x, x_0) < \delta(\epsilon_1) \implies d(f(x), f(x_0)) < \epsilon_1$\\
+    Il existe donc une $B(x_0, \delta(\epsilon_1))$ et chaque point de cette boule peut être exprimé comme la distance entre $d(x, x_0)$ et $f(x) \in A$\\
+    Puisque  $f^{-1}(A) = \{x : f(x) \in A\}$ alors $B(x_0, \delta(\epsilon_1)) \subseteq A$
+\end{proof}
+\begin{proof}[<=]
+    Soit $X$ et $Y$, si $A \subseteq Y$ est ouvert alors $f^{-1}(A)$ est ouvert. Démontrons que $f$ est continue.\\
+    Prenons $x_0 \in X$, donc que $f(x_0) \in Y$. Posons $B_Y(f(x_0), \epsilon), \epsilon > 0$.\\
+    Cette boule est ouverte, ainsi $f^{-1}(B_Y(f(x_0), \epsilon))$ est un ouvert.\\
+    Alors $\exists B_X(x_0, \delta_{\epsilon, x_0}) \subseteq f^{-1}(B_Y(f(x_0), \epsilon))$\\
+    Il en suit que $\forall \epsilon, \exists \delta_{\epsilon, x_0} $
+
+\end{proof}
 \chapter{Compacité}
 Qu'entend-t-on par la "Compacité" d'un espace ou d'un sous-espace?
 \chapter{Connexité}

@@ -337,22 +337,19 @@ On observe un lien entre la convergence et la continuité:
     $\implies d(x_0, x_1) \leq 0 \implies x_0 = x_1$
 \end{proof}
 
-\chapter{Espaces topologiques}
-\section{Topologie}
-\begin{definition}[Topologie]
-    \label{def:topologie} 
-    Soit $\mathcal{O}$, une \hyperref[def:famille]{famille} est une \textbf{topologie} sur $X$ si et seulement si:\\
-    $(x \in \mathcal{O} \implies x \subset X)$ (chaque élément de la famille est un sous-ensemble de $X$)\\
-    $(\emptyset \in \mathcal{O} \land X \in \mathcal{O})$ \\
-    $(x \subset \mathcal{O} \land y \subset \mathcal{O} \implies x \cap y \in \mathcal{O})$ (si $x,y$ sont finis) \\
-    $(x \subset \mathcal{O} \land y \subset \mathcal{O} \implies x \cup y \in \mathcal{O})$ \\
-\end{definition}
-En d'autres mots, c'est la famille de tous les ensembles qu'on peut former de $X$ lesquels peuvent se réunir ou s'intersecter et 
-générer un ensemble qui fait partie de la famille.
-\section{Fermeture}
-\section{Continuité}
+\chapter{Limites}
 
+\begin{theorem}
+    Si $f: K \to \Bbb R$ est continue et $K \subseteq \Bbb R^m$, $K$ compact. Alors $\exists f(a) = inf\{f(x) : x \in K\}, f(b) = inf\{f(x) : x \in K\}$.
+\end{theorem}
 
+\begin{proof}
+    Puisque $K$ est compact et $f$, continue, alors $f(K)$ est compact.\\
+    $f(K)$ a donc une borne tq $-M \leq f(K) \leq M$.\\
+    Par conséquent, il existe un $m = sup\{f(x): x \in K\}$ et $m' = inf\{f(x): x \in K\}$\\
+    Par définition du sup et inf, $m$ et  $m'$ sont des points d'accumulations de $f(K)$.\\
+    Puisque $f(K)$ est fermé, $m$ et $m'$ $\in f(K)$. Donc il existe un point $a = f(a) = m$.
+\end{proof}
 \appendix
 \chapter{Notions préalables}
 Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
