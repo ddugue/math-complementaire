@@ -134,6 +134,22 @@ Montrons de deux façons différentes que si en espace métrique est borné et f
     Donc cela implique que $X$ ne serait pas connexe, une contradiction.
 \end{proof}
 
+\begin{theorem}
+    Tout espace métrique connexe par arc est connexe.
+\end{theorem}
+
+\begin{proof}
+    Supposons que $X$ soit connexe par arcs, mais qu'il ne soit pas connexe.\\\sep
+    Ainsi $X = U_1 \cup U_2$, $U_1, U_2$ ouverts et $U_1 \neq \emptyset \neq U_2$ et $U_1 \cap U_2 = \emptyset$. \\\sep
+    Soit $x_1 \in U_1$ et $x_2 \in U_2$. \\\sep
+    Puisque $X$ est connexe par arc il existe un arc tq :$[0,1] \to K \subseteq X$ et $a(0) = x_1$ et $a(1) = x_2$. \\\sep 
+    Puisque $[0,1]$ est connexe et $f$ continue et surjective sur $K$, alors $K$ est connexe. \\\sep 
+    Mais $K = K \cap X = K \cap (U_1 \cup U_2) = (K \cap U_1) \cup (K \cap U_2)$. \\\sep 
+    Puisque l'intersection d'un ouvert avec un autre ensemble est ouvert, $K$ s'exprime comme l'union de deux ensembles ouverts. \\\sep 
+    De plus $K \cap U_2 \neq \emptyset$, car $x_2 \in U_2$ \\\sep 
+    et $(K \cap U_1) \cap (K \cap U_2) = \emptyset$, car $U_1 \cap U_2 = \emptyset$ \\\sep 
+    Ainsi $K$ ne serait pas connexe, en contradiction.
+\end{proof}
 \appendix
 \chapter{Notions préalables}
 Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
