@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="/style/framework.css?v=1.0">
   <link rel="stylesheet" href="/style/book.css?v=1.0">
   <link rel="stylesheet" href="https://unpkg.com/tippy.js@4/themes/light-border.css" />
+  {% for external in book.externals %}
+    <link rel="preload" href="/books/{{ external}}/references.xml" as="fetch" />
+  {% endfor %}
 </head>
 
 <body>

@@ -228,6 +228,7 @@ def parse_tokens(token, contents):
 
 def parse_book(id, filename):
     chapters = []
+    externals = []
     title = "Livre Sans Nom"
     global IS_APPENDIX
     IS_APPENDIX = False
@@ -239,6 +240,11 @@ def parse_book(id, filename):
         title_tag = soup.find('title')
         title = title_tag.string if title_tag else "Livre Sans Nom"
 
+        #TODO: Add some error validation for external tags
+        external_tags = soup.find_all('externaldocument')
+        for e in external_tags:
+            externals.append(e.args[0].string.split('/')[0])
+
         contents = soup.document.contents
         tokens = parse_content(contents)
 
@@ -247,8 +253,8 @@ def parse_book(id, filename):
                 chapters.append(t)
             else:
                 raise str(t) + " is not a chapter !! uh uh."
-        
-    return Book(id=id, title=title, chapters=chapters)
+    print(externals)
+    return Book(id=id, title=title, chapters=chapters, externals=externals)
 
 def parse_content(contents, until=[]):
     """ Return a list of Model objects for our AST """

@@ -1,3 +1,20 @@
+let documents: Map<string, HTMLBodyElement> = new Map();
+function initializeExternalDocuments() {
+    console.log('Initializing external documents')
+    const fetches: any[] = []
+    document.querySelectorAll<HTMLLinkElement>('link[as=fetch]').forEach((link) => {
+        console.log(link);
+        fetches.push(fetch(link.href)
+            .then(response => response.text())
+            .then(s => new window.DOMParser().parseFromString(s, 'text/html'))
+            .then(data => {
+                console.log('Received response', data);
+                documents.set(data.body.id, (data.body as HTMLBodyElement));
+            })
+        );
+    });
+    return Promise.all(fetches);
+}
 
 function initializeProofs(parent: HTMLElement) {
     parent.querySelectorAll<HTMLElement>(".ui.proof").forEach((proof) => {
@@ -72,17 +89,33 @@ function initializeDefinitions() {
     document.querySelectorAll('[data-reference]').forEach((ref: HTMLElement) =>{
         const reference = ref.dataset['reference']
         if (reference) {
-            const template = (document.getElementById(`ref-${reference}`) as HTMLElement);
-            if (template) {
-                (window as any).tippy(ref, {
-                    content: template.innerHTML,
-                    arrow: true,
-                    theme: 'light-border',
-                    interactive: true,
-                    //onShown: () => (window as any).MathJax.typeset(),
-                });
-            }
+            if (reference.indexOf('__') !== -1){
+                const [book, id] = reference.split('__');
+                const b = documents.get(book)
+                const template = (b?.querySelector(`#ref-${id}`) as HTMLElement);
+                console.log(book, id, documents, b, template)
+                if (template) {
+                    (window as any).tippy(ref, {
+                        content: template.innerHTML,
+                        arrow: true,
+                        theme: 'light-border',
+                        interactive: true,
+                        onMount: () => (window as any).MathJax.typeset(),
+                    });                    
+                }
 
+            } else {
+                const template = (document.getElementById(`ref-${reference}`) as HTMLElement);
+                if (template) {
+                    (window as any).tippy(ref, {
+                        content: template.innerHTML,
+                        arrow: true,
+                        theme: 'light-border',
+                        interactive: true,
+                        //onShown: () => (window as any).MathJax.typeset(),
+                    });
+                }
+            }
         }
     });
 }
@@ -185,6 +218,7 @@ function toggleNav(setOpen: boolean) {
 function init() {
     (window as any).MathJax.typeset();
     const main = document.querySelector('main');
+    const externaldocuments = initializeExternalDocuments();
     if (main) { 
         initializeProofs(main);
     }
@@ -201,7 +235,7 @@ function init() {
     });
 
     initializeSections();
-    initializeDefinitions();
+    externaldocuments.then(initializeDefinitions);
     initializeLinks();
     updateNavbar();
 

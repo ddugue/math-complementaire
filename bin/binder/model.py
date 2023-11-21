@@ -174,6 +174,7 @@ class Book:
     id: str
     title: str
     chapters: list[Chapter]
+    externals: list[any]
 
     def previous_index(self, chapter):
         """ Returns the index of the chapter before the referenced chapter """

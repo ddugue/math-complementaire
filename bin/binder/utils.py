@@ -23,7 +23,8 @@ def get_or_none(l, i):
 
 def slugify(value):
     "Normalize a string by replacing spaces. Useful to make stuff url friendlys"
-    value.replace('.', '-').replace(':','-')
+    #value.replace('.', '-').replace(':','-')
+    value = value.replace('/','__')
     value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
     value = re.sub('[^\w\s-]', '', value).strip().lower()
     return re.sub('[-\s]+', '-', value)

@@ -29,6 +29,7 @@ if __name__ == "__main__":
     environment = Environment(loader=FileSystemLoader("src/templates"))
     template = environment.get_template("chapter.jinja")
     partial_template = environment.get_template("chapter.partial.jinja")
+    references_template = environment.get_template("references.xml.jinja")
 
     book = parse_book(book, f"assets/books/{book}/book.tex")
 
@@ -38,6 +39,7 @@ if __name__ == "__main__":
             pp = pprint.PrettyPrinter(indent=1)
             pp.pprint(chapter)
         references = book.references
+        
         # print(references)
         is_text = lambda x: isinstance(x, Inline)
         content = template.render(
@@ -63,3 +65,15 @@ if __name__ == "__main__":
         os.makedirs(os.path.dirname(partial_filename), exist_ok=True)
         with open(partial_filename, mode="w", encoding="utf-8") as message:
             message.write(content)
+
+    filename = f"dist/books/{book.id}/references.xml"
+    content = references_template.render(
+        references=references,
+        book=book,
+        slug=slugify,
+        is_text=is_text,
+    )
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    with open(filename, mode="w", encoding="utf-8") as message:
+        message.write(content)
+    

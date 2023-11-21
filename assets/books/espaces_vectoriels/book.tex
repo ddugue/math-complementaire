@@ -14,6 +14,12 @@
 \usepackage{relsize}
 \usepackage{hyperref}
 \usepackage{xcolor}
+\usepackage{xr-hyper} % Required for cross referencing
+
+% EXTERNAL REFERENCES
+\externaldocument[topologie/]{../topologie/book}
+% ----
+
 \hypersetup{
     colorlinks,
     linkcolor={red!50!black},
@@ -39,7 +45,8 @@
 \newtheorem{corollary}{Corollaire}[theorem]
 \newtheorem{lemma}[theorem]{Lemme}  
 
-\title{Topologie}
+\title{Espaces Vectoriels}
+
 
 \begin{document}
 \chapter{Introduction}
@@ -47,7 +54,7 @@ Qu'entend-on par espaces vectoriels?
 
 \chapter{Compacité}
 Tel que vu dans les espaces métriques, un sous-ensemble est compact implique qu'il est borné et fermé.
-L'inverse n'est toutefois pas vrai.
+L'inverse n'est toutefois pas vrai. Oh la la \hyperref[topologie/def:convergence_metrique]{C'est beau}
 
 Néanmoins, dans un espace vectoriel, nous obtenons la double-implication suivante:
 \begin{theorem}[Heine-Borel]
@@ -118,6 +125,7 @@ l'entiereté des points.
     Si $f: K \to \Bbb R$ est continue et $K \subseteq \Bbb R^m$, $K$ compact. Alors $\exists f(a) = inf\{f(x) : x \in K\}, f(b) = inf\{f(x) : x \in K\}$.
 \end{theorem}
 
+
 \begin{proof}
     Puisque $K$ est compact et $f$, continue, alors $f(K)$ est compact.\\
     $f(K)$ a donc une borne tq $-M \leq f(K) \leq M$.\\
@@ -127,8 +135,9 @@ l'entiereté des points.
 \end{proof}
 
 \chapter{Connexité}
-
-
+\chapter{Fonctions linéaires}
+\chapter{Dérivation}
+\chapter{Dérivation partielle}
 \appendix
 \chapter{Notions préalables}
 Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
