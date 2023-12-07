@@ -1,0 +1,205 @@
+\documentclass[12pt]{book}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{comment}
+\usepackage{mathpazo} % Palatino font
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{relsize}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{xr-hyper} % Required for cross referencing
+
+% EXTERNAL REFERENCES
+\externaldocument[topologie/]{../topologie/book}
+% ----
+
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage[makeroom]{cancel}
+
+\usepackage[margin=0.5in]{geometry}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\newcommand*\conj[1]{\overbar{#1}}
+% STATS Shortcut
+\newcommand{\BP}{\Bbb P}
+\newcommand{\BR}{\Bbb R}
+\let\Bbb\mathbb
+\def\sep{\phantom{}}
+\newcommand\todo[1]{\phantom{#1}}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section]
+\newtheorem*{example}{Exemple}
+\newtheorem{theorem}{Theorême}[section]
+\newtheorem{corollary}{Corollaire}[theorem]
+\newtheorem{lemma}[theorem]{Lemme}  
+
+\title{Espaces Vectoriels}
+
+
+\begin{document}
+\chapter{Introduction}
+Qu'entend-on par espaces vectoriels?
+
+\chapter{Compacité}
+Tel que vu dans les espaces métriques, un sous-ensemble est compact implique qu'il est borné et fermé.
+L'inverse n'est toutefois pas vrai. Oh la la \hyperref[topologie/def:convergence_metrique]{C'est beau}
+
+Néanmoins, dans un espace vectoriel, nous obtenons la double-implication suivante:
+\begin{theorem}[Heine-Borel]
+    \label{thm:heine_borel} Un sous-ensemble de $\Bbb R^n$ est \hyperref[def:compacite]{compact} si et seulement s'il est 
+    borné et fermé.
+\end{theorem}.
+
+Il est donc entierement valable de définir la compacité comme une équivalence complète avec le fait d'être borné et fermé tant 
+qu'on est dans un espace vectoriel.
+
+\begin{theorem}
+    \label{thm:compact_implique_compact}
+    Soit $f$ de domaine $D \subseteq \Bbb R^n$, Si $D$ est compact et $f$ continue, alors $f(D)$ est compact.
+\end{theorem}
+
+\begin{proof}
+\end{proof}
+
+\chapter{Continuité}
+\begin{definition}
+    \label{def:continuite}
+    Soit $f$, une fonction de domaine $D \subseteq \Bbb R^n$. $f$ est continue en $a$ si 
+    $$\forall \epsilon > 0, \forall x, \exists \delta > 0, \forall a \text{ tq } x \in D \land 0 < ||x - a|| < \delta \implies || f(x) - f(a) || < \epsilon$$
+\end{definition}
+
+Il existe aussi la notion de continuité uniforme. Celle-ci implique que l'on peut trouver un ration $\delta-\epsilon$ minimal qui couvre
+l'entiereté des points.
+\begin{definition}
+    \label{def:continuite_uniforme}
+    Soit $f$, une fonction de domaine $\Bbb R^n$. $f$ est \textbf{uniformément continue} sur $D$ si 
+    $$\forall \epsilon > 0, \exists \delta > 0 \text{ tq } \forall x, a \in D \land 0 < ||x - a|| < \delta \implies || f(x) - f(a) || < \epsilon$$
+\end{definition}
+
+\begin{theorem}
+    \label{def:compact_implique_continuite_uniforme}
+    Soit $f$, une fonction continue de domaine $K$ et $K \subseteq \Bbb R^n$. Si $K$ est \hyperref[def:compacite]{compact}, alors $f$ est 
+    \hyperref[def:continuite_uniforme]{uniformément continue}.
+\end{theorem}
+
+\begin{proof}
+    Supposons $f$ n'est pas uniformément continue lorsque $K$ compact et $f$ continue. \\\sep
+    Ainsi il existerait un $\epsilon_0$ qui pour un certain $x,a$ implique que la norme $||f(x) - f(a)|| \geq \epsilon_0$ et ce pour tout $\delta$\\\sep 
+    Posons $\delta = \frac{1}{n}$, ainsi il existe un $x_n, a_n$ tq $||x_n - a_n|| < \frac{1}{n} \implies ||f(x_n) - f(a_n)|| \geq \epsilon_0$\\\sep
+    Puisque c'est vrai pour chaque $\delta$, c'est vrai pour chaque $n \in \Bbb N$, nous avons donc une suite $x_n$\\\sep
+    De plus ${||x_n - a_n||} \to 0$, puisque la suite $\frac{1}{n} \to 0$\\\sep 
+    Toutefois, puisque $K$ est compact, il existe une sous-suite de $x_{n_l}$ qui converge vers un point $x_0$ \\\sep
+    $\forall \epsilon, \exists M \text{ tq } {n_l} \geq M \implies ||x_{n_l} - x_0|| < \epsilon$ \\\sep
+    Puisque $||a_{n_l} - x_0|| \leq ||a_{n_l} - x_{n_l}|| + ||x_{n_l} - x_0 ||$, il en suit que ${a_{n_l}} \to 0$ aussi \\\sep
+    Vu que $f$ est continue, $\{f(a_{n_l})\} \to f(x_0)$ et $\{f(x_{n_l})\} \to f(x_0)$ \\\sep 
+    Alors $||f(x_{n_l}) - f(x_0)|| < \frac{\epsilon}{2} \forall \epsilon$ et $||f(x_0) - f(a_{n_l})|| < \frac{\epsilon}{2} \forall \epsilon$ \\\sep 
+    Ainsi $||f(x_{n_l}) - f(a_{n_l})|| \leq |f(x_{n_l}) - f(x_0)|| + ||f(x_0) - f(a_{n_l})|| < \epsilon \forall \epsilon$ \\\sep 
+    Une contradiction avec notre affirmation que $||f(x) - f(a)|| \geq \epsilon_0$
+\end{proof}
+
+\chapter{Notions de limite}
+\begin{definition}
+    \label{def:limite}
+    Soit $f$, une fonction de domaine $\Bbb R^n$. Le point $b$ est considéré la \textbf{limite} de $f$ à un point d'accumulation $c$ du domaine si
+    $$\forall \epsilon > 0, \exists \delta > 0 \text{ tq } x \in D \land 0 < ||x - c|| < \delta \implies || f(x) - b || < \epsilon$$
+\end{definition}
+
+\begin{theorem}[Unicité de la limite]
+    \label{thm:limite_unique}
+    La limite, si elle existe est unique.
+\end{theorem}
+
+\begin{theorem}
+    Si $f: K \to \Bbb R$ est continue et $K \subseteq \Bbb R^m$, $K$ compact. Alors $\exists f(a) = inf\{f(x) : x \in K\}, f(b) = inf\{f(x) : x \in K\}$.
+\end{theorem}
+
+
+\begin{proof}
+    Puisque $K$ est compact et $f$, continue, alors $f(K)$ est compact.\\
+    $f(K)$ a donc une borne tq $-M \leq f(K) \leq M$.\\
+    Par conséquent, il existe un $m = sup\{f(x): x \in K\}$ et $m' = inf\{f(x): x \in K\}$\\
+    Par définition du sup et inf, $m$ et  $m'$ sont des points d'accumulations de $f(K)$.\\
+    Puisque $f(K)$ est fermé, $m$ et $m'$ $\in f(K)$. Donc il existe un point $a = f(a) = m$.
+\end{proof}
+
+\chapter{Connexité}
+\chapter{Fonctions linéaires}
+\todo{Move this to algebre lineaire}
+Afin de procéder avec le concept de dérivation de fonction dans $\Bbb R^n$, il est tout d'abord 
+nécessaire d'établir un peu de théories sur les fonctions linéaires.
+\begin{definition}[Fonction linéaire]
+    \label{def:fonction_lineaire}
+    Une fonction $L: \Bbb R^m \to \Bbb R^n$ est dite \textbf{linéaire} si
+    $$ L(ax + by) = aL(x) + bL(Y) $$
+    pour $\forall a,b \in \Bbb R$ et $\forall x,y \in \Bbb R^m$ 
+\end{definition}
+Cette linéarité représente le concept de proportion. D'ailleurs il peut être intéressant de séparer 
+cette définition en deux propriétés distinctes, commençons par la multiplication par un scalaire:
+$$ L(ax) = aL(X) $$
+En effet on comprend que si on multiplie
+\chapter{Dérivation}
+\chapter{Dérivation partielle}
+
+\chapter{Convexité}
+[MOTIVATION]
+[DEFINITIONS]
+\appendix
+\chapter{Notions préalables}
+Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
+de références pour les exemples et les preuves qui seront amenés dans les chapitres suivants. Pour une explication
+plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre précédent: Analyse des Réels.
+
+\begin{definition}[Voisinage dans les Réels]
+    \label{def:voisinage_reels}
+    Ensemble de point satisfaisant l'expression
+    suivante: $$V(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \}$$
+\end{definition}
+
+\begin{definition}[Voisinage troué dans les Réels]
+    \label{def:voisinage_troue_reels}
+    Ensemble de point satisfaisant l'expression
+    suivante: $$V'(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \land x \neq a \}$$
+\end{definition}
+
+\begin{definition}[Points intérieurs de E]
+    \label{def:point_int}
+    Ensemble de points satisfaisant l'expression
+    suivante: $$int(E) = \{ x \in E : \exists \delta > 0, V(x, \delta) \subseteq E \} $$
+\end{definition}
+
+\begin{definition}[Ensemble ouvert]
+    \label{def:ensemble_ouvert}
+    Un ensemble est dit ouvert si tous ces éléments sont des \hyperref[def:point_int]{points intérieurs.}
+\end{definition}
+
+\begin{definition}[Groupe abélien]
+    \label{def:groupe_abelien}
+    Un \textbf{groupe abélien} ou \textbf{groupe non-commutatif} est un groupe
+    (une structure algébrique associative avec un élément neutre et un élément inverse $(\forall a \in G, \exists a^{-1})$), 
+    dont l'opération binaire est commutative.
+\end{definition}
+
+\begin{definition}[Famille d'ensemble]
+    \label{def:famille}
+    Une \textbf{famille} ou \textbf{collection} est simplement un ensemble d'ensemble.
+\end{definition}
+
+\begin{definition}[Compacité]
+    \label{def:compacite}
+    Soit $S$, un sous-ensemble d'une topologie. On dit que $S$ est \textbf{compact} si de tout recouvrement de $S$ par des ouverts, 
+    on peut extraire un sous-recouvrement fini d'ouverts.
+\end{definition}
+
+\end{document}

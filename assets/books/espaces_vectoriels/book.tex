@@ -1,23 +1,37 @@
-\documentclass[12pt]{book}
+\documentclass[12pt]{report}
 
-\usepackage[utf8]{inputenc} % Required for inputting international characters
+%\usepackage[french]{babel}
+\usepackage[utf8]{inputenc} % entre autres, mettre les «...»
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 
-\usepackage{comment}
-\usepackage{mathpazo} % Palatino font
-\usepackage{amssymb}
 \usepackage{amsmath}
-\usepackage{array}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amscd} %diagramme commutatif
 \usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[most]{tcolorbox}
+
+\usepackage{latexsym}
+
+\usepackage{fancybox} %boites ombrag\'{e}es
+\usepackage{graphicx}
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+\usepackage{float}
+\usepackage{alltt}
+\usepackage{comment}
+\usepackage{array}
+
 \usepackage{graphicx}
 \usepackage{multirow}
 \usepackage{relsize}
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{xr-hyper} % Required for cross referencing
+\usepackage{hyperref}
 
 % EXTERNAL REFERENCES
-\externaldocument[topologie/]{../topologie/book}
+% \externaldocument[topologie/]{../topologie/book}
 % ----
 
 \hypersetup{
@@ -26,15 +40,10 @@
     citecolor={blue!50!black},
     urlcolor={blue!80!black}
 }
-\usepackage[makeroom]{cancel}
-
-\usepackage[margin=0.5in]{geometry}
 \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 
 \newcommand*\conj[1]{\overbar{#1}}
 % STATS Shortcut
-\newcommand{\BP}{\Bbb P}
-\newcommand{\BR}{\Bbb R}
 \let\Bbb\mathbb
 \def\sep{\phantom{}}
 \newcommand\todo[1]{\phantom{#1}}
@@ -45,144 +54,188 @@
 \newtheorem{corollary}{Corollaire}[theorem]
 \newtheorem{lemma}[theorem]{Lemme}  
 
+\declaretheoremstyle[
+    headpunct={:\\[6pt]},
+    %bodyfont=\slshape,
+    ]{boxed}
+\declaretheorem[style=boxed, name=Propriété,]{prop}
+
+\tcolorboxenvironment{prop}{
+    enhanced jigsaw,
+    colback=white,
+    drop shadow=black,
+    sharp corners,
+    coltitle=black,
+    colbacktitle=red,
+    before skip=12pt,
+    after skip=24pt,
+    left skip=12pt,
+    right skip=12pt,
+    bottom=12pt
+}
+
+\declaretheorem[style=boxed, name=Définition]{defi}
+\tcolorboxenvironment{defi}{
+    enhanced jigsaw,
+    colback=white,
+    drop shadow=black,
+    sharp corners,
+    coltitle=black,
+    colbacktitle=red,
+    before skip=12pt,
+    after skip=24pt,
+    left skip=12pt,
+    right skip=12pt,
+    bottom=12pt
+}
+
+\newtcolorbox{attention}{
+    colback=black!5!white,
+    coltitle={black},
+    frame hidden,
+    rounded corners,
+    boxrule=0pt,
+    boxsep=0pt,
+    breakable,
+    enlarge bottom by=0.3cm,
+    enhanced jigsaw,
+    borderline west={3pt}{0pt}{black!70!white},
+    title={Attention! \linebreak},
+    fonttitle={\small\bfseries}, 
+    attach title to upper,
+    before skip=12pt,
+    after skip=12pt,
+}
+
+\renewcommand*{\proofname}{Preuve}
+
 \title{Espaces Vectoriels}
 
-
 \begin{document}
-\chapter{Introduction}
-Qu'entend-on par espaces vectoriels?
+\chapter{Espace des fonctions Linéaires}
+\section{La fonction linéaire}
+    % [MOTIVATION]
+    Une catégorie de fonctions importante est la catégorie des fonctions linéaires.
+    Ces fonctions représentent intrinséquement le concept de proportionnalité. Dans 
+    le monde des fonctions $\Bbb R$, ce sont les fonctions du type $y = ax + b$. Maintenant,
+    nous allons nous attarder aux fonctions dans $\Bbb R^m$.
+    % [DÉFINITIONS]
+    \begin{defi}[Fonction linéaire]
+        \label{def:fonction_lineaire}
+        Une \textbf{fonction linéaire} $L: \Bbb R^m \mapsto \Bbb R^n$ est une fonction possèdant
+        ces deux propriétés:
+        \begin{enumerate}
+            \setlength{\itemsep}{0pt}
+            \item Addition: $L(x + y) = L(x) + L(y)$
+            \item Multiplication par un scalaire: $L(ax) = aL(x)$
+        \end{enumerate}
+    \end{defi}
+    Afin de pouvoir mieux traiter des fonctions linéaires, il est nécessaire
+    de définir le concept de matrice associée qui représente le coefficient de notre 
+    fonction linéaire.
+    \begin{defi}[Matrice associée]
+        \label{def:matrice_associee}
+    \end{defi}
+    Démontrons maintenant que l'équation $L(x) = Cx$ est bel et bien une \hyperref[def:fonction_lineaire]{fonction linéaire}:
+    \begin{proof}
+    \end{proof}
+    % [PROPRIÉTÉS]
+    Commençons tout d'abord par définir deux propriétés des fonctions linéaires qui nous 
+    permettrons d'établir que l'on peut "construire" des fonctions linéaires à partir 
+    d'autres fonctions linéaire.
+    \begin{prop}[Addition de fonctions linéaires]
+        \label{thm:addition_fonction_lineaire}
+        Soit $L_1(x)$ et $L_2(x)$, deux fonctions linéaires de $\Bbb R^m \mapsto \Bbb R^n$.
+        l'addition de ces deux fonctions, $L_1(x) + L_2(x)$, est aussi une fonction linéaire.
+    \end{prop}
+    \begin{proof}
+    \end{proof}
+    
+    \begin{prop}[Multiplication par un scalaire]
+        \label{thm:multiplication_scalaire}
+        Soit $L(x)$ une fonction linéaire de $\Bbb R^m \mapsto \Bbb R^n$  et $c \in \Bbb R$.
+        la multiplication de cette fonction par le scalaire $c$, $c \cdot L(x)$, est aussi une fonction linéaire.
+    \end{prop}
+    \begin{proof}
+    \end{proof}
 
-\chapter{Compacité}
-Tel que vu dans les espaces métriques, un sous-ensemble est compact implique qu'il est borné et fermé.
-L'inverse n'est toutefois pas vrai. Oh la la \hyperref[topologie/def:convergence_metrique]{C'est beau}
+    \subsection{Compositions des fonctions linéaires}
+    Afin de continuer dans notre "construction" de fonctions linéaires, attardons-nous
+    maintenant à la composition de celles-ci.
+    \begin{prop}[Composition fonction linéaire]
+        \label{thm:composition_fonction_lineaire}
+        Soit $L_1(x)$, une fonction linéaire de $\Bbb R^m \mapsto \Bbb R^k$ et $L_2(x)$, une fonction linéaire de $\Bbb R^k \mapsto \Bbb R^n$.
+        la composition de ces deux fonctions, $L_2(x) \circ L_1(x)$, est aussi une fonction linéaire ($\Bbb R^m \mapsto \Bbb R^n$).
+    \end{prop}
+    \begin{proof}
+    \end{proof}
+    Il en découle un résultat intéressant sur la matrice associée à cette composition.
+    \begin{prop}[Composition des matrices associées]
+        \label{thm:composition_matrices_associes}
+        Soit $L_1(x)$, une fonction linéaire de $\Bbb R^m \mapsto \Bbb R^k$, $A$ sa matrice associée de taille $k \times m$,
+         $L_2(x)$, une fonction linéaire de $\Bbb R^k \mapsto \Bbb R^n$ et $B$ sa matrice associée de taille $n \times k$.
+         \\
+         La matrice associée à la composition $L_2(x) \circ L_1(x)$ sera la matrice $C = BA$
+    \end{prop}
+    \begin{proof}
+    \end{proof}
 
-Néanmoins, dans un espace vectoriel, nous obtenons la double-implication suivante:
-\begin{theorem}[Heine-Borel]
-    \label{thm:heine_borel} Un sous-ensemble de $\Bbb R^n$ est \hyperref[def:compacite]{compact} si et seulement s'il est 
-    borné et fermé.
-\end{theorem}.
+    \subsection{Normes et longueurs de fonctions linéaires}
+    N'oublions pas que puisque l'image d'une fonction linéaire est un 
+    espace vectoriel, il est possible d'établir sa norme. Ainsi on peut découler
+    deux propriétés intéressantes
+    \begin{prop}[Principe archimédien]
+        \label{thm:principe_archimedien}
+        Soit $L$ une fonction linéaire, il existe une constante $M$ tq:
+        $$ ||L(x)|| \leq M \cdot ||x||, \forall x $$
+    \end{prop}
+    \begin{proof}
+    \end{proof}
+    On peut alors découler directement une forme du principe archimédien qui 
+    nous sera plus utile.
+    \begin{prop}
+        \label{thm:principe_archimedien_2}
+        Soit $L$ une fonction linéaire de domaine $\Bbb R^n$ et $u, v$ des vecteurs de $\Bbb R^n$, il existe une constante $M$ tq:
+        $$ ||L(u) - L(v)|| \leq M \cdot ||u - v||, \forall u,v $$
+    \end{prop}
+    \subsection{Continuité des fonctions linéaires}
+    Suite aux résultats précédents, on peut maintenant affirmer que:
+    \begin{prop}[Continuité uniforme des fonctions linéaires]
+        \label{thm:continuite_uniforme_fonction_lineaire}
+        Une fonction linéaire est uniformément continue.
+    \end{prop}
+    \begin{proof}
+    \end{proof}
+\section{L'ensemble des fonctions linéaires}
+    % [MOTIVATION]
+    Lorsque l'on parle plutôt de l'espace des fonctions linéaires, on utilisera plutôt
+    la notation suivante:
 
-Il est donc entierement valable de définir la compacité comme une équivalence complète avec le fait d'être borné et fermé tant 
-qu'on est dans un espace vectoriel.
+    \begin{defi}[Ensemble des fonctions linéaires]
+        \label{def:ensemble_fonctions_lineaires}
+        L'\textbf{ensemble des fonctions linéaires} de $\Bbb R^m$ vers $\Bbb R^n$ se note:
+        $$\mathcal{L}(\Bbb R^m, \Bbb R^n)$$
+    \end{defi}
 
-\begin{theorem}
-    \label{thm:compact_implique_compact}
-    Soit $f$ de domaine $D \subseteq \Bbb R^n$, Si $D$ est compact et $f$ continue, alors $f(D)$ est compact.
-\end{theorem}
+    % [PROPRIÉTÉS]
+    \begin{prop}
+        \label{thm:ensemble_fonctions_lineaires_espace_Vectoriels}
+        L'\hyperref[def:ensemble_fonctions_lineaires]{ensemble des fonctions linéaires} forme un espace vectoriel \todo{Add link here}
+    \end{prop}
+    \begin{proof}
+        Contrary to popular belief, Lorem Ipsum is not simply random text. 
+        It has roots in a piece of classical Latin literature from 45 BC, 
+        making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College i
+    \end{proof}
 
-\begin{proof}
-\end{proof}
+    \begin{attention}
+        To be or not to be, that is the question!
+    \end{attention}
 
-\chapter{Continuité}
-\begin{definition}
-    \label{def:continuite}
-    Soit $f$, une fonction de domaine $D \subseteq \Bbb R^n$. $f$ est continue en $a$ si 
-    $$\forall \epsilon > 0, \forall x, \exists \delta > 0, \forall a \text{ tq } x \in D \land 0 < ||x - a|| < \delta \implies || f(x) - f(a) || < \epsilon$$
-\end{definition}
+    % [APPLICATIONS ET EXEMPLES]
 
-Il existe aussi la notion de continuité uniforme. Celle-ci implique que l'on peut trouver un ration $\delta-\epsilon$ minimal qui couvre
-l'entiereté des points.
-\begin{definition}
-    \label{def:continuite_uniforme}
-    Soit $f$, une fonction de domaine $\Bbb R^n$. $f$ est \textbf{uniformément continue} sur $D$ si 
-    $$\forall \epsilon > 0, \exists \delta > 0 \text{ tq } \forall x, a \in D \land 0 < ||x - a|| < \delta \implies || f(x) - f(a) || < \epsilon$$
-\end{definition}
-
-\begin{theorem}
-    \label{def:compact_implique_continuite_uniforme}
-    Soit $f$, une fonction continue de domaine $K$ et $K \subseteq \Bbb R^n$. Si $K$ est \hyperref[def:compacite]{compact}, alors $f$ est 
-    \hyperref[def:continuite_uniforme]{uniformément continue}.
-\end{theorem}
-
-\begin{proof}
-    Supposons $f$ n'est pas uniformément continue lorsque $K$ compact et $f$ continue. \\\sep
-    Ainsi il existerait un $\epsilon_0$ qui pour un certain $x,a$ implique que la norme $||f(x) - f(a)|| \geq \epsilon_0$ et ce pour tout $\delta$\\\sep 
-    Posons $\delta = \frac{1}{n}$, ainsi il existe un $x_n, a_n$ tq $||x_n - a_n|| < \frac{1}{n} \implies ||f(x_n) - f(a_n)|| \geq \epsilon_0$\\\sep
-    Puisque c'est vrai pour chaque $\delta$, c'est vrai pour chaque $n \in \Bbb N$, nous avons donc une suite $x_n$\\\sep
-    De plus ${||x_n - a_n||} \to 0$, puisque la suite $\frac{1}{n} \to 0$\\\sep 
-    Toutefois, puisque $K$ est compact, il existe une sous-suite de $x_{n_l}$ qui converge vers un point $x_0$ \\\sep
-    $\forall \epsilon, \exists M \text{ tq } {n_l} \geq M \implies ||x_{n_l} - x_0|| < \epsilon$ \\\sep
-    Puisque $||a_{n_l} - x_0|| \leq ||a_{n_l} - x_{n_l}|| + ||x_{n_l} - x_0 ||$, il en suit que ${a_{n_l}} \to 0$ aussi \\\sep
-    Vu que $f$ est continue, $\{f(a_{n_l})\} \to f(x_0)$ et $\{f(x_{n_l})\} \to f(x_0)$ \\\sep 
-    Alors $||f(x_{n_l}) - f(x_0)|| < \frac{\epsilon}{2} \forall \epsilon$ et $||f(x_0) - f(a_{n_l})|| < \frac{\epsilon}{2} \forall \epsilon$ \\\sep 
-    Ainsi $||f(x_{n_l}) - f(a_{n_l})|| \leq |f(x_{n_l}) - f(x_0)|| + ||f(x_0) - f(a_{n_l})|| < \epsilon \forall \epsilon$ \\\sep 
-    Une contradiction avec notre affirmation que $||f(x) - f(a)|| \geq \epsilon_0$
-\end{proof}
-
-\chapter{Notions de limite}
-\begin{definition}
-    \label{def:limite}
-    Soit $f$, une fonction de domaine $\Bbb R^n$. Le point $b$ est considéré la \textbf{limite} de $f$ à un point d'accumulation $c$ du domaine si
-    $$\forall \epsilon > 0, \exists \delta > 0 \text{ tq } x \in D \land 0 < ||x - c|| < \delta \implies || f(x) - b || < \epsilon$$
-\end{definition}
-
-\begin{theorem}[Unicité de la limite]
-    \label{thm:limite_unique}
-    La limite, si elle existe est unique.
-\end{theorem}
-
-\begin{theorem}
-    Si $f: K \to \Bbb R$ est continue et $K \subseteq \Bbb R^m$, $K$ compact. Alors $\exists f(a) = inf\{f(x) : x \in K\}, f(b) = inf\{f(x) : x \in K\}$.
-\end{theorem}
-
-
-\begin{proof}
-    Puisque $K$ est compact et $f$, continue, alors $f(K)$ est compact.\\
-    $f(K)$ a donc une borne tq $-M \leq f(K) \leq M$.\\
-    Par conséquent, il existe un $m = sup\{f(x): x \in K\}$ et $m' = inf\{f(x): x \in K\}$\\
-    Par définition du sup et inf, $m$ et  $m'$ sont des points d'accumulations de $f(K)$.\\
-    Puisque $f(K)$ est fermé, $m$ et $m'$ $\in f(K)$. Donc il existe un point $a = f(a) = m$.
-\end{proof}
-
-\chapter{Connexité}
-\chapter{Fonctions linéaires}
-\chapter{Dérivation}
-\chapter{Dérivation partielle}
-\appendix
-\chapter{Notions préalables}
-Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
-de références pour les exemples et les preuves qui seront amenés dans les chapitres suivants. Pour une explication
-plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre précédent: Analyse des Réels.
-
-\begin{definition}[Voisinage dans les Réels]
-    \label{def:voisinage_reels}
-    Ensemble de point satisfaisant l'expression
-    suivante: $$V(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \}$$
-\end{definition}
-
-\begin{definition}[Voisinage troué dans les Réels]
-    \label{def:voisinage_troue_reels}
-    Ensemble de point satisfaisant l'expression
-    suivante: $$V'(a, \delta) = \{ x \in \Bbb R : |x - a| < \delta \land x \neq a \}$$
-\end{definition}
-
-\begin{definition}[Points intérieurs de E]
-    \label{def:point_int}
-    Ensemble de points satisfaisant l'expression
-    suivante: $$int(E) = \{ x \in E : \exists \delta > 0, V(x, \delta) \subseteq E \} $$
-\end{definition}
-
-\begin{definition}[Ensemble ouvert]
-    \label{def:ensemble_ouvert}
-    Un ensemble est dit ouvert si tous ces éléments sont des \hyperref[def:point_int]{points intérieurs.}
-\end{definition}
-
-\begin{definition}[Groupe abélien]
-    \label{def:groupe_abelien}
-    Un \textbf{groupe abélien} ou \textbf{groupe non-commutatif} est un groupe
-    (une structure algébrique associative avec un élément neutre et un élément inverse $(\forall a \in G, \exists a^{-1})$), 
-    dont l'opération binaire est commutative.
-\end{definition}
-
-\begin{definition}[Famille d'ensemble]
-    \label{def:famille}
-    Une \textbf{famille} ou \textbf{collection} est simplement un ensemble d'ensemble.
-\end{definition}
-
-\begin{definition}[Compacité]
-    \label{def:compacite}
-    Soit $S$, un sous-ensemble d'une topologie. On dit que $S$ est \textbf{compact} si de tout recouvrement de $S$ par des ouverts, 
-    on peut extraire un sous-recouvrement fini d'ouverts.
-\end{definition}
+    \begin{example}
+        Ceci est un exemple
+    \end{example}
 
 \end{document}
