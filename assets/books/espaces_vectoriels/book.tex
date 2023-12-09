@@ -52,13 +52,16 @@
 \newtheorem*{example}{Exemple}
 \newtheorem{theorem}{Theorême}[section]
 \newtheorem{corollary}{Corollaire}[theorem]
-\newtheorem{lemma}[theorem]{Lemme}  
+\newtheorem{lemma}[theorem]{Lemme}
+
 
 \declaretheoremstyle[
     headpunct={:\\[6pt]},
     %bodyfont=\slshape,
     ]{boxed}
-\declaretheorem[style=boxed, name=Propriété,]{prop}
+\declaretheorem[style=boxed, name=Propriété, numberwithin=chapter]{prop}
+\newenvironment{preuve}{\renewcommand{\proofname}{Preuve}\begin{proof}}{\end{proof}\noindent\textcolor[RGB]{220,220,220}{\rule{\textwidth}{1pt}}}
+
 
 \tcolorboxenvironment{prop}{
     enhanced jigsaw,
@@ -74,7 +77,7 @@
     bottom=12pt
 }
 
-\declaretheorem[style=boxed, name=Définition]{defi}
+\declaretheorem[style=boxed, name=Définition, numberwithin=chapter]{defi}
 \tcolorboxenvironment{defi}{
     enhanced jigsaw,
     colback=white,
@@ -107,7 +110,7 @@
     after skip=12pt,
 }
 
-\renewcommand*{\proofname}{Preuve}
+\renewcommand*{\chaptername}{Chapitre}
 
 \title{Espaces Vectoriels}
 
@@ -122,7 +125,7 @@
     % [DÉFINITIONS]
     \begin{defi}[Fonction linéaire]
         \label{def:fonction_lineaire}
-        Une \textbf{fonction linéaire} $L: \Bbb R^m \mapsto \Bbb R^n$ est une fonction possèdant
+        Une \textbf{fonction linéaire} ou \textbf{application linéaire} $L: \Bbb R^m \mapsto \Bbb R^n$ est une fonction possèdant
         ces deux propriétés:
         \begin{enumerate}
             \setlength{\itemsep}{0pt}
@@ -137,8 +140,8 @@
         \label{def:matrice_associee}
     \end{defi}
     Démontrons maintenant que l'équation $L(x) = Cx$ est bel et bien une \hyperref[def:fonction_lineaire]{fonction linéaire}:
-    \begin{proof}
-    \end{proof}
+    \begin{preuve}
+    \end{preuve}
     % [PROPRIÉTÉS]
     Commençons tout d'abord par définir deux propriétés des fonctions linéaires qui nous 
     permettrons d'établir que l'on peut "construire" des fonctions linéaires à partir 
@@ -148,16 +151,16 @@
         Soit $L_1(x)$ et $L_2(x)$, deux fonctions linéaires de $\Bbb R^m \mapsto \Bbb R^n$.
         l'addition de ces deux fonctions, $L_1(x) + L_2(x)$, est aussi une fonction linéaire.
     \end{prop}
-    \begin{proof}
-    \end{proof}
+    \begin{preuve}
+    \end{preuve}
     
     \begin{prop}[Multiplication par un scalaire]
         \label{thm:multiplication_scalaire}
         Soit $L(x)$ une fonction linéaire de $\Bbb R^m \mapsto \Bbb R^n$  et $c \in \Bbb R$.
         la multiplication de cette fonction par le scalaire $c$, $c \cdot L(x)$, est aussi une fonction linéaire.
     \end{prop}
-    \begin{proof}
-    \end{proof}
+    \begin{preuve}
+    \end{preuve}
 
     \subsection{Compositions des fonctions linéaires}
     Afin de continuer dans notre "construction" de fonctions linéaires, attardons-nous
@@ -167,8 +170,8 @@
         Soit $L_1(x)$, une fonction linéaire de $\Bbb R^m \mapsto \Bbb R^k$ et $L_2(x)$, une fonction linéaire de $\Bbb R^k \mapsto \Bbb R^n$.
         la composition de ces deux fonctions, $L_2(x) \circ L_1(x)$, est aussi une fonction linéaire ($\Bbb R^m \mapsto \Bbb R^n$).
     \end{prop}
-    \begin{proof}
-    \end{proof}
+    \begin{preuve}
+    \end{preuve}
     Il en découle un résultat intéressant sur la matrice associée à cette composition.
     \begin{prop}[Composition des matrices associées]
         \label{thm:composition_matrices_associes}
@@ -177,8 +180,8 @@
          \\
          La matrice associée à la composition $L_2(x) \circ L_1(x)$ sera la matrice $C = BA$
     \end{prop}
-    \begin{proof}
-    \end{proof}
+    \begin{preuve}
+    \end{preuve}
 
     \subsection{Normes et longueurs de fonctions linéaires}
     N'oublions pas que puisque l'image d'une fonction linéaire est un 
@@ -189,8 +192,8 @@
         Soit $L$ une fonction linéaire, il existe une constante $M$ tq:
         $$ ||L(x)|| \leq M \cdot ||x||, \forall x $$
     \end{prop}
-    \begin{proof}
-    \end{proof}
+    \begin{preuve}
+    \end{preuve}
     On peut alors découler directement une forme du principe archimédien qui 
     nous sera plus utile.
     \begin{prop}
@@ -204,8 +207,8 @@
         \label{thm:continuite_uniforme_fonction_lineaire}
         Une fonction linéaire est uniformément continue.
     \end{prop}
-    \begin{proof}
-    \end{proof}
+    \begin{preuve}
+    \end{preuve}
 \section{L'ensemble des fonctions linéaires}
     % [MOTIVATION]
     Lorsque l'on parle plutôt de l'espace des fonctions linéaires, on utilisera plutôt
@@ -222,11 +225,11 @@
         \label{thm:ensemble_fonctions_lineaires_espace_Vectoriels}
         L'\hyperref[def:ensemble_fonctions_lineaires]{ensemble des fonctions linéaires} forme un espace vectoriel \todo{Add link here}
     \end{prop}
-    \begin{proof}
+    \begin{preuve}
         Contrary to popular belief, Lorem Ipsum is not simply random text. 
         It has roots in a piece of classical Latin literature from 45 BC, 
         making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College i
-    \end{proof}
+    \end{preuve}
 
     \begin{attention}
         To be or not to be, that is the question!
@@ -237,5 +240,190 @@
     \begin{example}
         Ceci est un exemple
     \end{example}
+\chapter{La dérivée}
+\section{La dérivée dans $\Bbb R^n$}
+    % [MOTIVATION]
+    Il es plus difficile d'imaginer ce que représente une dérivée dans un espace vectoriel 
+    quelconque. En effet, nous ne parlons plus d'une simple pente de courbe. La dérivée
+    peut venir de multiple côtés. Essayons-donc de définir la notion de dérivée dans $\Bbb R^n$
+    en se basant sur la définition dans $\Bbb R$.
+    % [DÉFINITIONS]
+    \begin{defi}[Dérivée de $\Bbb R^n \mapsto \Bbb R^n$]
+        \label{def:derivee_rn}
+
+        La \textbf{dérivée} $L$ au point intérieur $c$ est un vecteur tq 
+        $$ \forall \epsilon > 0, \exists \delta > 0, \text{ tq } 0 < ||x - c|| < \delta \implies  \big| \big| \frac{f(x) - f(c) - L\cdot(x - c)}{x - c} \big|\big|< \epsilon $$
+    \end{defi}
+    \begin{attention}
+        Cette définition reste valide et applicable pour la dérivé dans les $\Bbb R$.
+    \end{attention}
+
+    Afin de généraliser la définition dans les $\Bbb R^n \mapsto \Bbb R^n$, ce que nous avons fait est plutôt simple:
+    \todo{add link}
+    \begin{enumerate}
+        \setlength{\itemsep}{0pt}
+        \item Nous avons utiliser la norme, puisque la valeur absolute n'a pas de sens sur un vecteur.
+        \item Nous avons "enmener" le $L$ au dénominateur en le multipliant par le vecteur $x - c$
+    \end{enumerate}
+
+    Il nous reste maintenant à généraliser cette définition pour les fonctions $\Bbb R^m \mapsto \Bbb R^n$. Pour ce faire, il est crucial de remarquer que 
+    le produit $L \cdot (x - c)$ peut être perçu comme une \hyperref[def:fonction_lineaire]{application linéaire} sur $x - c$. ($L$ agissant comme une "constante" qu'on multiplie)
+    \begin{defi}[Dérivée de $\Bbb R^n \mapsto \Bbb R^m$]
+        \label{def:derivee_generalise}
+        La \textbf{dérivée} $L$ au point intérieur $c$ est un \hyperref[def:fonction_lineaire]{application linéaire} tq 
+        $$ \forall \epsilon > 0, \exists \delta > 0, \text{ tq } 0 < ||x - c|| < \delta \implies \frac{||f(x) - f(c) - L(x - c)||}{||x - c||} < \epsilon $$
+    \end{defi}
+    Ici, afin de bien généraliser pour l'ensemble des fonctions dans les espaces vectoriels, nous avons fait deux changements additionnels:
+    \begin{enumerate}
+        \setlength{\itemsep}{0pt}
+        \item Nous avons "distribué" la norme en haut et en bas, car $f$ étant de $\Bbb R^n \mapsto \Bbb R^m$, $x - c$ est un vecteur de $\Bbb R^n$ et $f(x) - f(c)$ un vecteur de $\Bbb R^m$.
+        \item Transformer le produit $L \cdot (x - c)$ en application linéaire ce qui nous permet d'avoir un vecteur de $m$ dimensions.
+    \end{enumerate}
+
+    Finalement, il est pratique d'avoir une définition avec limite, qui est souvent plus pratique à travailler:
+    \begin{defi}[Dérivée de $\Bbb R^n \mapsto \Bbb R^m$ avec limites]
+        \label{def:derivee_limite}
+        La \textbf{dérivée} $L$ au point intérieur $c$ est un \hyperref[def:fonction_lineaire]{application linéaire} tq 
+        $$ \lim_{h \to 0} \frac{||f(c + h) - f(c) - L(h)||}{||h||} = 0$$
+    \end{defi}
+    \begin{attention}
+        Nous avons obtenu notre $h$ (un vecteur) en soustrayant $x - c$.
+    \end{attention}
+
+    Il est souvent plus utile de parler en terme d'une fonction qui nous retourne 
+    cette application linéaire. Tout d'abord telle que vu précédemment, une 
+    fonction linéaire peut être caractérisée par une matrice $m \times n$.
+    \\
+    On notera donc $L$ pour $f$ comme suit:
+    $$ L = Df(c) $$
+    où $c$ est un point intérieur du domaine de $f$ et $L$ est une matrice $m \times n$.\\
+    \pagebreak
+
+    % [PROPRIÉTÉS]
+    Attardons-nous maintenant aux propriétés de cette dérivée dans l'espace vectorielle.
+    \begin{prop}[La dérivée est unique]
+        \label{thm:unicite_derivee}
+        Soit $f: U \subseteq R^m \mapsto R^n, c \in int{U}$, la dérivée $Df(c)$, si elle existe,
+        est \textbf{unique}.
+    \end{prop}
+    \begin{preuve}
+    \end{preuve}
+
+    \begin{prop}[La dérivée de la fonction constante]
+        \label{thm:derivee_constante}
+        Soit $f$ une fonction constante, la dérivée $Df(c)$ est la fonction
+        linéaire zéro.
+    \end{prop}
+    \begin{preuve}
+        Posons $f(x) = k, \forall x$. \\
+        Ainsi $||f(x) - f(c) - L(x - c)|| = ||k - k - L(x - c)|| = ||L(x - c)||$. \\
+        Si $(\forall \epsilon > 0), ||L(x - c)|| < \epsilon \implies L(x - c) = 0$.
+    \end{preuve}
+
+    \begin{prop}[La dérivée de la fonction linéaire]
+        \label{thm:derivee_constante}
+        Soit $f$ une fonction linéaire, la dérivée $Df(c)$ est la fonction
+        linéaire elle même.
+    \end{prop}
+    \begin{preuve}
+        $||f(x) - f(c) - L(x - c)|| = ||f(x - c) - L(x - c)|| = ||L(x - c)||$. \\
+        Si $(\forall \epsilon > 0), ||f(x - c) - L(x - c)|| < \epsilon \implies L = f$.
+    \end{preuve}
+    % [APPLICATIONS ET EXEMPLES]
+
+    \begin{example}
+        Soit $f: \Bbb R^2 \mapsto \Bbb R^3$ tel que $f(x,y) = (xy + 1, x + y, x^2 + 1)$.
+        Démontrons que la dérivée $f$ à $c = (1,2)$ est la fonction linéaire: $L(u,v) = (2u + v, u + v, 2u)$
+        \begin{align*}
+            &||f(x) - f(c) - L(x - c)|| \\
+            &= ||(f(x,y) - f(1,2) - L(x - 1, y - 2)) ||\\
+            &= || (xy + 1, x + y, x^2 + 1) - (1\cdot 2 + 1, 1 + 2, 1^2 + 1) - (2(x - 1) + (y - 2), (x - 1) + (y - 2), 2(x - 1)) ||\\
+            &= || (xy + 1 - 3 - 2(x - 1) - (y - 2), x + y - 3 - (x - 1) - (y - 2), x^2 + 1 - 2 - 2(x - 1)) ||\\
+            &= || (xy + 2 -2x -y, 0, x^2 - 2x + 1)|| \\
+            &= || ((x - 1)(y - 2), 0, (x - 1)^2)|| \\
+            &= \sqrt{(x - 1)^2(y - 2)^2 + 0^2 + (x - 1)^4} \\
+            &= \sqrt{(x - 1)^2 \cdot ((y - 2)^2 + (x - 1)^2)} \\
+            &= |(x - 1)| \cdot \sqrt{(y - 2)^2 - (x - 1)^2}
+        \end{align*}
+        Quant à elle la norme de $|| x - c ||$:
+        \begin{align*}
+            &||x - c|| \\
+            &= || (x, y) - (1, 2) || \\
+            &= ||(x - 1, y - 2)|| \\
+            &= \sqrt{(x - 1)^2 + (y - 2)^2}
+        \end{align*}
+        Ainsi:
+        \begin{align*}
+            &\frac{||f(x) - f(c) - L(x - c)||}{||x - c||}\\
+            &=\frac{|(x - 1)| \cdot \sqrt{(y - 2)^2 - (x - 1)^2}}{\sqrt{(x - 1)^2 + (y - 2)^2}}\\
+            &= |(x - 1)|\\
+            &= \sqrt{(x - 1)^2}
+        \end{align*}
+        En prenant un $\delta = \epsilon$ et puisque $\sqrt{(x - 1)^2} \leq \sqrt{(x - 1)^2 + (y - 2)^2}$, on obtient:
+        $$ || x - c || < \delta \implies \sqrt{(x - 1)^2} \leq \sqrt{(x - 1)^2 + (y - 2)^2} < \delta \implies \sqrt{(x - 1)^2} < \epsilon $$
+    \end{example}
+    
+\chapter{La dérivée partielle}
+\section{La dérivée partielle}
+    % [MOTIVATION]
+    Comme observé précédemment, il est difficile de travailler directement avec la dérivé elle-même
+    dans une fonction $R^m$. Il sera donc plus facile de traiter avec un objet mathématique plus spécifique:
+    la dérivée partielle.    
+    % [DÉFINITIONS]
+    \begin{defi}[Dérivée partielle]
+        \label{def:derivee_partielle_1}
+        Soit $f: A \subseteq \Bbb R^m \mapsto \Bbb R$, $A$ ouvert et $c$ un vecteur $\in R^m$.
+        La \textbf{dérivée partielle} de $f$, $\frac{\partial f}{\partial x_i}(c)$ ou $D_i f(c)$
+        est la fonction telle que:
+        $$\frac{\partial f}{\partial x_i}(c) = \lim_{h_i \to 0} \frac{f(c + (0,\dots,h_i,\dots,0)) - f(c)}{h_i}$$
+    \end{defi}
+    Alternativement, on peut définir la dérivée partielle de cette façon:
+    \begin{defi}[Dérivée partielle]
+        \label{def:derivee_partielle_1}
+        Soit $f: A \subseteq \Bbb R^m \mapsto \Bbb R$, $A$ ouvert et $c$ un vecteur $\in R^m$.
+        La \textbf{dérivée partielle} de $f$, $\frac{\partial f}{\partial x_i}(c)$ ou $D_i f(c)$
+        est la fonction telle que:
+        $$\frac{\partial f}{\partial x_i}(c) = \lim_{h_i \to 0} \frac{f(c + (0,\dots,h_i,\dots,0)) - f(c)}{h_i}$$
+    \end{defi}
+
+    Or alternatively, a list:
+    \begin{enumerate}
+        \setlength{\itemsep}{0pt}
+        \item Item 1
+        \item Item 2
+    \end{enumerate}
+
+    % [PROPRIÉTÉS]
+    \begin{prop}[THEOREM NAME OPTIONAL]
+        \label{thm:THEOREM}
+        Lorem Ipsum
+    \end{prop}
+    \begin{preuve}
+        Contrary to popular belief, Lorem Ipsum is not simply random text. 
+        It has roots in a piece of classical Latin literature from 45 BC, 
+        making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College i
+    \end{preuve}
+
+    \begin{attention}
+        To be or not to be, that is the question!
+    \end{attention}
+
+    % [APPLICATIONS ET EXEMPLES]
+
+    \begin{example}
+        Ceci est un exemple
+    \end{example}
+
+\appendix
+\chapter{Notions préalables}
+    Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
+    de références pour les exemples et les preuves qui seront amenés dans les chapitres suivants. Pour une explication
+    plus complète et rigoureuse, il sera nécessaire de se réferrer aux livre précédent: Analyse des Réels.
+
+    \begin{definition}[Dérivé dans les réels]
+        \label{def:derive_reels}
+        La \textbf{dérivée} $L$ au point intérieur $c$ est la valeur tq 
+        $$ \forall \epsilon > 0, \exists \delta > 0, \text{ tq } 0 < |x - c| < \delta \implies \big| \frac{f(x) - f(c)}{x - c} - L \big| < \epsilon $$
+    \end{definition}
 
 \end{document}

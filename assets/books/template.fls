@@ -1192,11 +1192,11 @@ OUTPUT template.out
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecrm2488.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx2488.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm
+INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
+INPUT /usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecti1200.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecrm1095.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1095.tfm
-INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
-INPUT /usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc
 INPUT template.aux
 INPUT ./template.out
 INPUT ./template.out

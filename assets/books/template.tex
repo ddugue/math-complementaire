@@ -53,12 +53,14 @@
 \newtheorem{theorem}{Theorême}[section]
 \newtheorem{corollary}{Corollaire}[theorem]
 \newtheorem{lemma}[theorem]{Lemme}  
+\newenvironment{preuve}{\renewcommand{\proofname}{Preuve}\begin{proof}}{\end{proof}\noindent\textcolor[RGB]{220,220,220}{\rule{\textwidth}{1pt}}}
+
 
 \declaretheoremstyle[
     headpunct={:\\[6pt]},
     %bodyfont=\slshape,
     ]{boxed}
-\declaretheorem[style=boxed, name=Propriété,]{prop}
+\declaretheorem[style=boxed, name=Propriété, numberwithin=chapter]{prop}
 
 \tcolorboxenvironment{prop}{
     enhanced jigsaw,
@@ -74,7 +76,7 @@
     bottom=12pt
 }
 
-\declaretheorem[style=boxed, name=Définition]{defi}
+\declaretheorem[style=boxed, name=Définition, numberwithin=chapter]{defi}
 \tcolorboxenvironment{defi}{
     enhanced jigsaw,
     colback=white,
@@ -108,6 +110,8 @@
 }
 
 \renewcommand*{\proofname}{Preuve}
+\renewcommand*{\chaptername}{Chapitre}
+
 
 \title{DOCUMENT TITLE}
 
@@ -130,7 +134,7 @@
         \item Item 1
         \item Item 2
     \end{enumerate}
-
+    \pagebreak
     % [PROPRIÉTÉS]
     \begin{prop}[THEOREM NAME OPTIONAL]
         \label{thm:THEOREM}
