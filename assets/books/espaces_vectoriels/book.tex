@@ -362,13 +362,14 @@
         En prenant un $\delta = \epsilon$ et puisque $\sqrt{(x - 1)^2} \leq \sqrt{(x - 1)^2 + (y - 2)^2}$, on obtient:
         $$ || x - c || < \delta \implies \sqrt{(x - 1)^2} \leq \sqrt{(x - 1)^2 + (y - 2)^2} < \delta \implies \sqrt{(x - 1)^2} < \epsilon $$
     \end{example}
-    
-\chapter{La dérivée partielle}
+\pagebreak
 \section{La dérivée partielle}
     % [MOTIVATION]
-    Comme observé précédemment, il est difficile de travailler directement avec la dérivé elle-même
-    dans une fonction $R^m$. Il sera donc plus facile de traiter avec un objet mathématique plus spécifique:
-    la dérivée partielle.    
+    Comme observé précédemment, il est difficile de travailler directement avec la dérivé elle-même.
+    En fait, bien qu'on puisse vérifier si une dérivée est valide en un point, 
+    il serait plus intéressant, d'être en mesure de trouve une fonction dérivée qui nous 
+    retourne la matrice de l'application linéaire. Afin de parvenir à ce résultat, nous devrons 
+    introduire un nouvel objet mathématique: la dérivée partielle.
     % [DÉFINITIONS]
     \begin{defi}[Dérivée partielle]
         \label{def:derivee_partielle_1}
@@ -377,43 +378,289 @@
         est la fonction telle que:
         $$\frac{\partial f}{\partial x_i}(c) = \lim_{h_i \to 0} \frac{f(c + (0,\dots,h_i,\dots,0)) - f(c)}{h_i}$$
     \end{defi}
-    Alternativement, on peut définir la dérivée partielle de cette façon:
-    \begin{defi}[Dérivée partielle]
-        \label{def:derivee_partielle_1}
-        Soit $f: A \subseteq \Bbb R^m \mapsto \Bbb R$, $A$ ouvert et $c$ un vecteur $\in R^m$.
-        La \textbf{dérivée partielle} de $f$, $\frac{\partial f}{\partial x_i}(c)$ ou $D_i f(c)$
-        est la fonction telle que:
-        $$\frac{\partial f}{\partial x_i}(c) = \lim_{h_i \to 0} \frac{f(c + (0,\dots,h_i,\dots,0)) - f(c)}{h_i}$$
-    \end{defi}
-
-    Or alternatively, a list:
-    \begin{enumerate}
-        \setlength{\itemsep}{0pt}
-        \item Item 1
-        \item Item 2
-    \end{enumerate}
-
+    
     % [PROPRIÉTÉS]
-    \begin{prop}[THEOREM NAME OPTIONAL]
-        \label{thm:THEOREM}
-        Lorem Ipsum
+    \begin{prop}[Dérivation partielle]
+        Afin d'obtenir la dérivation partielle d'une fonction, il suffit de 
+        faire la dérivation habituelle en considérant toutes les variables 
+        sauf la variable concernée comme constantes.
     \end{prop}
     \begin{preuve}
-        Contrary to popular belief, Lorem Ipsum is not simply random text. 
-        It has roots in a piece of classical Latin literature from 45 BC, 
-        making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College i
+        
     \end{preuve}
+    % [APPLICATIONS ET EXEMPLES]
+    \begin{example}
+        Soit $f(x,y,z) = x^2y + xz^2$ et $c = (1,2,1)$. 
+        Alors trouvons $\frac{\partial f}{\partial x}(1,2,1)$:
+        \begin{align*}
+            \frac{\partial f}{\partial x}(1,2,1) &= \lim_{h \to 0} \frac{f(1 + h, 2, 1) - f(1, 2, 1)}{h} \\
+            &= \lim_{h \to 0} \frac{(1 + h)^2 \cdot 2 + (1 + h) \cdot 1^2 - (1^2\cdot 2 + 1\cdot1^2)}{h} \\
+            &= \lim_{h \to 0} \frac{2h^2 + 4h + 2 + 1 + h - 3}{h} \\
+            &= \lim_{h \to 0} \frac{2h^2 + 5h}{h} \\
+            &= \lim_{h \to 0} 2h + 5 \\
+            &= 5
+        \end{align*}
+        Ou grâce aux règles de dérivées, en considérant les autres variables constantes:
+        \begin{align*}
+            \frac{\partial f}{\partial x} &= (x^2y)' + (xz^2)' \\
+            &= 2xy + z^2 \\
+            &= 2 \cdot 1 \cdot 2 + 1^2 \\
+            &= 5
+        \end{align*}
+    \end{example}
+\pagebreak
+\section{La matrice jacobienne}
+    % [MOTIVATION]
+    C'est grâce à ces dérivées partielles que nous parviendrons à déterminer la
+    dérivée quelconque d'une fonction $\Bbb R^n \mapsto \Bbb R^m$. Tout d'abord, 
+    un petit rappel, la dérivée $Df(c)$, d'une fonction est une fonction linéaire en 
+    un certain point. Cette fonction linéaire a une matrice associée qui correspond
+    exactement à une matrice de dérivée partielle. Cette matrice s'appelle la matrice 
+    jacobienne.
+    % [DÉFINITIONS]
+    \begin{defi}[Matrice jacobienne]
+        \label{def:matrice_jacobienne}
 
+        La \textbf{matrice jacobienne} est la matrice associée à  $f$ tel que:
+        $$ \begin{pmatrix}
+            \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \dots & \frac{\partial f_1}{\partial x_m} \\
+            \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \dots & \frac{\partial f_2}{\partial x_m} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \frac{\partial f_n}{\partial x_1} & \frac{\partial f_n}{\partial x_2} & \dots & \frac{\partial f_n}{\partial x_m} \\
+        \end{pmatrix}
+        $$
+    \end{defi}
+     % [PROPRIÉTÉS]
+    Plus encore, cette matrice jacobienne existe et est définit si $f$ est dérivable.
+    \begin{prop}[Dérivation partielle existe]
+        Soit $f: A \subseteq \Bbb R^m \mapsto \Bbb R^n$, $A$ ouvert et $c$ un vecteur $\in R^m$.
+        Si $f$ est dérivable alors la matrice jacobienne existe et est la matrice associée à
+        la fonction linéaire de $Df(c)$
+    \end{prop}
+    \begin{preuve}
+        Soit $Df(c)$ la matrice associée à la fonction linéaire de la dérivée. \\
+        Prenons $e_i = (0,\dots,1_i, \dots,0)$ et $a_{ji}$, la composante à la $j$ième rangée et la $i$ième colonne de la matrice $Df(c)$. \\
+        alors, il est clair que $a_{ji} = $ $j$ième composant du vecteur $Df(c) \cdot e_i$\\
+        En effet, supposons une matrice $2x3$ et $x$ notre composante:
+        $$ \begin{pmatrix}
+            5 & 8 & 9 \\
+            1 & x & 2 
+        \end{pmatrix} \cdot \begin{pmatrix}0 \\ 1 \\ 0\end{pmatrix} = \begin{pmatrix}
+            8 \\
+            x
+        \end{pmatrix}$$
+        Posons $x = c + h \cdot e_i$, $e_i$ étant un vecteur $\Bbb R^m$ et $h$ un scalaire de $\Bbb R$.\\
+        Ainsi: 
+        \begin{align*}
+        \frac{||f(x) - f(c) - Df(c)(x - c)||}{||x - c||} &= \frac{||f(c + h\cdot e_i) - f(c) - Df(c)h\cdot e_i||}{||h\cdot e_i||} \\
+        &= \frac{||f(c + h\cdot e_i) - f(c) - h \cdot Df(c) \cdot e_i||}{|h|} 
+        \end{align*}
+        Puisque $f$ est dérivable au point c, lorsque $h \to 0$, cette équation tendera aussi vers 0 et ce pour tout 
+        les composants du vecteur:
+        $$ \frac{|f_j(c + h\cdot e_i) - f_j(c) -ha_{ji}|}{|h|} \to 0$$
+        Ou 
+        $$ a_{ji} = \lim_{h \to 0} \frac{f_j(c + h\cdot e_i) - f_j(c)}{h} = \frac{\partial f_j(c)}{\partial x_i} $$
+    \end{preuve}
     \begin{attention}
-        To be or not to be, that is the question!
+        L'inverse n'est pas nécessairement vrai: La fonction $f$ est dérivable si les 
+        dérivées partielles existente ET si elles sont continues.
     \end{attention}
+    \begin{prop}[Dérivation existe si partielle existe]
+        Soit $f: A \subset \Bbb R^m \mapsto \Bbb R^n$, $A$ ouvert.
+        Si la matrice jacobienne existe et chaque dérivée partielle est continue sur $A$, alors 
+        $f$ est dérivable sur $A$
+    \end{prop}
+    % [APPLICATIONS ET EXEMPLES]
+    Donnons maintenant un exemple de comment trouver une matrice jacobienne et donc une dérivée
+    d'une fonction $\Bbb R^m$
+    \begin{example}
+        Trouvons $Df(x,y)$ pour $f(x,y) = (sin(x^2 + y^2), xy, 7)$:
+        \begin{align*}
+            \begin{pmatrix}
+                \frac{\partial f_1}{\partial x} & \frac{\partial f_1}{\partial y} \\
+                \frac{\partial f_2}{\partial x} & \frac{\partial f_2}{\partial y} \\
+                \frac{\partial f_3}{\partial x} & \frac{\partial f_3}{\partial y} \\
+            \end{pmatrix} &= \begin{pmatrix}
+                cos(x^2 + y^2) \cdot \frac{\partial f_1}{\partial x}(x^2 + y^2) & cos(x^2 + y^2) \cdot \frac{\partial f_1}{\partial y} (x^2 + y^2)\\
+                y & x\\
+                0 & 0 \\
+            \end{pmatrix} \\
+            &= \begin{pmatrix}
+                cos(x^2 + y^2) \cdot 2x & cos(x^2 + y^2) \cdot 2y\\
+                y & x\\
+                0 & 0 \\
+            \end{pmatrix}
+        \end{align*}
+    \end{example}
+\pagebreak
+\section{Continuité}
+    % [MOTIVATION]
+    Tout comme dans les $\Bbb R$, il est possible de tisser un lien entre
+    la continuité d'une fonction dans un espace vectoriel et la présence 
+    de sa dérivée (attention l'inverse n'est pas vrai!). Il faudra commencer
+    par la propriété de Lipschitz afin d'arriver à ce résultat:
+
+    % [PROPRIÉTÉS]
+    \begin{prop}[Propriété de Lipschitz]
+        \label{thm:lipschitz}
+        Soit $f: A \subseteq R^m \mapsto R^n$, $A$ ouvert et $f$ dérivable sur $A$.
+        Alors: 
+        $$ \forall c \in A, \exists M > 0, \exists \delta_0 > 0 \text{ tq } ||x - c|| < \delta_0 \implies ||f(x) - f(c)|| \leq M||x - c||$$
+    \end{prop}
+    \begin{preuve}
+        Puisque $f$ est dérivable, $\forall \epsilon > 0, \exists \delta > 0$ tq 
+        $||x - c|| < \delta \implies \frac{||f(x) - f(c) - L(x - c)||}{||x - c||} \leq \epsilon$.
+        Alors pour $\epsilon = 1$, nous avons un $\delta_0$ tel que:\\ 
+        $||x - c|| < \delta_0 \implies \frac{||f(x) - f(c) - L(x - c)||}{||x - c||} \leq 1$
+        Ou que:
+        $||x - c|| < \delta_0 \implies ||f(x) - f(c) - L(x - c)|| \leq ||x - c||$ \\
+    \end{preuve}
+    \begin{prop}[Continuité]
+        \label{thm:continuite}
+        Si $f$ est dérivable sur $A$, alors $f$ est continue sur $A$.
+    \end{prop}
+    \begin{preuve}
+        On cherche à démontrer que $\forall x \in A, \forall \epsilon, \exists \delta \text{ tq } ||x - x_0|| < \delta \implies ||f(x) - f(x_0)|| < \epsilon$\\
+        Or, par la propriété de Lipschitz, puisque $f$ est dérivable:
+        $$ \forall x \in A, \exists M > 0\text{ et } \exists \delta_0 > 0 \text{ tq } ||x_0 - x|| < \delta_0 \implies ||f(x) - f(x_0)|| \leq M||x_0 - x||$$
+        En posant $\delta(\epsilon) = \min(\delta_0, \frac{\epsilon}{M})$, nous avons 
+        deux cas:\\
+        si $\delta_0 < \frac{\epsilon}{M}$:\\
+        $||f(x) - f(x_0)|| \leq M||x_0 - x|| < M\delta_0 < M\frac{\epsilon}{M} < \epsilon$\\
+        si $\frac{\epsilon}{M} < \delta_0$:\\
+        Alors $\delta < \delta_0$:\\
+        $||f(x) - f(x_0)|| \leq M || x_0 - x|| < M \delta \leq M \frac{\epsilon}{M} \leq \epsilon$\\
+    \end{preuve}
+\pagebreak
+\section{La composition de dérivée}
+    % [MOTIVATION]
+    Communément appellé la "règle de la chaine", lorsque nous avons une composition de fonction, cette règle
+    nous permet de trouver la dérivée de la composition. Donc pour rappeler, dans $\Bbb R$, cette règle de la chaine 
+    est la suivante: $(f \circ g)' = (f(g(x)))' = f'(g(x)) \cdot g'(x)$. Définissons maintenant la versionn
+    généralisé de cette règle pour $\Bbb R^m$.
+
+    % [PROPRIÉTÉS]
+    \begin{prop}[Règle de la chaine]
+        \label{thm:regle_chaine}
+        Soit $g: A \subset \Bbb R^m \to \Bbb R^n$ et $f: B \subset R^n \to R^k$.
+        $A$ et $B$ ouverts et $g$ dérivable au point $c$ et $f$ dérivable au point $g(c)$.
+        Alors $f \circ g$ est dérivable au point $c$ et 
+        $$ D(f \circ g)(c) = Df(g(c)) \circ Df(c)$$
+    \end{prop}
+    \begin{preuve}
+        Par la définition de la dérivée avec limite, il nous suffit de prouver que:
+        $$ \forall \epsilon, \exists \delta \text{ tq } ||x - c|| < \delta \implies \frac{||(f \circ g)(x) - (f \circ g)(c) - L(x - c)||}{||x - c||} < \epsilon $$
+        et de prouver que $L = Df(g(c)) \circ Df(c)$. Si cette limite existe, alors 
+        elle est unique.\\
+        Posons $L = Df(g(c)) \circ Df(c)$\\
+        Tout d'abord: \begin{align*}
+            &||(f \circ g)(x) - (f \circ g)(c) - Df(g(c)) \circ Df(c)(x - c)|| \\
+            =&||f(g(x)) - f(g(c)) - Df(g(c)) \cdot Df(c) \cdot (x - c)||\text{ (en prenant les matrices associées) } \\
+            =&||f(g(x)) - f(g(c)) - Df(g(c)) Df(c) (x - c) + Df(g(c)) (g(x) - g(c)) - Df(g(c)) (g(x) - g(c))||\\
+            =&||f(g(x)) - f(g(c)) + Df(g(c))\big[-Df(c)(x - c) + (g(x) - g(c))\big] - Df(g(c)) (g(x) - g(c))||\\
+            =&||f(g(x)) - f(g(c)) - Df(g(c)) (g(x) - g(c)) + Df(g(c))\big[(g(x) - g(c)) - Df(c)(x - c)\big] ||\\
+            \leq&||f(g(x)) - f(g(c)) - Df(g(c)) (g(x) - g(c))|| + ||Df(g(c))\big[(g(x) - g(c)) - Df(c)(x - c)\big]||\\
+        \end{align*} 
+        Commençons maintenant par regarder l'expression:
+        % Split into Lemme
+        $$||f(g(x)) - f(g(c)) - Df(g(c)) (g(x) - g(c))||$$
+        Puisque $f$ est dérivable au point $g(x)$, $\exists \delta_1$
+        tel que $$|| g(x) - g(c) || < \delta_1 \implies \frac{||f(g(x)) - f(g(c)) - Df(g(c)) (g(x) - g(c))||}{|| g(x) - g(c) ||} < \epsilon$$
+        C'est spécifiquement vrai pour $\forall \epsilon$, y compris $\frac{\epsilon}{2M}$ où $M$ est un entier positif quelconque. Ainsi:
+        $$ ||f(g(x)) - f(g(c)) - Df(g(c)) (g(x) - g(c))|| < \frac{\epsilon}{2M} \cdot || g(x) - g(c) ||$$
+        Toutefois par la propriété de Lipschitz, puisque $g$ est dérivable, il existe 
+        un $M$ et un $\delta_0$ tq $||x - c|| < \delta_0 \implies ||g(x) - g(c)|| \leq M ||x - c||$.\\
+        Ainsi:
+        $$ ||f(g(x)) - f(g(c)) - Df(g(c)) (g(x) - g(c))|| < \frac{\epsilon}{2M} \cdot || g(x) - g(c) || \leq \frac{\epsilon}{2M} \cdot M \cdot || x - c||$$
+        Ou:
+        $$ \frac{||f(g(x)) - f(g(c)) - Df(g(c)) (g(x) - g(c))||}{||x - c||} < \frac{\epsilon}{2} $$
+        Maintenant regardons la deuxième partie:\\
+        $||Df(g(c))\big[(g(x) - g(c)) - Df(c)(x - c)\big]||$\\
+        Posons $v = \big[(g(x) - g(c)) - Df(c)(x - c)\big]$, puisque $Df(g(c))$ est une fonction linéaire,
+        par le principe archimédien, nous avons qu'il $\exists N>0$ tq $||Df(g(c))(v)|| \leq N \cdot ||v||$
+        Ainsi:
+        $$ ||Df(g(c))\big[(g(x) - g(c)) - Df(c)(x - c)\big]|| \leq N \cdot ||\big[(g(x) - g(c)) - Df(c)(x - c)\big]||$$
+        Et sachant que $g$ est dérivable, nous avons que $\forall \epsilon, \exists \delta_3$ tq 
+        $ \frac{||g(x) - g(c) - Df(c)(x - c)||}{||x - c||} < \epsilon$\\
+        Ou spécifiquement pour $\frac{\epsilon}{2N}$:\\
+        $ ||v|| < \frac{\epsilon}{2N} \cdot ||x - c||$\\
+        Donc nous avont pour la deuxième partie:
+        $$||Df(g(c))\big[(g(x) - g(c)) - Df(c)(x - c)\big]|| \leq N \cdot ||v|| < N \cdot \frac{\epsilon}{2N} \cdot ||x - c||$$
+        Ou$$ \frac{||Df(g(c))\big[(g(x) - g(c)) - Df(c)(x - c)\big]||}{||x - c||} < \frac{\epsilon}{2} $$
+        En prenant $\delta = min(\delta_2, \delta_3)$, nous 
+        avons que $||x - c|| < \delta$ 
+        $\implies$
+        $$\frac{||(f \circ g)(x) - (f \circ g)(c) - Df(g(c)) \circ Df(c)(x - c)||}{|| x - c||} < \frac{\epsilon}{2} + \frac{\epsilon}{2}$$
+
+    \end{preuve}
 
     % [APPLICATIONS ET EXEMPLES]
 
     \begin{example}
-        Ceci est un exemple
+        Trouvons la dérivée de 
+        $$ F(x, y, z) = f(h(x), g(x, y), z), f(x,y,z) = x^2 + yz,
+        h(x) = sin(x), g(x,y) = y^3 + xy$$
+        Alors:
+        \begin{align*}
+            G(x, y, z) &= (h(x), g(x, y), z) \\
+            &= (sin(x), y^3 + xy, z)\\
+            F = f \circ G\\
+            DF(c) = Df(G(c)) \cdot DG(c)\\
+            &= \begin{pmatrix}
+                2\cdot sin(x) & z & y^3 + xy
+            \end{pmatrix} \cdot 
+            \begin{pmatrix}
+                cos(x) \\
+                3y^2 + x\\
+                1\\
+            \end{pmatrix}
+            &= 2\cdot sin(x)cos(x) + z(3y^2 + x) + y^3 + xy
+        \end{align*}
     \end{example}
 
+    \begin{example}
+        Trouvons la dérivée de 
+        $$ f(x,y) = g(h(x,y), h(y,x), xy), g(x,y,z) = (xy, yz), h(x,y) = e^x + y$$
+        $$ f = g \circ H \text{ si } H(x, y) = (e^x + y, e^y + x, xy) $$
+        $$ D(g)(c) = \begin{pmatrix}
+            y & x & 0 \\
+            0 & z & y
+        \end{pmatrix}$$
+        $$ D(H)(c) = \begin{pmatrix}
+            e^x & 1 \\
+            1 & e^y \\
+            y & x ||
+        \end{pmatrix}$$
+        $$ D(g)(H(c)) = \begin{pmatrix}
+            e^y + x & e^x + y & 0 \\
+            0 & xy & e^y + x \\
+        \end{pmatrix}$$
+        \begin{align*} D(f)(c) &= D(g)(H(c)) \cdot D(H)(c) \\
+            &= \begin{pmatrix}
+                e^y + x & e^x + y & 0 \\
+                0 & xy & e^y + x \\
+            \end{pmatrix} \cdot \begin{pmatrix}
+                e^x & 1 \\
+                1 & e^y \\
+                y & x \\
+            \end{pmatrix}\\
+            &= \begin{pmatrix}
+                e^y + x \cdot e^x + e^x + y + 0y & e^y + x + e^y(e^x + y) + 0x \\
+                0 \cdot e^x + 1 \cdot xy + y \cdot (e^y + x) & 0 \cdot 1 + xy \cdot e^y + x(e^y + x)\\
+            \end{pmatrix}\\
+            &= \begin{pmatrix}
+                e^x(x + 1) + e^y + y & e^y(e^x + y + 1) + x\\
+                y(e^y + 2x) & x(e^y + x + ye^y)\\
+            \end{pmatrix}
+        \end{align*}
+    \end{example}
+\chapter{Dérivation multiple}
+\section{Convexité}
+\section{Theorême de la moyenne}
+\section{Dérivées d'ordre plus élevé}
+\section{Théorême de Taylor}
+\chapter{Extremums}
+\section{Points critiques}
 \appendix
 \chapter{Notions préalables}
     Voici une série de définition importantes à considérer lors de la lecture de cet ouvrage. Celles-ci servent
